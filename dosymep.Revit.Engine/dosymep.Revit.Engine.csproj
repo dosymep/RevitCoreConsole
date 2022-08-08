@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <Authors>dosymep</Authors>
+        <PackageProjectUrl>https://github.com/dosymep/dosymep.Revit.Engine</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/dosymep/dosymep.Revit.Engine</RepositoryUrl>
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>dosymep, revit, engine, revitcoreconsole, bim360</PackageTags>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+      <DocumentationFile>bin\Debug\dosymep.Revit.Engine.xml</DocumentationFile>
+    </PropertyGroup>
+
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+      <DocumentationFile>bin\Release\dosymep.Revit.Engine.xml</DocumentationFile>
+    </PropertyGroup>
+
+</Project>
