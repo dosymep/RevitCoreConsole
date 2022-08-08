@@ -1,20 +1,121 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
     <PropertyGroup>
         <TargetFramework>net48</TargetFramework>
+        <OutputType>Library</OutputType>
+        <Platforms>x64</Platforms>
         <Authors>dosymep</Authors>
         <PackageProjectUrl>https://github.com/dosymep/dosymep.Revit.Engine</PackageProjectUrl>
         <RepositoryUrl>https://github.com/dosymep/dosymep.Revit.Engine</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
         <PackageTags>dosymep, revit, engine, revitcoreconsole, bim360</PackageTags>
+        <Configurations>D2020;D2021;D2022;D2023;R2020;R2021;R2022;R2023</Configurations>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-      <DocumentationFile>bin\Debug\dosymep.Revit.Engine.xml</DocumentationFile>
+    <PropertyGroup Condition="'$(Configuration)'=='D2020' OR '$(Configuration)'=='R2020'">
+        <RevitVersion>2020</RevitVersion>
     </PropertyGroup>
 
-    <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-      <DocumentationFile>bin\Release\dosymep.Revit.Engine.xml</DocumentationFile>
+    <PropertyGroup Condition="'$(Configuration)'=='D2021' OR '$(Configuration)'=='R2021'">
+        <RevitVersion>2021</RevitVersion>
     </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='D2022' OR '$(Configuration)'=='R2022'">
+        <RevitVersion>2022</RevitVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)'=='D2023' OR '$(Configuration)'=='R2023'">
+        <RevitVersion>2023</RevitVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'=='2020'">
+        <DefineConstants>$(DefineConstants);REVIT_2020</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'=='2021'">
+        <DefineConstants>$(DefineConstants);REVIT_2021</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'=='2022'">
+        <DefineConstants>$(DefineConstants);REVIT_2022</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'=='2023'">
+        <DefineConstants>$(DefineConstants);REVIT_2023</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'&lt;='2020'">
+        <DefineConstants>$(DefineConstants);REVIT_2020_OR_LESS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'&lt;='2021'">
+        <DefineConstants>$(DefineConstants);REVIT_2021_OR_LESS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'&lt;='2022'">
+        <DefineConstants>$(DefineConstants);REVIT_2022_OR_LESS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'&lt;='2023'">
+        <DefineConstants>$(DefineConstants);REVIT_2023_OR_LESS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'&gt;='2020'">
+        <DefineConstants>$(DefineConstants);REVIT_2020_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'&gt;='2021'">
+        <DefineConstants>$(DefineConstants);REVIT_2021_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'&gt;='2022'">
+        <DefineConstants>$(DefineConstants);REVIT_2022_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(RevitVersion)'&gt;='2023'">
+        <DefineConstants>$(DefineConstants);REVIT_2023_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration.StartsWith(`D`))'">
+        <Optimization>false</Optimization>
+        <DebugSymbols>true</DebugSymbols>
+        <OutputPath>bin\x64\Debug\$(RevitVersion)</OutputPath>
+        <DocumentationFile>bin\x64\Debug\$(RevitVersion)\$(MSBuildProjectName).xml</DocumentationFile>
+        <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration.StartsWith(`R`))'">
+        <Optimize>true</Optimize>
+        <DebugSymbols>false</DebugSymbols>
+        <OutputPath>bin\x64\Release\$(RevitVersion)</OutputPath>
+        <DocumentationFile>bin\x64\Release\$(RevitVersion)\$(MSBuildProjectName).xml</DocumentationFile>
+        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Version>$(RevitVersion).2.4</Version>
+        <FileVersion>$(RevitVersion).2.4</FileVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="RevitAPI">
+            <HintPath>$(ProgramW6432)\Autodesk\Revit $(RevitVersion)\RevitAPI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+
+        <Reference Include="RevitAPIUI">
+            <HintPath>$(ProgramW6432)\Autodesk\Revit $(RevitVersion)\RevitAPIUI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+
+        <Reference Include="RevitNET">
+            <HintPath>$(ProgramW6432)\Autodesk\Revit $(RevitVersion)\RevitNET.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CSharp" Version="4.7.0"/>
+        <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0"/>
+    </ItemGroup>
 
 </Project>
