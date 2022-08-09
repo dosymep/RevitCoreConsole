@@ -8,17 +8,17 @@ using Autodesk.Revit.ApplicationServices;
 
 namespace dosymep.Revit.Engine {
     internal class RevitApplication : IDisposable {
+        private readonly RevitAppInfo _revitAppInfo;
         private readonly RevitAssemblyResolver _assemblyResolver;
 
         public RevitApplication() {
-            RevitProduct = Product.GetInstalledProduct();
+            _revitAppInfo = new RevitAppInfo();
             _assemblyResolver = new RevitAssemblyResolver();
         }
 
-        public Product RevitProduct { get; }
+        public Product RevitProduct { get; private set; }
+        public RevitAppInfo RevitAppInfo => _revitAppInfo;
         public Application Application => RevitProduct.Application;
-
-        public RevitAppInfo RevitAppInfo { get; set; }
 
         public string RevitEnginePath {
             get => _assemblyResolver.RevitEnginePath;
@@ -37,12 +37,21 @@ namespace dosymep.Revit.Engine {
             if(!IsRevitPath()) {
                 throw new InvalidOperationException($"{nameof(RevitEnginePath)} is not revit path.");
             }
-
+            
             _assemblyResolver.UpdateEnvironmentPaths();
+            InitRevit();
+        }
 
-            RevitProduct.EnableIFC(RevitAppInfo.EnableIfc);
-            RevitProduct.SetPreferredLanguage(RevitAppInfo.LanguageType);
+        public void Close() {
+            RevitProduct?.Exit();
+            RevitProduct?.Dispose();
+            _assemblyResolver.Dispose();
+        }
 
+        private void InitRevit() {
+            RevitProduct = Product.GetInstalledProduct();
+            RevitProduct.SetApiSettings(RevitAppInfo.ApiSettings);
+            
             var appId = new ClientApplicationId(RevitAppInfo.Guid,
                 RevitAppInfo.ApplicationName, RevitAppInfo.VendorName);
 
@@ -51,12 +60,6 @@ namespace dosymep.Revit.Engine {
 #else
             RevitProduct.Initialize_ForAutodeskInternalUseOnly(appId, RevitAppInfo.LicenseKey);
 #endif
-        }
-
-        public void Close() {
-            RevitProduct?.Exit();
-            RevitProduct?.Dispose();
-            _assemblyResolver.Dispose();
         }
 
         private bool IsRevitPath() {

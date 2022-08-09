@@ -60,19 +60,24 @@ namespace dosymep.Revit.Engine {
         }
 
         public static void SetApiSettings(this Product revitProduct, ApiSettings apiSettings) {
+            revitProduct.EnableIFC(apiSettings.EnableIfc);
             revitProduct.SetJournalFile(apiSettings.JournalName);
             revitProduct.SetJournalOutputPath(apiSettings.JournalPath);
+            revitProduct.SetPreferredLanguage(apiSettings.LanguageType);
             revitProduct.SetSettingsFileLocation(apiSettings.SettingsFileLocation);
-            
-            revitProduct.SetUseAdvancedApiSettings(true);
-            revitProduct.Settings[APIOption.AcceptForeignFiles] = apiSettings.IsAcceptForeignFiles;
-            revitProduct.Settings[APIOption.IgnoreMissingUpdaters] = apiSettings.IsIgnoreMissingUpdaters;
-            revitProduct.Settings[APIOption.OverwriteExistingFiles] = apiSettings.IsOverwriteExistingFiles;
-            revitProduct.Settings[APIOption.ReplaceExistingSymbols] = apiSettings.IsReplaceExistingSymbols;
-            revitProduct.Settings[APIOption.UpdateSharedFamilies] = apiSettings.IsUpdateSharedFamilies;
-            revitProduct.Settings[APIOption.UpdateFamilyParameters] = apiSettings.IsUpdateFamilyParameters;
-            revitProduct.Settings[APIOption.ForceMultiUndoOperation] = apiSettings.IsForceMultiUndoOperation;
-            revitProduct.Settings[APIOption.IgnoreLinkedFilesOnSave] = apiSettings.IsIgnoreLinkedFilesOnSave;
+
+            if(apiSettings.UseApiOptions) {
+                ApiOptions apiOptions = apiSettings.ApiOptions;
+                revitProduct.SetUseAdvancedApiSettings(true);
+                revitProduct.Settings[APIOption.AcceptForeignFiles] = apiOptions.IsAcceptForeignFiles;
+                revitProduct.Settings[APIOption.IgnoreMissingUpdaters] = apiOptions.IsIgnoreMissingUpdaters;
+                revitProduct.Settings[APIOption.OverwriteExistingFiles] = apiOptions.IsOverwriteExistingFiles;
+                revitProduct.Settings[APIOption.ReplaceExistingSymbols] = apiOptions.IsReplaceExistingSymbols;
+                revitProduct.Settings[APIOption.UpdateSharedFamilies] = apiOptions.IsUpdateSharedFamilies;
+                revitProduct.Settings[APIOption.UpdateFamilyParameters] = apiOptions.IsUpdateFamilyParameters;
+                revitProduct.Settings[APIOption.ForceMultiUndoOperation] = apiOptions.IsForceMultiUndoOperation;
+                revitProduct.Settings[APIOption.IgnoreLinkedFilesOnSave] = apiOptions.IsIgnoreLinkedFilesOnSave;
+            }
         }
     }
 }
