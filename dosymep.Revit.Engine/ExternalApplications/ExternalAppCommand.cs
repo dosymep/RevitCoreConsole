@@ -18,7 +18,7 @@ namespace dosymep.Revit.Engine.ExternalApplications {
         public ExternalCommandApp(Application application)
             : base(application) {
         }
-        
+
         /// <summary>
         /// Journal data.
         /// </summary>
@@ -29,15 +29,18 @@ namespace dosymep.Revit.Engine.ExternalApplications {
             UIApplication uiApplication = new UIApplication(_application);
             if(!string.IsNullOrEmpty(MainModelPath)) {
                 uiApplication.OpenAndActivateDocument(ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
-                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets}, false);
+                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets},
+                    false);
             }
 
             string message = null;
             ElementSet elementSet = new ElementSet();
             var externalCommandData = _application.CreateExternalCommandData(JournalData);
-            
+
             Result result = application.Execute(externalCommandData, ref message, elementSet);
-            if(result == Result.Failed) {
+            if(result == Result.Cancelled) {
+                throw new OperationCanceledException();
+            } else if(result == Result.Failed) {
                 Console.WriteLine(message);
                 Console.WriteLine(string.Join(Environment.NewLine, elementSet.OfType<ElementId>()));
             }
