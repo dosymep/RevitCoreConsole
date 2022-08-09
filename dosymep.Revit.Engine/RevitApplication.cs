@@ -68,8 +68,7 @@ namespace dosymep.Revit.Engine {
                 .ToArray();
 
             return fileNames.Contains("RevitNET.dll")
-                   && fileNames.Contains("RevitAPI.dll")
-                   && fileNames.Contains("RevitAPIUI.dll");
+                   && fileNames.Contains("RevitAPI.dll");
         }
 
 
