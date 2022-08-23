@@ -3,14 +3,32 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitCoreConsole", "RevitCoreConsole\RevitCoreConsole.csproj", "{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}"
 EndProject
 Global
-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
+				GlobalSection(SolutionConfigurationPlatforms) = preSolution
+								R2020|x64 = R2020|x64
+								D2021|x64 = D2021|x64
+								D2020|x64 = D2020|x64
+								D2022|x64 = D2022|x64
+								R2021|x64 = R2021|x64
+								R2022|x64 = R2022|x64
+								D2023|x64 = D2023|x64
+								R2023|x64 = R2023|x64
+				EndGlobalSection
+				GlobalSection(ProjectConfigurationPlatforms) = postSolution
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.D2021|x64.ActiveCfg = D2021|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.D2021|x64.Build.0 = D2021|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.D2020|x64.ActiveCfg = D2020|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.D2020|x64.Build.0 = D2020|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.D2022|x64.ActiveCfg = D2022|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.D2022|x64.Build.0 = D2022|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.R2021|x64.ActiveCfg = R2021|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.R2021|x64.Build.0 = R2021|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.R2022|x64.ActiveCfg = R2022|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.R2022|x64.Build.0 = R2022|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.D2023|x64.ActiveCfg = D2023|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.D2023|x64.Build.0 = D2023|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.R2023|x64.ActiveCfg = R2023|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.R2023|x64.Build.0 = R2023|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.R2020|x64.ActiveCfg = R2020|x64
+								{1AB3952D-73EA-42AB-AC5E-6CBFE95D763D}.R2020|x64.Build.0 = R2020|x64
+				EndGlobalSection
 EndGlobal
