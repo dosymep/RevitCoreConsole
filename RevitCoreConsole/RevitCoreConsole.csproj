@@ -13,16 +13,28 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="dosymep.Autodesk.FileInfo">
-        <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Autodesk.FileInfo\bin\Debug\net48\dosymep.Autodesk.FileInfo.dll</HintPath>
-      </Reference>
-      <Reference Include="dosymep.Revit.FileInfo">
-        <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Revit.FileInfo\bin\Debug\net48\dosymep.Revit.FileInfo.dll</HintPath>
-      </Reference>
+        <Reference Include="dosymep.Autodesk.FileInfo">
+            <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Autodesk.FileInfo\bin\Debug\net48\dosymep.Autodesk.FileInfo.dll</HintPath>
+        </Reference>
+        <Reference Include="dosymep.Revit.FileInfo">
+            <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Revit.FileInfo\bin\Debug\net48\dosymep.Revit.FileInfo.dll</HintPath>
+        </Reference>
+        <Reference Include="dosymep.Revit.Engine">
+            <HintPath>..\..\dosymep.Revit.Engine\dosymep.Revit.Engine\bin\x64\Debug\$(AppVersion)\net48\dosymep.Revit.Engine.dll</HintPath>
+        </Reference>
+        <Reference Include="Autodesk.Navisworks.Api">
+            <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Api.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+
+        <Reference Include="Autodesk.Navisworks.Clash">
+            <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Clash.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='D2020' OR '$(Configuration)'=='R2020'">
