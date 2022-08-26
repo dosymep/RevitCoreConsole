@@ -20,7 +20,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         }
 
         /// <inheritdoc />
-        protected override void ExecuteExternalImpl(IExternalCommand application) {
+        protected override void ExecuteExternalItemImpl(IExternalCommand application) {
             string message = null;
             ElementSet elementSet = new ElementSet();
             var externalCommandData = _application.CreateExternalCommandData(JournalData);

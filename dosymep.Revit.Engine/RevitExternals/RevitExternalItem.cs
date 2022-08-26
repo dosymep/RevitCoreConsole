@@ -15,11 +15,16 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// Main model path.
         /// </summary>
         string MainModelPath { get; set; }
+        
+        /// <summary>
+        /// Journal data.
+        /// </summary>
+        IDictionary<string, string> JournalData { get; set; }
 
         /// <summary>
         /// Executes application.
         /// </summary>
-        void ExecuteExternal();
+        void ExecuteExternalItem();
     }
 
     /// <summary>
@@ -40,13 +45,11 @@ namespace dosymep.Revit.Engine.RevitExternals {
             _application = application ?? throw new ArgumentNullException(nameof(application));
         }
         
-        /// <summary>
-        /// Journal data.
-        /// </summary>
-        public IDictionary<string, string> JournalData { get; set; }
-        
         /// <inheritdoc />
         public string MainModelPath { get; set; }
+        
+        /// <inheritdoc />
+        public IDictionary<string, string> JournalData { get; set; }
 
         /// <summary>
         /// External app information.
@@ -54,7 +57,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         public RevitExternalItemInfo RevitExternalItemInfo { get; set; }
 
         /// <inheritdoc />
-        public abstract void ExecuteExternal();
+        public abstract void ExecuteExternalItem();
 
         public void OpenAndActivateDocument() {
             UIApplication uiApplication = new UIApplication(_application);
@@ -82,7 +85,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// Executes application.
         /// </summary>
-        public override void ExecuteExternal() {
+        public override void ExecuteExternalItem() {
             if(!string.IsNullOrEmpty(MainModelPath) && !File.Exists(MainModelPath)) {
                 throw new InvalidOperationException($"{nameof(MainModelPath)} not found.");
             }
@@ -104,12 +107,12 @@ namespace dosymep.Revit.Engine.RevitExternals {
             }
 
             OpenAndActivateDocument();
-            ExecuteExternalImpl(RevitExternalItemInfo.CreateExternalApplication<T>());
+            ExecuteExternalItemImpl(RevitExternalItemInfo.CreateExternalApplication<T>());
         }
 
         /// <summary>
         /// Executes application.
         /// </summary>
-        protected abstract void ExecuteExternalImpl(T application);
+        protected abstract void ExecuteExternalItemImpl(T application);
     }
 }

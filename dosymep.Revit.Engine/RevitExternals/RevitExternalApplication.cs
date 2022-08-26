@@ -11,7 +11,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
             : base(application) {
         }
 
-        protected override void ExecuteExternalImpl(IExternalApplication application) {
+        protected override void ExecuteExternalItemImpl(IExternalApplication application) {
             UIControlledApplication controlledApplication = _application.CreateUIControlledApplication();
             application.OnStartup(controlledApplication);
         }

@@ -16,7 +16,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         }
 
         /// <inheritdoc />
-        protected override void ExecuteExternalImpl(IExternalDBApplication application) {
+        protected override void ExecuteExternalItemImpl(IExternalDBApplication application) {
             ControlledApplication controlledApplication = _application.CreateControlledApplication();
             try {
                 application.OnStartup(controlledApplication);
