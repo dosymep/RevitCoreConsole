@@ -21,21 +21,28 @@ namespace dosymep.Revit.Engine.RevitExternals {
 
         /// <inheritdoc />
         protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
+            var application = RevitExternalItemInfo.CreateExternalApplication<IExternalCommand>();
+            ApplyJournalData(application, journalData);
+
             string message = null;
             ElementSet elementSet = new ElementSet();
             var externalCommandData = _application.CreateExternalCommandData(journalData);
-
-            var application = RevitExternalItemInfo.CreateExternalApplication<IExternalCommand>();
-            ApplyJournalData(application, journalData);
-            CheckResult(application.Execute(externalCommandData, ref message, elementSet), elementSet);
+            CheckResult(application.Execute(externalCommandData, ref message, elementSet), message, elementSet);
         }
-        
-        private void CheckResult(Result startupResult, ElementSet elementSet) {
-            if(startupResult == Result.Cancelled) {
-                throw new OperationCanceledException();
-            } else if(startupResult == Result.Failed) {
-                throw new Exception("Startup result failed. "+ string.Join(Environment.NewLine, elementSet.OfType<ElementId>()));
+
+        private void CheckResult(Result startupResult, string message, ElementSet elementSet) {
+            if(startupResult == Result.Failed) {
+                throw new Exception(FormatMessage("Canceled", message, elementSet));
+            } else if(startupResult == Result.Cancelled) {
+                throw new OperationCanceledException(FormatMessage("Failed", message, elementSet));
             }
+        }
+
+        private string FormatMessage(string operation, string message, ElementSet elementSet) {
+            return message ?? $"{operation} execute revit command."
+                + Environment.NewLine
+                + string.Join(Environment.NewLine,
+                    elementSet.OfType<ElementId>().Select(item => item.IntegerValue));
         }
     }
 }
