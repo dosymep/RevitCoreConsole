@@ -25,21 +25,21 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinCommand visitable) {
             return new RevitExternalCommand(_revitApplication.Application) {
-                ExternalAppInfo = new ExternalAppInfo(visitable), MainModelPath = _mainModelPath, 
+                RevitExternalItemInfo = new RevitExternalItemInfo(visitable), MainModelPath = _mainModelPath, 
             };
         }
 
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinApplication visitable) {
             return new RevitExternalApplication(_revitApplication.Application) {
-                ExternalAppInfo = new ExternalAppInfo(visitable), MainModelPath = _mainModelPath,
+                RevitExternalItemInfo = new RevitExternalItemInfo(visitable), MainModelPath = _mainModelPath,
             };
         }
 
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinDBApplication visitable) {
             return new RevitExternalDBApplication(_revitApplication.Application) {
-                ExternalAppInfo = new ExternalAppInfo(visitable), MainModelPath = _mainModelPath
+                RevitExternalItemInfo = new RevitExternalItemInfo(visitable), MainModelPath = _mainModelPath
             };
         }
     }

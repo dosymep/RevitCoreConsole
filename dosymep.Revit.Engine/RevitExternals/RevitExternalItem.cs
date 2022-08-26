@@ -45,7 +45,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// External app information.
         /// </summary>
-        public ExternalAppInfo ExternalAppInfo { get; set; }
+        public RevitExternalItemInfo RevitExternalItemInfo { get; set; }
 
         /// <inheritdoc />
         public abstract void ExecuteExternal();
@@ -81,24 +81,24 @@ namespace dosymep.Revit.Engine.RevitExternals {
                 throw new InvalidOperationException($"{nameof(MainModelPath)} not found.");
             }
 
-            if(ExternalAppInfo == null) {
-                throw new InvalidOperationException($"{nameof(ExternalAppInfo)} is not set.");
+            if(RevitExternalItemInfo == null) {
+                throw new InvalidOperationException($"{nameof(RevitExternalItemInfo)} is not set.");
             }
 
-            if(string.IsNullOrEmpty(ExternalAppInfo.AssemblyPath)) {
-                throw new InvalidOperationException($"{nameof(ExternalAppInfo.AssemblyPath)} is not set.");
+            if(string.IsNullOrEmpty(RevitExternalItemInfo.AssemblyPath)) {
+                throw new InvalidOperationException($"{nameof(RevitExternalItemInfo.AssemblyPath)} is not set.");
             }
 
-            if(string.IsNullOrEmpty(ExternalAppInfo.FullClassName)) {
-                throw new InvalidOperationException($"{nameof(ExternalAppInfo.FullClassName)} is not set.");
+            if(string.IsNullOrEmpty(RevitExternalItemInfo.FullClassName)) {
+                throw new InvalidOperationException($"{nameof(RevitExternalItemInfo.FullClassName)} is not set.");
             }
 
-            if(!File.Exists(ExternalAppInfo.AssemblyPath)) {
-                throw new InvalidOperationException($"{nameof(ExternalAppInfo.AssemblyPath)} not found.");
+            if(!File.Exists(RevitExternalItemInfo.AssemblyPath)) {
+                throw new InvalidOperationException($"{nameof(RevitExternalItemInfo.AssemblyPath)} not found.");
             }
 
             OpenAndActivateDocument();
-            ExecuteExternalImpl(ExternalAppInfo.CreateExternalApplication<T>());
+            ExecuteExternalImpl(RevitExternalItemInfo.CreateExternalApplication<T>());
         }
 
         /// <summary>

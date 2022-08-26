@@ -4,14 +4,14 @@ namespace dosymep.Revit.Engine.RevitExternals {
     /// <summary>
     /// External app info.
     /// </summary>
-    internal class ExternalAppInfo {
+    internal class RevitExternalItemInfo {
         private readonly RevitAddinItem _revitAddinItem;
 
         /// <summary>
         /// Creates revit external app info.
         /// </summary>
         /// <param name="revitAddinItem"></param>
-        public ExternalAppInfo(RevitAddinItem revitAddinItem) {
+        public RevitExternalItemInfo(RevitAddinItem revitAddinItem) {
             _revitAddinItem = revitAddinItem;
         }
 
