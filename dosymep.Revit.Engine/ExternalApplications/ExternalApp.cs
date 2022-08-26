@@ -5,22 +5,36 @@ using Autodesk.Revit.ApplicationServices;
 
 namespace dosymep.Revit.Engine.ExternalApplications {
     /// <summary>
-    /// External application.
+    /// External application interface.
     /// </summary>
-    public abstract class ExternalApp {
+    public interface IExternalApp {
         /// <summary>
         /// Main model path.
         /// </summary>
-        public string MainModelPath { get; set; }
+        string MainModelPath { get; set; }
 
         /// <summary>
         /// External application information.
         /// </summary>
-        public ExternalAppInfo ExternalAppInfo { get; set; }
+        ExternalAppInfo ExternalAppInfo { get; set; }
 
         /// <summary>
         /// Executes application.
         /// </summary>
+        void ExecuteApp();
+    }
+
+    /// <summary>
+    /// External application.
+    /// </summary>
+    public abstract class ExternalApp : IExternalApp {
+        /// <inheritdoc />
+        public string MainModelPath { get; set; }
+
+        /// <inheritdoc />
+        public ExternalAppInfo ExternalAppInfo { get; set; }
+
+        /// <inheritdoc />
         public abstract void ExecuteApp();
     }
 
