@@ -2,12 +2,14 @@
 using System.IO;
 
 using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 
-namespace dosymep.Revit.Engine.ExternalApplications {
+namespace dosymep.Revit.Engine.RevitExternals {
     /// <summary>
     /// External application interface.
     /// </summary>
-    public interface IExternalApp {
+    public interface IRevitExternalItem {
         /// <summary>
         /// Main model path.
         /// </summary>
@@ -16,30 +18,13 @@ namespace dosymep.Revit.Engine.ExternalApplications {
         /// <summary>
         /// Executes application.
         /// </summary>
-        void ExecuteApp();
+        void ExecuteExternal();
     }
 
     /// <summary>
     /// External application.
     /// </summary>
-    internal abstract class ExternalApp : IExternalApp {
-        /// <inheritdoc />
-        public string MainModelPath { get; set; }
-
-        /// <summary>
-        /// External app information.
-        /// </summary>
-        public ExternalAppInfo ExternalAppInfo { get; set; }
-
-        /// <inheritdoc />
-        public abstract void ExecuteApp();
-    }
-
-    /// <summary>
-    /// External application.
-    /// </summary>
-    internal abstract class ExternalApp<T> : ExternalApp
-        where T : class {
+    internal abstract class RevitExternalItem : IRevitExternalItem {
         /// <summary>
         /// Revit application instance.
         /// </summary>
@@ -50,14 +35,48 @@ namespace dosymep.Revit.Engine.ExternalApplications {
         /// </summary>
         /// <param name="application">Revit application instance.</param>
         /// <exception cref="System.ArgumentNullException">When application is null.</exception>
-        protected ExternalApp(Application application) {
+        protected RevitExternalItem(Application application) {
             _application = application ?? throw new ArgumentNullException(nameof(application));
         }
+        
+        /// <inheritdoc />
+        public string MainModelPath { get; set; }
 
+        /// <summary>
+        /// External app information.
+        /// </summary>
+        public ExternalAppInfo ExternalAppInfo { get; set; }
+
+        /// <inheritdoc />
+        public abstract void ExecuteExternal();
+
+        public void OpenAndActivateDocument() {
+            UIApplication uiApplication = new UIApplication(_application);
+            if(!string.IsNullOrEmpty(MainModelPath)) {
+                uiApplication.OpenAndActivateDocument(ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
+                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets}, 
+                    false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// External application.
+    /// </summary>
+    internal abstract class RevitExternalItem<T> : RevitExternalItem
+        where T : class {
+        /// <summary>
+        /// Creates Revit external item.
+        /// </summary>
+        /// <param name="application">Revit application instance.</param>
+        protected RevitExternalItem(Application application) 
+            : base(application) {
+        }
+        
         /// <summary>
         /// Executes application.
         /// </summary>
-        public override void ExecuteApp() {
+        public override void ExecuteExternal() {
             if(!string.IsNullOrEmpty(MainModelPath) && !File.Exists(MainModelPath)) {
                 throw new InvalidOperationException($"{nameof(MainModelPath)} not found.");
             }
@@ -78,12 +97,13 @@ namespace dosymep.Revit.Engine.ExternalApplications {
                 throw new InvalidOperationException($"{nameof(ExternalAppInfo.AssemblyPath)} not found.");
             }
 
-            ExecuteAppImpl(ExternalAppInfo.CreateExternalApplication<T>());
+            OpenAndActivateDocument();
+            ExecuteExternalImpl(ExternalAppInfo.CreateExternalApplication<T>());
         }
 
         /// <summary>
         /// Executes application.
         /// </summary>
-        protected abstract void ExecuteAppImpl(T application);
+        protected abstract void ExecuteExternalImpl(T application);
     }
 }

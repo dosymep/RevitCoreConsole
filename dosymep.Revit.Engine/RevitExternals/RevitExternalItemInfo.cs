@@ -1,6 +1,6 @@
 using dosymep.Revit.FileInfo.RevitAddins;
 
-namespace dosymep.Revit.Engine.ExternalApplications {
+namespace dosymep.Revit.Engine.RevitExternals {
     /// <summary>
     /// External app info.
     /// </summary>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 
 using Autodesk.Revit.ApplicationServices;
@@ -8,13 +7,11 @@ using Autodesk.Revit.UI;
 
 using DesignAutomationFramework;
 
-using dosymep.Revit.FileInfo.RevitAddins;
-
-namespace dosymep.Revit.Engine.ExternalApplications {
+namespace dosymep.Revit.Engine.RevitExternals {
     /// <summary>
     /// External app extensions.
     /// </summary>
-    public static class ExternalAppExtensions {
+    public static class RevitExternalExtensions {
         /// <summary>
         /// Creates controlled application.
         /// </summary>
@@ -29,6 +26,22 @@ namespace dosymep.Revit.Engine.ExternalApplications {
             return (ControlledApplication) typeof(ControlledApplication)
                 .GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new[] {typeof(Application)}, null)
                 ?.Invoke(new object[] {application}) ?? throw new InvalidOperationException($"Failed to initialize \"{typeof(ControlledApplication).FullName}\".");
+        }
+        
+        /// <summary>
+        /// Creates controlled application.
+        /// </summary>
+        /// <param name="application">Revit application object.</param>
+        /// <returns>Returns new instance controlled application.</returns>
+        /// <exception cref="System.InvalidOperationException">When no <see cref="ControlledApplication"/> type constructor was found.</exception>
+        public static UIControlledApplication CreateUIControlledApplication(this Application application) {
+            if(application == null) {
+                throw new ArgumentNullException(nameof(application));
+            }
+
+            return (UIControlledApplication) typeof(UIControlledApplication)
+                .GetConstructor(BindingFlags.Instance | BindingFlags.NonPublic, null, new[] {typeof(UIApplication)}, null)
+                ?.Invoke(new object[] {new UIApplication(application)}) ?? throw new InvalidOperationException($"Failed to initialize \"{typeof(ControlledApplication).FullName}\".");
         }
 
         /// <summary>

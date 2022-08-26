@@ -6,16 +6,16 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-namespace dosymep.Revit.Engine.ExternalApplications {
+namespace dosymep.Revit.Engine.RevitExternals {
     /// <summary>
     /// External application command.
     /// </summary>
-    internal class ExternalCommandApp : ExternalApp<IExternalCommand> {
+    internal class RevitExternalCommand : RevitExternalItem<IExternalCommand> {
         /// <summary>
         /// Creates external command application.
         /// </summary>
         /// <param name="application">Revit application instance.</param>
-        public ExternalCommandApp(Application application)
+        public RevitExternalCommand(Application application)
             : base(application) {
         }
 
@@ -25,14 +25,7 @@ namespace dosymep.Revit.Engine.ExternalApplications {
         public IDictionary<string, string> JournalData { get; set; }
 
         /// <inheritdoc />
-        protected override void ExecuteAppImpl(IExternalCommand application) {
-            UIApplication uiApplication = new UIApplication(_application);
-            if(!string.IsNullOrEmpty(MainModelPath)) {
-                uiApplication.OpenAndActivateDocument(ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
-                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets},
-                    false);
-            }
-
+        protected override void ExecuteExternalImpl(IExternalCommand application) {
             string message = null;
             ElementSet elementSet = new ElementSet();
             var externalCommandData = _application.CreateExternalCommandData(JournalData);
