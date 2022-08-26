@@ -1,4 +1,6 @@
-﻿using Autodesk.Revit.ApplicationServices;
+﻿using System.Collections.Generic;
+
+using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 
 namespace dosymep.Revit.Engine.RevitExternals {
@@ -6,7 +8,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
     /// External DB application.
     /// </summary>
     // ReSharper disable once InconsistentNaming
-    internal class RevitExternalDBApplication : RevitExternalItem<IExternalDBApplication> {
+    internal class RevitExternalDBApplication : RevitExternalItem {
         /// <summary>
         /// External DB application.
         /// </summary>
@@ -16,8 +18,9 @@ namespace dosymep.Revit.Engine.RevitExternals {
         }
 
         /// <inheritdoc />
-        protected override void ExecuteExternalItemImpl(IExternalDBApplication application) {
+        protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
             ControlledApplication controlledApplication = _application.CreateControlledApplication();
+            var application = RevitExternalItemInfo.CreateExternalApplication<IExternalDBApplication>();
             try {
                 application.OnStartup(controlledApplication);
                 _application.SetDesignAutomationReady(MainModelPath);

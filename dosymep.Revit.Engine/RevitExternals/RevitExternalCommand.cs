@@ -10,7 +10,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
     /// <summary>
     /// External application command.
     /// </summary>
-    internal class RevitExternalCommand : RevitExternalItem<IExternalCommand> {
+    internal class RevitExternalCommand : RevitExternalItem {
         /// <summary>
         /// Creates external command application.
         /// </summary>
@@ -20,11 +20,12 @@ namespace dosymep.Revit.Engine.RevitExternals {
         }
 
         /// <inheritdoc />
-        protected override void ExecuteExternalItemImpl(IExternalCommand application) {
+        protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
             string message = null;
             ElementSet elementSet = new ElementSet();
-            var externalCommandData = _application.CreateExternalCommandData(JournalData);
+            var externalCommandData = _application.CreateExternalCommandData(journalData);
 
+            var application = RevitExternalItemInfo.CreateExternalApplication<IExternalCommand>();
             Result result = application.Execute(externalCommandData, ref message, elementSet);
             if(result == Result.Cancelled) {
                 throw new OperationCanceledException();

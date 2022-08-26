@@ -17,14 +17,10 @@ namespace dosymep.Revit.Engine.RevitExternals {
         string MainModelPath { get; set; }
         
         /// <summary>
-        /// Journal data.
-        /// </summary>
-        IDictionary<string, string> JournalData { get; set; }
-
-        /// <summary>
         /// Executes application.
         /// </summary>
-        void ExecuteExternalItem();
+        /// <param name="journalData">Journal data.</param>
+        void ExecuteExternalItem(IDictionary<string, string> journalData);
     }
 
     /// <summary>
@@ -48,44 +44,13 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <inheritdoc />
         public string MainModelPath { get; set; }
         
-        /// <inheritdoc />
-        public IDictionary<string, string> JournalData { get; set; }
-
         /// <summary>
         /// External app information.
         /// </summary>
         public RevitExternalItemInfo RevitExternalItemInfo { get; set; }
 
         /// <inheritdoc />
-        public abstract void ExecuteExternalItem();
-
-        public void OpenAndActivateDocument() {
-            UIApplication uiApplication = new UIApplication(_application);
-            if(!string.IsNullOrEmpty(MainModelPath)) {
-                uiApplication.OpenAndActivateDocument(ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
-                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets}, 
-                    false);
-            }
-        }
-    }
-
-    /// <summary>
-    /// External application.
-    /// </summary>
-    internal abstract class RevitExternalItem<T> : RevitExternalItem
-        where T : class {
-        /// <summary>
-        /// Creates Revit external item.
-        /// </summary>
-        /// <param name="application">Revit application instance.</param>
-        protected RevitExternalItem(Application application) 
-            : base(application) {
-        }
-        
-        /// <summary>
-        /// Executes application.
-        /// </summary>
-        public override void ExecuteExternalItem() {
+        public void ExecuteExternalItem(IDictionary<string, string> journalData) {
             if(!string.IsNullOrEmpty(MainModelPath) && !File.Exists(MainModelPath)) {
                 throw new InvalidOperationException($"{nameof(MainModelPath)} not found.");
             }
@@ -107,12 +72,22 @@ namespace dosymep.Revit.Engine.RevitExternals {
             }
 
             OpenAndActivateDocument();
-            ExecuteExternalItemImpl(RevitExternalItemInfo.CreateExternalApplication<T>());
+            ExecuteExternalItemImpl(journalData);
         }
-
+        
         /// <summary>
         /// Executes application.
         /// </summary>
-        protected abstract void ExecuteExternalItemImpl(T application);
+        /// <param name="journalData">Journal data.</param>
+        protected abstract void ExecuteExternalItemImpl(IDictionary<string, string> journalData);
+
+        public void OpenAndActivateDocument() {
+            UIApplication uiApplication = new UIApplication(_application);
+            if(!string.IsNullOrEmpty(MainModelPath)) {
+                uiApplication.OpenAndActivateDocument(ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
+                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets}, 
+                    false);
+            }
+        }
     }
 }
