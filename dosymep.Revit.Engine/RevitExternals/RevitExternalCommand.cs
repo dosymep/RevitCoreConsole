@@ -41,8 +41,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         private string FormatMessage(string operation, string message, ElementSet elementSet) {
             return message ?? $"{operation} execute revit command."
                 + Environment.NewLine
-                + string.Join(Environment.NewLine,
-                    elementSet.OfType<ElementId>().Select(item => item.IntegerValue));
+                + "ElementIds: " + string.Join("; ", elementSet.OfType<ElementId>().Select(item => item.IntegerValue));
         }
     }
 }
