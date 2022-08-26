@@ -97,6 +97,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Reference Include="dosymep.Autodesk">
+          <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Autodesk\bin\Debug\net48\dosymep.Autodesk.dll</HintPath>
+        </Reference>
+        <Reference Include="dosymep.Autodesk.FileInfo">
+          <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Autodesk.FileInfo\bin\Debug\net48\dosymep.Autodesk.FileInfo.dll</HintPath>
+        </Reference>
+        <Reference Include="dosymep.Revit.FileInfo">
+          <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Revit.FileInfo\bin\Debug\net48\dosymep.Revit.FileInfo.dll</HintPath>
+        </Reference>
         <Reference Include="RevitAPI">
             <HintPath>$(ProgramW6432)\Autodesk\Revit $(RevitVersion)\RevitAPI.dll</HintPath>
             <Private>False</Private>

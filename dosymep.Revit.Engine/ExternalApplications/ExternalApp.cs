@@ -14,11 +14,6 @@ namespace dosymep.Revit.Engine.ExternalApplications {
         string MainModelPath { get; set; }
 
         /// <summary>
-        /// External application information.
-        /// </summary>
-        ExternalAppInfo ExternalAppInfo { get; set; }
-
-        /// <summary>
         /// Executes application.
         /// </summary>
         void ExecuteApp();
@@ -27,11 +22,13 @@ namespace dosymep.Revit.Engine.ExternalApplications {
     /// <summary>
     /// External application.
     /// </summary>
-    public abstract class ExternalApp : IExternalApp {
+    internal abstract class ExternalApp : IExternalApp {
         /// <inheritdoc />
         public string MainModelPath { get; set; }
 
-        /// <inheritdoc />
+        /// <summary>
+        /// External app information.
+        /// </summary>
         public ExternalAppInfo ExternalAppInfo { get; set; }
 
         /// <inheritdoc />
@@ -41,7 +38,7 @@ namespace dosymep.Revit.Engine.ExternalApplications {
     /// <summary>
     /// External application.
     /// </summary>
-    public abstract class ExternalApp<T> : ExternalApp
+    internal abstract class ExternalApp<T> : ExternalApp
         where T : class {
         /// <summary>
         /// Revit application instance.
@@ -81,7 +78,7 @@ namespace dosymep.Revit.Engine.ExternalApplications {
                 throw new InvalidOperationException($"{nameof(ExternalAppInfo.AssemblyPath)} not found.");
             }
 
-            ExecuteAppImpl(ExternalAppExtensions.GetExternalApplication<T>(ExternalAppInfo));
+            ExecuteAppImpl(ExternalAppInfo.CreateExternalApplication<T>());
         }
 
         /// <summary>

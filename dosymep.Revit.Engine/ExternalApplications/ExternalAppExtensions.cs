@@ -8,38 +8,13 @@ using Autodesk.Revit.UI;
 
 using DesignAutomationFramework;
 
+using dosymep.Revit.FileInfo.RevitAddins;
+
 namespace dosymep.Revit.Engine.ExternalApplications {
     /// <summary>
     /// External app extensions.
     /// </summary>
     public static class ExternalAppExtensions {
-        /// <summary>
-        /// Get external application instance.
-        /// </summary>
-        /// <param name="externalAppInfo">External application info.</param>
-        /// <typeparam name="T">External application type.</typeparam>
-        /// <returns>Returns external application instance.</returns>
-        public static T GetExternalApplication<T>(ExternalAppInfo externalAppInfo) where T: class {
-            if(string.IsNullOrEmpty(externalAppInfo.AssemblyPath)) {
-                throw new ArgumentException($"The {nameof(externalAppInfo.AssemblyPath)} is not set.");
-            }
-            
-            if(!externalAppInfo.AssemblyPath.EndsWith(".dll", StringComparison.CurrentCultureIgnoreCase)) {
-                throw new ArgumentException($"The {externalAppInfo.AssemblyPath} file is not valid assembly.");
-            }
-            
-            if(!File.Exists(externalAppInfo.AssemblyPath)) {
-                throw new ArgumentException($"The {externalAppInfo.AssemblyPath} file is not found.");
-            }
-            
-            if(string.IsNullOrEmpty(externalAppInfo.FullClassName)) {
-                throw new ArgumentException($"The {nameof(externalAppInfo.FullClassName)} is not set.");
-            }
-            
-            Assembly assembly = Assembly.LoadFrom(externalAppInfo.AssemblyPath);
-            return (T) Activator.CreateInstance(assembly.GetType(externalAppInfo.FullClassName));
-        }
-        
         /// <summary>
         /// Creates controlled application.
         /// </summary>
