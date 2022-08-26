@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
@@ -16,7 +17,15 @@ namespace dosymep.Revit.Engine.RevitExternals {
         protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
             UIControlledApplication controlledApplication = _application.CreateUIControlledApplication();
             var application = RevitExternalItemInfo.CreateExternalApplication<IExternalApplication>();
-            application.OnStartup(controlledApplication);
+            CheckResult(application.OnStartup(controlledApplication));
+        }
+
+        private void CheckResult(Result startupResult) {
+            if(startupResult == Result.Cancelled) {
+                throw new OperationCanceledException();
+            } else if(startupResult == Result.Failed) {
+                throw new Exception("Startup result failed.");
+            }
         }
     }
 }

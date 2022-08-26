@@ -26,12 +26,14 @@ namespace dosymep.Revit.Engine.RevitExternals {
             var externalCommandData = _application.CreateExternalCommandData(journalData);
 
             var application = RevitExternalItemInfo.CreateExternalApplication<IExternalCommand>();
-            Result result = application.Execute(externalCommandData, ref message, elementSet);
-            if(result == Result.Cancelled) {
+            CheckResult(application.Execute(externalCommandData, ref message, elementSet), elementSet);
+        }
+        
+        private void CheckResult(Result startupResult, ElementSet elementSet) {
+            if(startupResult == Result.Cancelled) {
                 throw new OperationCanceledException();
-            } else if(result == Result.Failed) {
-                Console.WriteLine(message);
-                Console.WriteLine(string.Join(Environment.NewLine, elementSet.OfType<ElementId>()));
+            } else if(startupResult == Result.Failed) {
+                throw new Exception("Startup result failed. "+ string.Join(Environment.NewLine, elementSet.OfType<ElementId>()));
             }
         }
     }

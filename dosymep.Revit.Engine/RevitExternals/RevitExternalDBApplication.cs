@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
@@ -22,10 +23,16 @@ namespace dosymep.Revit.Engine.RevitExternals {
             ControlledApplication controlledApplication = _application.CreateControlledApplication();
             var application = RevitExternalItemInfo.CreateExternalApplication<IExternalDBApplication>();
             try {
-                application.OnStartup(controlledApplication);
+                CheckResult(application.OnStartup(controlledApplication), "Startup");
                 _application.SetDesignAutomationReady(MainModelPath);
             } finally {
-                application.OnShutdown(controlledApplication);
+                CheckResult(application.OnShutdown(controlledApplication), "Shutdown");
+            }
+        }
+
+        private void CheckResult(ExternalDBApplicationResult startupResult, string operation) {
+            if(startupResult == ExternalDBApplicationResult.Failed) {
+                throw new Exception($"{operation} result failed. ");
             }
         }
     }
