@@ -15,7 +15,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// Main model path.
         /// </summary>
         string MainModelPath { get; set; }
-        
+
         /// <summary>
         /// Executes application.
         /// </summary>
@@ -40,10 +40,10 @@ namespace dosymep.Revit.Engine.RevitExternals {
         protected RevitExternalItem(Application application) {
             _application = application ?? throw new ArgumentNullException(nameof(application));
         }
-        
+
         /// <inheritdoc />
         public string MainModelPath { get; set; }
-        
+
         /// <summary>
         /// External app information.
         /// </summary>
@@ -74,7 +74,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
             OpenAndActivateDocument();
             ExecuteExternalItemImpl(journalData);
         }
-        
+
         /// <summary>
         /// Executes application.
         /// </summary>
@@ -85,9 +85,13 @@ namespace dosymep.Revit.Engine.RevitExternals {
             UIApplication uiApplication = new UIApplication(_application);
             if(!string.IsNullOrEmpty(MainModelPath)) {
                 uiApplication.OpenAndActivateDocument(ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
-                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets}, 
+                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets},
                     false);
             }
+        }
+
+        protected void ApplyJournalData(object externalItem, IDictionary<string, string> journalData) {
+            externalItem.GetType().GetProperty("JournalData")?.SetValue(externalItem, journalData);
         }
     }
 }

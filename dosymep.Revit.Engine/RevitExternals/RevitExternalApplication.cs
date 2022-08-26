@@ -17,6 +17,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
             UIControlledApplication controlledApplication = _application.CreateUIControlledApplication();
             var application = RevitExternalItemInfo.CreateExternalApplication<IExternalApplication>();
+            ApplyJournalData(application, journalData);
             CheckResult(application.OnStartup(controlledApplication));
         }
 

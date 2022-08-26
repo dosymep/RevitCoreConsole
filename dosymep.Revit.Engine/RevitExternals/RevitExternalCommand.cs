@@ -26,6 +26,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
             var externalCommandData = _application.CreateExternalCommandData(journalData);
 
             var application = RevitExternalItemInfo.CreateExternalApplication<IExternalCommand>();
+            ApplyJournalData(application, journalData);
             CheckResult(application.Execute(externalCommandData, ref message, elementSet), elementSet);
         }
         

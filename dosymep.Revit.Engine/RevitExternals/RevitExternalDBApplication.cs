@@ -23,6 +23,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
             ControlledApplication controlledApplication = _application.CreateControlledApplication();
             var application = RevitExternalItemInfo.CreateExternalApplication<IExternalDBApplication>();
             try {
+                ApplyJournalData(application, journalData);
                 CheckResult(application.OnStartup(controlledApplication), "Startup");
                 _application.SetDesignAutomationReady(MainModelPath);
             } finally {
