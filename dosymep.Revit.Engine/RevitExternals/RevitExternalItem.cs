@@ -81,7 +81,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <param name="journalData">Journal data.</param>
         protected abstract void ExecuteExternalItemImpl(IDictionary<string, string> journalData);
 
-        public void OpenAndActivateDocument() {
+        protected void OpenAndActivateDocument() {
             UIApplication uiApplication = new UIApplication(_application);
             if(!string.IsNullOrEmpty(MainModelPath)) {
                 uiApplication.OpenAndActivateDocument(ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
