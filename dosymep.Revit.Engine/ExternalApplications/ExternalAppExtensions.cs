@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 
 using Autodesk.Revit.ApplicationServices;
@@ -19,6 +20,22 @@ namespace dosymep.Revit.Engine.ExternalApplications {
         /// <typeparam name="T">External application type.</typeparam>
         /// <returns>Returns external application instance.</returns>
         public static T GetExternalApplication<T>(ExternalAppInfo externalAppInfo) where T: class {
+            if(string.IsNullOrEmpty(externalAppInfo.AssemblyPath)) {
+                throw new ArgumentException($"The {nameof(externalAppInfo.AssemblyPath)} is not set.");
+            }
+            
+            if(!externalAppInfo.AssemblyPath.EndsWith(".dll", StringComparison.CurrentCultureIgnoreCase)) {
+                throw new ArgumentException($"The {externalAppInfo.AssemblyPath} file is not valid assembly.");
+            }
+            
+            if(!File.Exists(externalAppInfo.AssemblyPath)) {
+                throw new ArgumentException($"The {externalAppInfo.AssemblyPath} file is not found.");
+            }
+            
+            if(string.IsNullOrEmpty(externalAppInfo.FullClassName)) {
+                throw new ArgumentException($"The {nameof(externalAppInfo.FullClassName)} is not set.");
+            }
+            
             Assembly assembly = Assembly.LoadFrom(externalAppInfo.AssemblyPath);
             return (T) Activator.CreateInstance(assembly.GetType(externalAppInfo.FullClassName));
         }
