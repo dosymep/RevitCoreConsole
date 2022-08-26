@@ -19,11 +19,6 @@ namespace dosymep.Revit.Engine.RevitExternals {
             : base(application) {
         }
 
-        /// <summary>
-        /// Journal data.
-        /// </summary>
-        public IDictionary<string, string> JournalData { get; set; }
-
         /// <inheritdoc />
         protected override void ExecuteExternalImpl(IExternalCommand application) {
             string message = null;

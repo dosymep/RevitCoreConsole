@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 using Autodesk.Revit.ApplicationServices;
@@ -38,6 +39,11 @@ namespace dosymep.Revit.Engine.RevitExternals {
         protected RevitExternalItem(Application application) {
             _application = application ?? throw new ArgumentNullException(nameof(application));
         }
+        
+        /// <summary>
+        /// Journal data.
+        /// </summary>
+        public IDictionary<string, string> JournalData { get; set; }
         
         /// <inheritdoc />
         public string MainModelPath { get; set; }

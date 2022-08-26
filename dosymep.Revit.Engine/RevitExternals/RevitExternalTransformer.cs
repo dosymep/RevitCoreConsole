@@ -1,4 +1,7 @@
-﻿using dosymep.Autodesk;
+﻿using System.Collections;
+using System.Collections.Generic;
+
+using dosymep.Autodesk;
 using dosymep.Revit.FileInfo.RevitAddins;
 
 namespace dosymep.Revit.Engine.RevitExternals {
@@ -22,24 +25,35 @@ namespace dosymep.Revit.Engine.RevitExternals {
             _revitApplication = revitApplication;
         }
         
+        /// <summary>
+        /// Journal data.
+        /// </summary>
+        public IDictionary<string, string> JournalData { get; set; }
+        
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinCommand visitable) {
             return new RevitExternalCommand(_revitApplication.Application) {
-                RevitExternalItemInfo = new RevitExternalItemInfo(visitable), MainModelPath = _mainModelPath, 
+                JournalData = JournalData,
+                MainModelPath = _mainModelPath, 
+                RevitExternalItemInfo = new RevitExternalItemInfo(visitable)
             };
         }
 
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinApplication visitable) {
             return new RevitExternalApplication(_revitApplication.Application) {
-                RevitExternalItemInfo = new RevitExternalItemInfo(visitable), MainModelPath = _mainModelPath,
+                JournalData = JournalData,
+                MainModelPath = _mainModelPath,
+                RevitExternalItemInfo = new RevitExternalItemInfo(visitable)
             };
         }
 
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinDBApplication visitable) {
             return new RevitExternalDBApplication(_revitApplication.Application) {
-                RevitExternalItemInfo = new RevitExternalItemInfo(visitable), MainModelPath = _mainModelPath
+                JournalData = JournalData,
+                MainModelPath = _mainModelPath,
+                RevitExternalItemInfo = new RevitExternalItemInfo(visitable)
             };
         }
     }
