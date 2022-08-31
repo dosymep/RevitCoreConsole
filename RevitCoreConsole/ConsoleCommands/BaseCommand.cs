@@ -25,7 +25,7 @@ namespace RevitCoreConsole.ConsoleCommands {
         public static readonly Option<string> JournalDataOption
             = new Option<string>(
                 name: "/journalData",
-                description: "Journal data.") {IsRequired = true};
+                description: "Journal data.");
 
         public static readonly Option<string> ModelPathOption
             = new Option<string>(
@@ -67,18 +67,26 @@ namespace RevitCoreConsole.ConsoleCommands {
         }
 
         protected dosymep.Revit.Engine.RevitApplication CreateRevitApplication(string licenceKey) {
-            return new dosymep.Revit.Engine.RevitApplication() {
+            var application = new dosymep.Revit.Engine.RevitApplication() {
+                RevitEnginePath = @"C:\Program Files\Autodesk\Revit 2020",
                 RevitAppInfo = {
                     VendorName = "dosymep",
                     ApplicationName = "RevitCoreConsole",
                     Guid = new Guid("54505B8D-A016-40FF-BA6D-23440A49B53C"),
                     LicenseKey = licenceKey,
-                    ApiSettings = {LanguageType = LanguageCode.ToLanguageType()}
+                    ApiSettings = {LanguageCode = LanguageCode, JournalPath = "1234.log"}
                 }
             };
+
+            application.Open();
+            return application;
         }
 
         protected IDictionary<string, string> ReadJournalData(string journalData) {
+            if(string.IsNullOrEmpty(journalData)) {
+                return new Dictionary<string, string>();
+            }
+            
             IDeserializer deserializer = new DeserializerBuilder()
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();

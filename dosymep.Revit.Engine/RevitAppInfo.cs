@@ -3,6 +3,8 @@ using System.IO;
 
 using Autodesk.Revit.ApplicationServices;
 
+using dosymep.Autodesk.FileInfo;
+
 namespace dosymep.Revit.Engine {
     /// <summary>
     /// Revit application information.
@@ -66,7 +68,7 @@ namespace dosymep.Revit.Engine {
         /// <summary>
         /// Language type.
         /// </summary>
-        public LanguageType LanguageType { get; set; } = LanguageType.English_USA;
+        public LanguageCode LanguageCode { get; set; } = LanguageCode.ENU;
 
         /// <summary>
         /// Api options.

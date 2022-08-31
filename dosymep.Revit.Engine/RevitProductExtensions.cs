@@ -3,6 +3,9 @@ using System.IO;
 using System.Reflection;
 
 using Autodesk.Revit;
+using Autodesk.Revit.ApplicationServices;
+
+using dosymep.Autodesk.FileInfo;
 
 namespace dosymep.Revit.Engine {
     internal static class RevitProductExtensions {
@@ -12,7 +15,7 @@ namespace dosymep.Revit.Engine {
             }
 
             if(string.IsNullOrEmpty(journalName)) {
-                throw new ArgumentException("Value cannot be null or empty.", nameof(journalName));
+                return;
             }
 
             MethodInfo method = typeof(Product)
@@ -26,10 +29,10 @@ namespace dosymep.Revit.Engine {
             }
 
             if(string.IsNullOrEmpty(journalPath)) {
-                throw new ArgumentException("Value cannot be null or empty.", nameof(journalPath));
+                return;
             }
 
-            if(!Directory.Exists(journalPath)) {
+            if(!Directory.Exists(Path.GetDirectoryName(Path.GetFullPath(journalPath)))) {
                 throw new ArgumentException($"JournalPath is not found.", nameof(journalPath));
             }
 
@@ -63,7 +66,7 @@ namespace dosymep.Revit.Engine {
             revitProduct.EnableIFC(apiSettings.EnableIfc);
             revitProduct.SetJournalFile(apiSettings.JournalName);
             revitProduct.SetJournalOutputPath(apiSettings.JournalPath);
-            revitProduct.SetPreferredLanguage(apiSettings.LanguageType);
+            revitProduct.SetPreferredLanguage(apiSettings.LanguageCode.ToLanguageType());
             revitProduct.SetSettingsFileLocation(apiSettings.SettingsFileLocation);
 
             if(apiSettings.UseApiOptions) {
@@ -78,6 +81,14 @@ namespace dosymep.Revit.Engine {
                 revitProduct.Settings[APIOption.ForceMultiUndoOperation] = apiOptions.IsForceMultiUndoOperation;
                 revitProduct.Settings[APIOption.IgnoreLinkedFilesOnSave] = apiOptions.IsIgnoreLinkedFilesOnSave;
             }
+        }
+
+        public static LanguageType ToLanguageType(this LanguageCode languageCode) {
+            if(Enum.TryParse(languageCode.FullCode, out LanguageType languageType)) {
+                return languageType;
+            }
+
+            return LanguageType.Unknown;
         }
     }
 }
