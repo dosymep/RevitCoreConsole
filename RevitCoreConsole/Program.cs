@@ -13,6 +13,7 @@ using RevitCoreConsole.ConsoleCommands;
 
 namespace RevitCoreConsole {
     internal class Program {
+        [STAThread]
         public static async Task<int> Main(string[] args) {
             RootCommand rootCommand
                 = new RootCommand("RevitCoreConsole") {
