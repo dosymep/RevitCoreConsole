@@ -8,7 +8,7 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
 
 namespace dosymep.Revit.Engine {
-    internal class RevitApplication : IDisposable {
+    public class RevitApplication : IDisposable {
         private readonly RevitAppInfo _revitAppInfo;
         private readonly RevitAssemblyResolver _assemblyResolver;
 

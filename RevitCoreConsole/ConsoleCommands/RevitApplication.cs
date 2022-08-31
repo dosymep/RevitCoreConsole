@@ -3,7 +3,7 @@
 using RevitCoreConsole.ConsoleCommands.Binders;
 
 namespace RevitCoreConsole.ConsoleCommands {
-    internal class RevitApplication : BaseCommand {
+    internal class RevitApplication : BaseCommand<dosymep.Revit.Engine.RevitApplication> {
         public static readonly Command ConsoleCommand
             = new Command("revit_application")
                 .AddParam(AssemblyPathOption)
@@ -18,8 +18,12 @@ namespace RevitCoreConsole.ConsoleCommands {
         public string AssemblyPath { get; set; }
         public string FullClassName { get; set; }
 
-        protected override void ExecuteImpl() {
+        protected override void ExecuteImpl(dosymep.Revit.Engine.RevitApplication application) {
             throw new System.NotImplementedException();
+        }
+
+        protected override dosymep.Revit.Engine.RevitApplication CreateApplication() {
+            return CreateRevitApplication(LicenseKey);
         }
     }
 }

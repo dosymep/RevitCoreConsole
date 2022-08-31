@@ -3,7 +3,7 @@
 using RevitCoreConsole.ConsoleCommands.Binders;
 
 namespace RevitCoreConsole.ConsoleCommands {
-    internal class ForgeApplication : BaseCommand {
+    internal class ForgeApplication : BaseCommand<dosymep.Revit.Engine.RevitApplication> {
         public static readonly Option<string> BundlePathOption
             = new Option<string>(
                 name: "/al",
@@ -19,8 +19,12 @@ namespace RevitCoreConsole.ConsoleCommands {
         public string LicenseKey { get; set; }
         public string BundlePath { get; set; }
 
-        protected override void ExecuteImpl() {
+        protected override void ExecuteImpl(dosymep.Revit.Engine.RevitApplication application) {
             throw new System.NotImplementedException();
+        }
+
+        protected override dosymep.Revit.Engine.RevitApplication CreateApplication() {
+            return CreateRevitApplication(LicenseKey);
         }
     }
 }
