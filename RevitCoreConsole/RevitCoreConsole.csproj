@@ -13,8 +13,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-        <PackageReference Include="YamlDotNet" Version="12.0.0" />
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1"/>
+        <PackageReference Include="YamlDotNet" Version="12.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -34,7 +34,7 @@
         <Reference Include="Autodesk.Navisworks.ComApi">
             <HintPath>C:\Program Files\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.ComApi.dll</HintPath>
         </Reference>
-        
+
         <Reference Include="Autodesk.Navisworks.Api">
             <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Api.dll</HintPath>
             <Private>False</Private>
@@ -46,12 +46,13 @@
         </Reference>
 
         <Reference Include="RevitAPI">
-          <HintPath>C:\Program Files\Autodesk\Revit $(AppVersion)\RevitAPI.dll</HintPath>
+            <HintPath>C:\Program Files\Autodesk\Revit $(AppVersion)\RevitAPI.dll</HintPath>
+            <Private>False</Private>
         </Reference>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
+        <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj"/>
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='D2020' OR '$(Configuration)'=='R2020'">
