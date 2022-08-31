@@ -20,7 +20,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// Creates external app transformer.
         /// </summary>
-        internal RevitExternalTransformer(string mainModelPath, RevitApplication revitApplication) {
+        public RevitExternalTransformer(string mainModelPath, RevitApplication revitApplication) {
             _mainModelPath = mainModelPath;
             _revitApplication = revitApplication;
         }

@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.CommandLine;
 using System.IO;
 
 using Autodesk.Navisworks.Api.Automation;
 
 using dosymep.Autodesk.FileInfo;
+
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace RevitCoreConsole.ConsoleCommands {
     internal abstract class BaseCommand {
@@ -57,18 +61,6 @@ namespace RevitCoreConsole.ConsoleCommands {
         public LanguageCode LanguageCode { get; set; }
 
         public abstract void Execute();
-    }
-
-    internal abstract class BaseCommand<T> : BaseCommand
-        where T : IDisposable {
-        protected abstract void ExecuteImpl(T application);
-        protected abstract T CreateApplication();
-
-        public override void Execute() {
-            using(T application = CreateApplication()) {
-                ExecuteImpl(application);
-            }
-        }
 
         protected NavisworksApplication CreateNavisworksApplication() {
             return new NavisworksApplication();
@@ -84,6 +76,25 @@ namespace RevitCoreConsole.ConsoleCommands {
                     ApiSettings = {LanguageType = LanguageCode.ToLanguageType()}
                 }
             };
+        }
+
+        protected IDictionary<string, string> ReadJournalData(string journalData) {
+            IDeserializer deserializer = new DeserializerBuilder()
+                .WithNamingConvention(CamelCaseNamingConvention.Instance)
+                .Build();
+            return deserializer.Deserialize<Dictionary<string, string>>(journalData);
+        }
+    }
+
+    internal abstract class BaseCommand<T> : BaseCommand
+        where T : IDisposable {
+        protected abstract void ExecuteImpl(T application);
+        protected abstract T CreateApplication();
+
+        public override void Execute() {
+            using(T application = CreateApplication()) {
+                ExecuteImpl(application);
+            }
         }
     }
 }

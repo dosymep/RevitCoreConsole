@@ -1,4 +1,8 @@
-﻿using System.CommandLine;
+﻿using System.Collections.Generic;
+using System.CommandLine;
+
+using dosymep.Revit.Engine.RevitExternals;
+using dosymep.Revit.FileInfo.RevitAddins;
 
 using RevitCoreConsole.ConsoleCommands.Binders;
 
@@ -19,7 +23,10 @@ namespace RevitCoreConsole.ConsoleCommands {
         public string FullClassName { get; set; }
 
         protected override void ExecuteImpl(dosymep.Revit.Engine.RevitApplication application) {
-            throw new System.NotImplementedException();
+            var revitAddin = new RevitAddinApplication() {AssemblyPath = AssemblyPath, FullClassName = FullClassName};
+            new RevitExternalTransformer(ModelPath, application)
+                .Transform(revitAddin)
+                .ExecuteExternalItem(ReadJournalData(JournalData));
         }
 
         protected override dosymep.Revit.Engine.RevitApplication CreateApplication() {
