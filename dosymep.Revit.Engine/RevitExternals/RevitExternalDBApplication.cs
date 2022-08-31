@@ -11,21 +11,21 @@ namespace dosymep.Revit.Engine.RevitExternals {
     // ReSharper disable once InconsistentNaming
     internal class RevitExternalDBApplication : RevitExternalItem {
         /// <summary>
-        /// External DB application.
+        /// Creates external DB application.
         /// </summary>
-        /// <param name="application">Revit application instance.</param>
-        public RevitExternalDBApplication(Application application)
-            : base(application) {
+        /// <param name="revitApplication">Revit application instance.</param>
+        public RevitExternalDBApplication(RevitApplication revitApplication)
+            : base(revitApplication) {
         }
 
         /// <inheritdoc />
         protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
-            ControlledApplication controlledApplication = _application.CreateControlledApplication();
+            ControlledApplication controlledApplication = _revitApplication.Application.CreateControlledApplication();
             var application = RevitExternalItemInfo.CreateExternalApplication<IExternalDBApplication>();
             try {
                 ApplyJournalData(application, journalData);
                 CheckResult(application.OnStartup(controlledApplication), "Startup");
-                _application.SetDesignAutomationReady(MainModelPath);
+                _revitApplication.Application.SetDesignAutomationReady(MainModelPath);
             } finally {
                 CheckResult(application.OnShutdown(controlledApplication), "Shutdown");
             }

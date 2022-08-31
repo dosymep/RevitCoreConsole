@@ -30,15 +30,15 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// Revit application instance.
         /// </summary>
-        protected readonly Application _application;
+        protected readonly RevitApplication _revitApplication;
 
         /// <summary>
         /// Creates external application.
         /// </summary>
-        /// <param name="application">Revit application instance.</param>
+        /// <param name="revitApplication">Revit application instance.</param>
         /// <exception cref="System.ArgumentNullException">When application is null.</exception>
-        protected RevitExternalItem(Application application) {
-            _application = application ?? throw new ArgumentNullException(nameof(application));
+        protected RevitExternalItem(RevitApplication revitApplication) {
+            _revitApplication = revitApplication ?? throw new ArgumentNullException(nameof(revitApplication));
         }
 
         /// <inheritdoc />
@@ -82,7 +82,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         protected abstract void ExecuteExternalItemImpl(IDictionary<string, string> journalData);
 
         protected void OpenAndActivateDocument() {
-            UIApplication uiApplication = new UIApplication(_application);
+            UIApplication uiApplication = _revitApplication.UIApplication;
             if(!string.IsNullOrEmpty(MainModelPath)) {
                 uiApplication.OpenAndActivateDocument(ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
                     new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets},

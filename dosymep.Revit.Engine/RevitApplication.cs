@@ -5,6 +5,7 @@ using System.Linq;
 using Autodesk.Revit;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.UI;
 
 namespace dosymep.Revit.Engine {
     internal class RevitApplication : IDisposable {
@@ -19,6 +20,7 @@ namespace dosymep.Revit.Engine {
         public Product RevitProduct { get; private set; }
         public RevitAppInfo RevitAppInfo => _revitAppInfo;
         public Application Application => RevitProduct.Application;
+        public UIApplication UIApplication { get; private set; }
 
         public string RevitEnginePath {
             get => _assemblyResolver.RevitEnginePath;
@@ -51,7 +53,7 @@ namespace dosymep.Revit.Engine {
         private void InitRevit() {
             RevitProduct = Product.GetInstalledProduct();
             RevitProduct.SetApiSettings(RevitAppInfo.ApiSettings);
-            
+
             var appId = new ClientApplicationId(RevitAppInfo.Guid,
                 RevitAppInfo.ApplicationName, RevitAppInfo.VendorName);
 
@@ -60,6 +62,8 @@ namespace dosymep.Revit.Engine {
 #else
             RevitProduct.Initialize_ForAutodeskInternalUseOnly(appId, RevitAppInfo.LicenseKey);
 #endif
+
+            UIApplication = new UIApplication(Application);
         }
 
         private bool IsRevitPath() {

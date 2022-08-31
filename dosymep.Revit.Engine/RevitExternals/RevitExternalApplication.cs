@@ -10,12 +10,16 @@ namespace dosymep.Revit.Engine.RevitExternals {
     /// External application.
     /// </summary>
     internal class RevitExternalApplication : RevitExternalItem {
-        public RevitExternalApplication(Application application)
-            : base(application) {
+        /// <summary>
+        /// Creates external application.
+        /// </summary>
+        /// <param name="revitApplication">Revit application instance.</param>
+        public RevitExternalApplication(RevitApplication revitApplication)
+            : base(revitApplication) {
         }
 
         protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
-            UIControlledApplication controlledApplication = _application.CreateUIControlledApplication();
+            UIControlledApplication controlledApplication = _revitApplication.Application.CreateUIControlledApplication();
             var application = RevitExternalItemInfo.CreateExternalApplication<IExternalApplication>();
             ApplyJournalData(application, journalData);
             CheckResult(application.OnStartup(controlledApplication));
