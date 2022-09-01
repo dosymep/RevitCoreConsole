@@ -13,19 +13,19 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// Creates external DB application.
         /// </summary>
-        /// <param name="revitApplication">Revit application instance.</param>
-        public RevitExternalDBApplication(IRevitApplication revitApplication)
-            : base(revitApplication) {
+        /// <param name="hasRevitApplication">Revit application instance.</param>
+        public RevitExternalDBApplication(IHasRevitApplication hasRevitApplication)
+            : base(hasRevitApplication) {
         }
 
         /// <inheritdoc />
         protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
-            ControlledApplication controlledApplication = _revitApplication.Application.CreateControlledApplication();
+            ControlledApplication controlledApplication = _hasRevitApplication.Application.CreateControlledApplication();
             var application = RevitExternalItemInfo.CreateExternalApplication<IExternalDBApplication>();
             try {
                 ApplyJournalData(application, journalData);
                 CheckResult(application.OnStartup(controlledApplication), "Startup");
-                _revitApplication.Application.SetDesignAutomationReady(MainModelPath);
+                _hasRevitApplication.Application.SetDesignAutomationReady(MainModelPath);
             } finally {
                 CheckResult(application.OnShutdown(controlledApplication), "Shutdown");
             }

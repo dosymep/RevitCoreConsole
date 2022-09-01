@@ -15,20 +15,20 @@ namespace dosymep.Revit.Engine.RevitExternals {
         ITransformer<IRevitExternalItem, RevitAddinDBApplication> {
         
         private readonly string _mainModelPath;
-        private readonly IRevitApplication _revitApplication;
+        private readonly IHasRevitApplication _hasRevitApplication;
 
         /// <summary>
         /// Creates external app transformer.
         /// </summary>
-        public RevitExternalTransformer(string mainModelPath, IRevitApplication revitApplication) {
+        public RevitExternalTransformer(string mainModelPath, IHasRevitApplication hasRevitApplication) {
             _mainModelPath = mainModelPath;
-            _revitApplication = revitApplication;
+            _hasRevitApplication = hasRevitApplication;
         }
         
        
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinCommand visitable) {
-            return new RevitExternalCommand(_revitApplication) {
+            return new RevitExternalCommand(_hasRevitApplication) {
                 MainModelPath = _mainModelPath, 
                 RevitExternalItemInfo = new RevitExternalItemInfo(visitable)
             };
@@ -36,7 +36,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
 
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinApplication visitable) {
-            return new RevitExternalApplication(_revitApplication) {
+            return new RevitExternalApplication(_hasRevitApplication) {
                 MainModelPath = _mainModelPath,
                 RevitExternalItemInfo = new RevitExternalItemInfo(visitable)
             };
@@ -44,7 +44,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
 
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinDBApplication visitable) {
-            return new RevitExternalDBApplication(_revitApplication) {
+            return new RevitExternalDBApplication(_hasRevitApplication) {
                 MainModelPath = _mainModelPath,
                 RevitExternalItemInfo = new RevitExternalItemInfo(visitable)
             };

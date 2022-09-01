@@ -14,9 +14,9 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// Creates external command application.
         /// </summary>
-        /// <param name="revitApplication">Revit application instance.</param>
-        public RevitExternalCommand(IRevitApplication revitApplication)
-            : base(revitApplication) {
+        /// <param name="hasRevitApplication">Revit application instance.</param>
+        public RevitExternalCommand(IHasRevitApplication hasRevitApplication)
+            : base(hasRevitApplication) {
         }
 
         /// <inheritdoc />
@@ -26,7 +26,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
 
             string message = null;
             ElementSet elementSet = new ElementSet();
-            var externalCommandData = _revitApplication.Application.CreateExternalCommandData(journalData);
+            var externalCommandData = _hasRevitApplication.Application.CreateExternalCommandData(journalData);
             CheckResult(application.Execute(externalCommandData, ref message, elementSet), message, elementSet);
         }
 

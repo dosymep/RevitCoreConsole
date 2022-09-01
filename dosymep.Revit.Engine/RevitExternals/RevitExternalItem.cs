@@ -30,15 +30,15 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// Revit application instance.
         /// </summary>
-        protected readonly IRevitApplication _revitApplication;
+        protected readonly IHasRevitApplication _hasRevitApplication;
 
         /// <summary>
         /// Creates external application.
         /// </summary>
-        /// <param name="revitApplication">Revit application instance.</param>
+        /// <param name="hasRevitApplication">Revit application instance.</param>
         /// <exception cref="System.ArgumentNullException">When application is null.</exception>
-        protected RevitExternalItem(IRevitApplication revitApplication) {
-            _revitApplication = revitApplication ?? throw new ArgumentNullException(nameof(revitApplication));
+        protected RevitExternalItem(IHasRevitApplication hasRevitApplication) {
+            _hasRevitApplication = hasRevitApplication ?? throw new ArgumentNullException(nameof(hasRevitApplication));
         }
 
         /// <inheritdoc />
@@ -83,7 +83,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
 
         protected void OpenAndActivateDocument() {
             if(!string.IsNullOrEmpty(MainModelPath)) {
-                _revitApplication.Application.OpenDocumentFile(
+                _hasRevitApplication.Application.OpenDocumentFile(
                     ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
                     new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DoNotDetach});
             }
