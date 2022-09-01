@@ -8,25 +8,47 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
 
 namespace dosymep.Revit.Engine {
+    /// <summary>
+    /// Revit application.
+    /// </summary>
     public class RevitApplication : IDisposable {
         private readonly RevitAppInfo _revitAppInfo;
         private readonly RevitAssemblyResolver _assemblyResolver;
 
+        /// <summary>
+        /// Creates revit application.
+        /// </summary>
         public RevitApplication() {
             _revitAppInfo = new RevitAppInfo();
             _assemblyResolver = new RevitAssemblyResolver();
         }
 
+        /// <summary>
+        /// Revit product.
+        /// </summary>
         public Product RevitProduct { get; private set; }
+        
+        /// <summary>
+        /// Revit application information.
+        /// </summary>
         public RevitAppInfo RevitAppInfo => _revitAppInfo;
+        
+        /// <summary>
+        /// Revit application.
+        /// </summary>
         public Application Application => RevitProduct.Application;
-        public UIApplication UIApplication { get; private set; }
 
+        /// <summary>
+        /// Revit engine path.
+        /// </summary>
         public string RevitEnginePath {
             get => _assemblyResolver.RevitEnginePath;
             set => _assemblyResolver.RevitEnginePath = value;
         }
 
+        /// <summary>
+        /// Open revit application.
+        /// </summary>
         public void Open() {
             if(string.IsNullOrEmpty(RevitEnginePath)) {
                 throw new InvalidOperationException($"{nameof(RevitEnginePath)} is not set.");
@@ -44,6 +66,9 @@ namespace dosymep.Revit.Engine {
             InitRevit();
         }
 
+        /// <summary>
+        /// Close revit application.
+        /// </summary>
         public void Close() {
             RevitProduct?.Exit();
             RevitProduct?.Dispose();
@@ -63,7 +88,9 @@ namespace dosymep.Revit.Engine {
             RevitProduct.Initialize_ForAutodeskInternalUseOnly(appId, RevitAppInfo.LicenseKey);
 #endif
 
-            UIApplication = new UIApplication(Application);
+            if(RevitAppInfo.ApiSettings.UseApiOptions) {
+                RevitProduct.SetApiOptions(RevitAppInfo.ApiSettings.ApiOptions);
+            }
         }
 
         private bool IsRevitPath() {
@@ -78,6 +105,7 @@ namespace dosymep.Revit.Engine {
 
         #region IDisposable
 
+        /// <inheritdoc/>
         public void Dispose() {
             Close();
         }

@@ -14,7 +14,7 @@ using RevitCoreConsole.ConsoleCommands;
 namespace RevitCoreConsole {
     internal class Program {
         [STAThread]
-        public static async Task<int> Main(string[] args) {
+        public static void Main(string[] args) {
             RootCommand rootCommand
                 = new RootCommand("RevitCoreConsole") {
                     RevitCommand.ConsoleCommand,
@@ -29,7 +29,7 @@ namespace RevitCoreConsole {
             rootCommand.AddGlobalOption(BaseCommand.LanguageCodeOption);
             rootCommand.AddGlobalOption(BaseCommand.LogFilePathOption);
             
-            return await rootCommand.InvokeAsync(args);
+            rootCommand.Invoke(args);
         }
     }
 }

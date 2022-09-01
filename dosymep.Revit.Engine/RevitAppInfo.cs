@@ -71,6 +71,11 @@ namespace dosymep.Revit.Engine {
         public LanguageCode LanguageCode { get; set; } = LanguageCode.ENU;
 
         /// <summary>
+        /// Language type.
+        /// </summary>
+        internal LanguageType LanguageType => LanguageCode.ToLanguageType();
+
+        /// <summary>
         /// Api options.
         /// </summary>
         public ApiOptions ApiOptions { get; } = new ApiOptions();

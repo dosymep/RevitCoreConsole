@@ -74,7 +74,7 @@ namespace RevitCoreConsole.ConsoleCommands {
                     ApplicationName = "RevitCoreConsole",
                     Guid = new Guid("54505B8D-A016-40FF-BA6D-23440A49B53C"),
                     LicenseKey = licenceKey,
-                    ApiSettings = {LanguageCode = LanguageCode, JournalPath = "1234.log"}
+                    ApiSettings = {LanguageCode = LanguageCode}
                 }
             };
 

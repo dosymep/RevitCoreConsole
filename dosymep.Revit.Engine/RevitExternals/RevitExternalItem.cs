@@ -82,11 +82,10 @@ namespace dosymep.Revit.Engine.RevitExternals {
         protected abstract void ExecuteExternalItemImpl(IDictionary<string, string> journalData);
 
         protected void OpenAndActivateDocument() {
-            UIApplication uiApplication = _revitApplication.UIApplication;
             if(!string.IsNullOrEmpty(MainModelPath)) {
-                uiApplication.OpenAndActivateDocument(ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
-                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets},
-                    false);
+                _revitApplication.Application.OpenDocumentFile(
+                    ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
+                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DoNotDetach});
             }
         }
 
