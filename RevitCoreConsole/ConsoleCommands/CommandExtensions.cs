@@ -3,7 +3,7 @@ using System.CommandLine;
 using System.CommandLine.Binding;
 
 namespace RevitCoreConsole.ConsoleCommands {
-    internal static class Extensions {
+    internal static class CommandExtensions {
         public static Command AddParam(this Command command, Option option) {
             command.AddOption(option);
             return command;
