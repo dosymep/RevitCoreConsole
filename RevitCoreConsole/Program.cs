@@ -17,10 +17,8 @@ namespace RevitCoreConsole {
         public static void Main(string[] args) {
             RootCommand rootCommand
                 = new RootCommand("RevitCoreConsole") {
-                    RevitCommand.ConsoleCommand,
-                    RevitApplication.ConsoleCommand,
-                    RevitDBApplication.ConsoleCommand,
                     ForgeApplication.ConsoleCommand,
+                    RevitDBApplication.ConsoleCommand,
                     NavisCommand.ConsoleCommand,
                     PipelineCommand.ConsoleCommand
                 };
