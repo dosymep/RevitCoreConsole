@@ -15,12 +15,12 @@ namespace dosymep.Revit.Engine.RevitExternals {
         ITransformer<IRevitExternalItem, RevitAddinDBApplication> {
         
         private readonly string _mainModelPath;
-        private readonly RevitApplication _revitApplication;
+        private readonly IRevitApplication _revitApplication;
 
         /// <summary>
         /// Creates external app transformer.
         /// </summary>
-        public RevitExternalTransformer(string mainModelPath, RevitApplication revitApplication) {
+        public RevitExternalTransformer(string mainModelPath, IRevitApplication revitApplication) {
             _mainModelPath = mainModelPath;
             _revitApplication = revitApplication;
         }

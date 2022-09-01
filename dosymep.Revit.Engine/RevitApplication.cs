@@ -11,7 +11,7 @@ namespace dosymep.Revit.Engine {
     /// <summary>
     /// Revit application.
     /// </summary>
-    public class RevitApplication : IDisposable {
+    public class RevitApplication : IRevitApplication, IDisposable {
         private readonly RevitAppInfo _revitAppInfo;
         private readonly RevitAssemblyResolver _assemblyResolver;
 

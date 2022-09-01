@@ -15,7 +15,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// Creates external command application.
         /// </summary>
         /// <param name="revitApplication">Revit application instance.</param>
-        public RevitExternalCommand(RevitApplication revitApplication)
+        public RevitExternalCommand(IRevitApplication revitApplication)
             : base(revitApplication) {
         }
 

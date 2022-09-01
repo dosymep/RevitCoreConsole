@@ -30,14 +30,14 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// Revit application instance.
         /// </summary>
-        protected readonly RevitApplication _revitApplication;
+        protected readonly IRevitApplication _revitApplication;
 
         /// <summary>
         /// Creates external application.
         /// </summary>
         /// <param name="revitApplication">Revit application instance.</param>
         /// <exception cref="System.ArgumentNullException">When application is null.</exception>
-        protected RevitExternalItem(RevitApplication revitApplication) {
+        protected RevitExternalItem(IRevitApplication revitApplication) {
             _revitApplication = revitApplication ?? throw new ArgumentNullException(nameof(revitApplication));
         }
 

@@ -14,7 +14,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// Creates external DB application.
         /// </summary>
         /// <param name="revitApplication">Revit application instance.</param>
-        public RevitExternalDBApplication(RevitApplication revitApplication)
+        public RevitExternalDBApplication(IRevitApplication revitApplication)
             : base(revitApplication) {
         }
 
