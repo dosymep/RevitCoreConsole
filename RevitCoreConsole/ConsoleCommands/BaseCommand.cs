@@ -43,22 +43,6 @@ namespace RevitCoreConsole.ConsoleCommands {
                 .FromAmong("ENU", "ENG", "FRA", "DEU", "ITA", "JPN", "KOR",
                     "PLK", "ESP", "CHS", "CHT", "PTB", "RUS", "CSY", "HUN");
 
-        public static readonly Option<string> LicenseKeyOption
-            = new Option<string>(
-                name: "/key",
-                description: "Autodesk license key",
-                getDefaultValue: () => "trollface.jpg") {ArgumentHelpName = "trollface.jpg"};
-
-        public static readonly Option<string> LogFilePathOption
-            = new Option<string>(
-                name: "/log",
-                description: "Log full file path",
-                getDefaultValue: () =>
-                    Path.Combine(Path.GetTempPath(), "RevitCoreConsole", "RevitCoreConsole.log")) {
-                ArgumentHelpName = "RevitCoreConsole.log"
-            };
-
-
         public string ModelPath { get; set; }
         public string LogFilePath { get; set; }
         public LanguageCode LanguageCode { get; set; }
@@ -69,7 +53,7 @@ namespace RevitCoreConsole.ConsoleCommands {
             return new NavisworksApplication();
         }
 
-        protected RevitApplication CreateRevitApplication(string licenceKey) {
+        protected RevitApplication CreateRevitApplication() {
             RevitApplication application = new RevitApplication() {
                 RevitAppInfo = GetRevitAppInfo(),
                 RevitEnginePath = GetAppSettingsValue(nameof(RevitAppInfo),

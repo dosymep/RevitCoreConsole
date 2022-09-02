@@ -1,4 +1,14 @@
-﻿using System.CommandLine;
+﻿using System;
+using System.Collections.Generic;
+using System.CommandLine;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+
+using Autodesk.ExchangeStore;
+
+using dosymep.Revit.Engine.RevitExternals;
+using dosymep.Revit.FileInfo.RevitAddins;
 
 using RevitCoreConsole.ConsoleCommands.Binders;
 
@@ -11,12 +21,10 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         public static readonly Command ConsoleCommand
             = new Command("forge_application")
-                .AddParam(LicenseKeyOption)
                 .AddParam(BundlePathOption)
                 .SetHandler(new ForgeApplicationBinder())
                 .SetDescription("Revit forge application (this command works like Forge RevitCoreConsole)");
 
-        public string LicenseKey { get; set; }
         public string BundlePath { get; set; }
 
         protected override void ExecuteImpl(dosymep.Revit.Engine.RevitApplication application) {
@@ -24,7 +32,7 @@ namespace RevitCoreConsole.ConsoleCommands {
         }
 
         protected override dosymep.Revit.Engine.RevitApplication CreateApplication() {
-            return CreateRevitApplication(LicenseKey);
+            return CreateRevitApplication();
         }
     }
 }

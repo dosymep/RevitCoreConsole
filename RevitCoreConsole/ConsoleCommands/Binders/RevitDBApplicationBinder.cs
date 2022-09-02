@@ -7,7 +7,6 @@ namespace RevitCoreConsole.ConsoleCommands.Binders
             value.JournalData = bindingContext.ParseResult.GetValueForOption(BaseCommand.JournalDataOption);
             value.AssemblyPath = bindingContext.ParseResult.GetValueForOption(BaseCommand.AssemblyPathOption);
             value.FullClassName = bindingContext.ParseResult.GetValueForOption(BaseCommand.FullClassNameOption);
-            value.LicenseKey = bindingContext.ParseResult.GetValueForOption(BaseCommand.LicenseKeyOption);
             return value;
         }
     }

@@ -11,20 +11,18 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         public static readonly Command ConsoleCommand
             = new Command("pipeline")
-                .AddParam(LicenseKeyOption)
                 .AddParam(PipelineOption)
                 .SetHandler(new PipelineCommandBinder())
                 .SetDescription("Pipeline command");
 
         public string Pipeline { get; set; }
-        public string LicenseKey { get; set; }
 
         protected override void ExecuteImpl(dosymep.Revit.Engine.RevitApplication application) {
             throw new System.NotImplementedException();
         }
 
         protected override dosymep.Revit.Engine.RevitApplication CreateApplication() {
-            return CreateRevitApplication(LicenseKey);
+            return CreateRevitApplication();
         }
     }
 }

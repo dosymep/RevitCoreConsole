@@ -11,13 +11,11 @@ namespace RevitCoreConsole.ConsoleCommands {
         public static readonly Command ConsoleCommand
             = new Command("revit_dbapplication")
                 .AddParam(AssemblyPathOption)
-                .AddParam(LicenseKeyOption)
                 .AddParam(FullClassNameOption)
                 .AddParam(JournalDataOption)
                 .SetHandler(new RevitDBApplicationBinder())
                 .SetDescription("Revit db addin application");
-
-        public string LicenseKey { get; set; }
+        
         public string JournalData { get; set; }
         public string AssemblyPath { get; set; }
         public string FullClassName { get; set; }
@@ -30,7 +28,7 @@ namespace RevitCoreConsole.ConsoleCommands {
         }
 
         protected override dosymep.Revit.Engine.RevitApplication CreateApplication() {
-            return CreateRevitApplication(LicenseKey);
+            return CreateRevitApplication();
         }
     }
 }

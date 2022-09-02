@@ -12,7 +12,6 @@ namespace RevitCoreConsole.ConsoleCommands.Binders {
                 LanguageCode =
                     LanguageCode.GetLanguageCode(
                         bindingContext.ParseResult.GetValueForOption(BaseCommand.LanguageCodeOption)),
-                LogFilePath = bindingContext.ParseResult.GetValueForOption(BaseCommand.LogFilePathOption)
             };
 
             return GetBoundValueImpl(value, bindingContext);

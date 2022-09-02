@@ -25,7 +25,6 @@ namespace RevitCoreConsole {
             
             rootCommand.AddGlobalOption(BaseCommand.ModelPathOption);
             rootCommand.AddGlobalOption(BaseCommand.LanguageCodeOption);
-            rootCommand.AddGlobalOption(BaseCommand.LogFilePathOption);
             
             rootCommand.Invoke(args);
         }
