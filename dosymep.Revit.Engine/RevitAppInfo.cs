@@ -48,12 +48,12 @@ namespace dosymep.Revit.Engine {
         /// <summary>
         /// Journal path.
         /// </summary>
-        public string JournalPath { get; set; } = Path.GetTempPath();
+        public string JournalPath { get; set; } =  GetDefaultJournalPath();
 
         /// <summary>
         /// Settings file location.
         /// </summary>
-        public string SettingsFileLocation { get; set; } = Environment.CurrentDirectory;
+        public string SettingsFileLocation { get; set; } = GetDefaultSettingsFileLocation();
 
         /// <summary>
         /// Enable IFC.
@@ -79,6 +79,22 @@ namespace dosymep.Revit.Engine {
         /// Api options.
         /// </summary>
         public ApiOptions ApiOptions { get; } = new ApiOptions();
+        
+        /// <summary>
+        /// Returns default journal path.
+        /// </summary>
+        /// <returns>Returns default journal path.</returns>
+        public static string GetDefaultJournalPath() {
+            return Environment.ExpandEnvironmentVariables($@"%localappdata%\Autodesk\Revit\Autodesk Revit {RevitApplication.RevitVersion}\Journals");
+        }
+
+        /// <summary>
+        /// Returns default settings file location.
+        /// </summary>
+        /// <returns>Returns default settings file location.</returns>
+        public static string GetDefaultSettingsFileLocation() {
+            return Environment.ExpandEnvironmentVariables($@"%appdata%\Autodesk\Revit\Autodesk Revit {RevitApplication.RevitVersion}");
+        }
     }
 
     /// <summary>
