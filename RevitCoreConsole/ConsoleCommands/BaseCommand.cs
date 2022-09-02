@@ -76,7 +76,7 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         private RevitAppInfo GetRevitAppInfo() {
             return new RevitAppInfo() {
-                ApiSettings = GetApiSettings(),
+                StartUpSettings = GetStartUpSettings(),
                 Guid = GetAppSettingsValueGuid(nameof(RevitAppInfo),
                     nameof(RevitAppInfo.Guid), new Guid("369186E7-1F68-4470-BB4F-89EB6DFF7826")),
                 LicenseKey = GetAppSettingsValue(nameof(RevitAppInfo),
@@ -88,22 +88,22 @@ namespace RevitCoreConsole.ConsoleCommands {
             };
         }
 
-        private ApiSettings GetApiSettings() {
-            return new ApiSettings() {
+        private StartUpSettings GetStartUpSettings() {
+            return new StartUpSettings() {
                 ApiOptions = GetApiOptions(),
-                JournalName = GetAppSettingsValue(nameof(ApiSettings),
-                    nameof(ApiSettings.JournalName), (string) null),
-                JournalPath = GetAppSettingsValue(nameof(ApiSettings),
-                    nameof(ApiSettings.JournalPath), ApiSettings.GetDefaultJournalPath()),
-                SettingsFileLocation = GetAppSettingsValue(nameof(ApiSettings),
-                    nameof(ApiSettings.SettingsFileLocation), ApiSettings.GetDefaultSettingsFileLocation()),
-                EnableIfc = GetAppSettingsValue(nameof(ApiSettings),
-                    nameof(ApiSettings.EnableIfc), true),
-                UseApiOptions = GetAppSettingsValue(nameof(ApiSettings),
-                    nameof(ApiSettings.UseApiOptions), false),
+                JournalName = GetAppSettingsValue(nameof(StartUpSettings),
+                    nameof(StartUpSettings.JournalName), (string) null),
+                JournalPath = GetAppSettingsValue(nameof(StartUpSettings),
+                    nameof(StartUpSettings.JournalPath), StartUpSettings.GetDefaultJournalPath()),
+                SettingsFileLocation = GetAppSettingsValue(nameof(StartUpSettings),
+                    nameof(StartUpSettings.SettingsFileLocation), StartUpSettings.GetDefaultSettingsFileLocation()),
+                EnableIfc = GetAppSettingsValue(nameof(StartUpSettings),
+                    nameof(StartUpSettings.EnableIfc), true),
+                UseApiOptions = GetAppSettingsValue(nameof(StartUpSettings),
+                    nameof(StartUpSettings.UseApiOptions), false),
                 LanguageCode = LanguageCode
-                               ?? GetAppSettingsValueLanguageCode(nameof(ApiSettings),
-                                   nameof(ApiSettings.LanguageCode), LanguageCode.ENU),
+                               ?? GetAppSettingsValueLanguageCode(nameof(StartUpSettings),
+                                   nameof(StartUpSettings.LanguageCode), LanguageCode.ENU),
             };
         }
 

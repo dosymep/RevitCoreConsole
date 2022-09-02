@@ -62,21 +62,21 @@ namespace dosymep.Revit.Engine {
             property?.SetValue(revitProduct, useAdvanceSettings);
         }
 
-        public static void SetApiSettings(this Product revitProduct, ApiSettings apiSettings) {
-            revitProduct.EnableIFC(apiSettings.EnableIfc);
-            revitProduct.SetPreferredLanguage(apiSettings.LanguageType);
-            revitProduct.SetUseAdvancedApiSettings(apiSettings.UseApiOptions);
+        public static void SetStartUpSettings(this Product revitProduct, StartUpSettings startUpSettings) {
+            revitProduct.EnableIFC(startUpSettings.EnableIfc);
+            revitProduct.SetPreferredLanguage(startUpSettings.LanguageType);
+            revitProduct.SetUseAdvancedApiSettings(startUpSettings.UseApiOptions);
 
-            if(!string.IsNullOrEmpty(apiSettings.JournalName)) {
-                revitProduct.SetJournalFile(apiSettings.JournalName);
+            if(!string.IsNullOrEmpty(startUpSettings.JournalName)) {
+                revitProduct.SetJournalFile(startUpSettings.JournalName);
             }
 
-            if(!string.IsNullOrEmpty(apiSettings.JournalPath)) {
-                revitProduct.SetJournalOutputPath(apiSettings.JournalPath);
+            if(!string.IsNullOrEmpty(startUpSettings.JournalPath)) {
+                revitProduct.SetJournalOutputPath(startUpSettings.JournalPath);
             }
 
-            if(!string.IsNullOrEmpty(apiSettings.SettingsFileLocation)) {
-                revitProduct.SetSettingsFileLocation(apiSettings.SettingsFileLocation);
+            if(!string.IsNullOrEmpty(startUpSettings.SettingsFileLocation)) {
+                revitProduct.SetSettingsFileLocation(startUpSettings.SettingsFileLocation);
             }
         }
 

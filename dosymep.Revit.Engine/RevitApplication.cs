@@ -103,7 +103,7 @@ namespace dosymep.Revit.Engine {
 
         private void InitRevit() {
             RevitProduct = Product.GetInstalledProduct();
-            RevitProduct.SetApiSettings(RevitAppInfo.ApiSettings);
+            RevitProduct.SetStartUpSettings(RevitAppInfo.StartUpSettings);
 
             var appId = new ClientApplicationId(RevitAppInfo.Guid,
                 RevitAppInfo.ApplicationName, RevitAppInfo.VendorName);
@@ -114,8 +114,8 @@ namespace dosymep.Revit.Engine {
             RevitProduct.Initialize_ForAutodeskInternalUseOnly(appId, RevitAppInfo.LicenseKey);
 #endif
 
-            if(RevitAppInfo.ApiSettings.UseApiOptions) {
-                RevitProduct.SetApiOptions(RevitAppInfo.ApiSettings.ApiOptions);
+            if(RevitAppInfo.StartUpSettings.UseApiOptions) {
+                RevitProduct.SetApiOptions(RevitAppInfo.StartUpSettings.ApiOptions);
             }
         }
 

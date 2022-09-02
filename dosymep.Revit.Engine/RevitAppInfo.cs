@@ -33,13 +33,13 @@ namespace dosymep.Revit.Engine {
         /// <summary>
         /// Api settings.
         /// </summary>
-        public ApiSettings ApiSettings { get; set; }
+        public StartUpSettings StartUpSettings { get; set; }
     }
 
     /// <summary>
-    /// Revit api settings.
+    /// Revit startup settings.
     /// </summary>
-    public class ApiSettings {
+    public class StartUpSettings {
         /// <summary>
         /// Journal name.
         /// </summary>
