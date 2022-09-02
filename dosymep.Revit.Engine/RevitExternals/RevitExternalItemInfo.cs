@@ -18,7 +18,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// Full path to assembly.
         /// </summary>
-        public string AssemblyPath => _revitAddinItem.AssemblyPath;
+        public string AssemblyPath => _revitAddinItem.FullAssemblyPath;
 
         /// <summary>
         /// Full class name.
