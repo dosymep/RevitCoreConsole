@@ -87,7 +87,7 @@ namespace dosymep.Revit.Engine {
             if(!IsRevitPath()) {
                 throw new InvalidOperationException($"{nameof(RevitEnginePath)} is not revit path.");
             }
-            
+
             _assemblyResolver.UpdateEnvironmentPaths();
             InitRevit();
         }
@@ -108,11 +108,15 @@ namespace dosymep.Revit.Engine {
             var appId = new ClientApplicationId(RevitAppInfo.Guid,
                 RevitAppInfo.ApplicationName, RevitAppInfo.VendorName);
 
+            try {
 #if REVIT_2021_OR_LESS
-            RevitProduct.Init(appId, RevitAppInfo.LicenseKey);
+                RevitProduct.Init(appId, RevitAppInfo.LicenseKey);
 #else
-            RevitProduct.Initialize_ForAutodeskInternalUseOnly(appId, RevitAppInfo.LicenseKey);
+                RevitProduct.Initialize_ForAutodeskInternalUseOnly(appId, RevitAppInfo.LicenseKey);
 #endif
+            } catch(global::Autodesk.Revit.Exceptions.ArgumentException ex) when(ex.ParamName.Equals("clientData")) {
+                throw new InvalidOperationException($"The \"{RevitAppInfo.LicenseKey}\" license key is not valid.", ex);
+            }
 
             if(RevitAppInfo.StartUpSettings.UseApiOptions) {
                 RevitProduct.SetApiOptions(RevitAppInfo.StartUpSettings.ApiOptions);
