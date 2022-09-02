@@ -24,9 +24,6 @@
         <Reference Include="dosymep.Revit.FileInfo">
             <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Revit.FileInfo\bin\Debug\net48\dosymep.Revit.FileInfo.dll</HintPath>
         </Reference>
-        <Reference Include="dosymep.Revit.Engine">
-            <HintPath>..\..\dosymep.Revit.Engine\dosymep.Revit.Engine\bin\x64\Debug\$(AppVersion)\net48\dosymep.Revit.Engine.dll</HintPath>
-        </Reference>
 
         <Reference Include="Autodesk.Navisworks.Automation">
             <HintPath>C:\Program Files\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Automation.dll</HintPath>
