@@ -63,6 +63,12 @@
         <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="RevitCoreConsole.exe.config">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
     <PropertyGroup Condition="'$(Configuration)'=='D2020' OR '$(Configuration)'=='R2020'">
         <AppVersion>2020</AppVersion>
     </PropertyGroup>

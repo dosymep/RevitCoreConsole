@@ -38,8 +38,7 @@ namespace RevitCoreConsole.ConsoleCommands {
         public static readonly Option<string> LanguageCodeOption
             = new Option<string>(
                     name: "/l",
-                    description: "Application language",
-                    getDefaultValue: () => "ENU") {ArgumentHelpName = "ENU"}
+                    description: "Application language") {ArgumentHelpName = "ENU"}
                 .FromAmong("ENU", "ENG", "FRA", "DEU", "ITA", "JPN", "KOR",
                     "PLK", "ESP", "CHS", "CHT", "PTB", "RUS", "CSY", "HUN");
 
@@ -59,7 +58,7 @@ namespace RevitCoreConsole.ConsoleCommands {
                 RevitEnginePath = GetAppSettingsValue(nameof(RevitAppInfo),
                     nameof(RevitApplication.RevitEnginePath), RevitApplication.GetDefaultRevitEnginePath()),
             };
-
+            
             application.Open();
             return application;
         }

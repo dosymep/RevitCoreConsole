@@ -65,6 +65,7 @@ namespace dosymep.Revit.Engine {
         public static void SetApiSettings(this Product revitProduct, ApiSettings apiSettings) {
             revitProduct.EnableIFC(apiSettings.EnableIfc);
             revitProduct.SetPreferredLanguage(apiSettings.LanguageType);
+            revitProduct.SetUseAdvancedApiSettings(apiSettings.UseApiOptions);
 
             if(!string.IsNullOrEmpty(apiSettings.JournalName)) {
                 revitProduct.SetJournalFile(apiSettings.JournalName);
@@ -80,7 +81,6 @@ namespace dosymep.Revit.Engine {
         }
 
         public static void SetApiOptions(this Product revitProduct, ApiOptions apiOptions) {
-            revitProduct.SetUseAdvancedApiSettings(true);
             revitProduct.Settings[APIOption.AcceptForeignFiles] = apiOptions.IsAcceptForeignFiles;
             revitProduct.Settings[APIOption.IgnoreMissingUpdaters] = apiOptions.IsIgnoreMissingUpdaters;
             revitProduct.Settings[APIOption.OverwriteExistingFiles] = apiOptions.IsOverwriteExistingFiles;
