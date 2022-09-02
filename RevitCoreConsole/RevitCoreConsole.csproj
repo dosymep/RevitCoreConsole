@@ -13,8 +13,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1"/>
-        <PackageReference Include="YamlDotNet" Version="12.0.0"/>
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+        <PackageReference Include="YamlDotNet" Version="12.0.0" />
     </ItemGroup>
 
     <ItemGroup>
@@ -45,14 +45,22 @@
             <Private>False</Private>
         </Reference>
 
+        <Reference Include="PackageContentsParser">
+          <HintPath>C:\Program Files\Autodesk\Revit 2020\PackageContentsParser.dll</HintPath>
+        </Reference>
+
         <Reference Include="RevitAPI">
             <HintPath>C:\Program Files\Autodesk\Revit $(AppVersion)\RevitAPI.dll</HintPath>
             <Private>False</Private>
         </Reference>
+
+        <Reference Include="System.Configuration" />
+
+        <Reference Include="System.IO.Compression" />
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj"/>
+        <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
     </ItemGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='D2020' OR '$(Configuration)'=='R2020'">

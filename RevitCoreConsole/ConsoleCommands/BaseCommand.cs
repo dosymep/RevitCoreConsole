@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.CommandLine;
+using System.Configuration;
 using System.IO;
 
 using Autodesk.Navisworks.Api.Automation;
 
 using dosymep.Autodesk.FileInfo;
+using dosymep.Revit.Engine;
 
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -66,16 +69,11 @@ namespace RevitCoreConsole.ConsoleCommands {
             return new NavisworksApplication();
         }
 
-        protected dosymep.Revit.Engine.RevitApplication CreateRevitApplication(string licenceKey) {
-            var application = new dosymep.Revit.Engine.RevitApplication() {
-                RevitEnginePath = @"C:\Program Files\Autodesk\Revit 2020",
-                RevitAppInfo = {
-                    VendorName = "dosymep",
-                    ApplicationName = "RevitCoreConsole",
-                    Guid = new Guid("54505B8D-A016-40FF-BA6D-23440A49B53C"),
-                    LicenseKey = licenceKey,
-                    ApiSettings = {LanguageCode = LanguageCode}
-                }
+        protected RevitApplication CreateRevitApplication(string licenceKey) {
+            RevitApplication application = new RevitApplication() {
+                RevitAppInfo = GetRevitAppInfo(),
+                RevitEnginePath = GetAppSettingsValue(nameof(RevitAppInfo),
+                    nameof(RevitApplication.RevitEnginePath), RevitApplication.GetDefaultRevitEnginePath()),
             };
 
             application.Open();
@@ -86,11 +84,84 @@ namespace RevitCoreConsole.ConsoleCommands {
             if(string.IsNullOrEmpty(journalData)) {
                 return new Dictionary<string, string>();
             }
-            
+
             IDeserializer deserializer = new DeserializerBuilder()
                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
             return deserializer.Deserialize<Dictionary<string, string>>(journalData);
+        }
+
+        private RevitAppInfo GetRevitAppInfo() {
+            return new RevitAppInfo() {
+                ApiSettings = GetApiSettings(),
+                Guid = GetAppSettingsValueGuid(nameof(RevitAppInfo),
+                    nameof(RevitAppInfo.Guid), new Guid("369186E7-1F68-4470-BB4F-89EB6DFF7826")),
+                LicenseKey = GetAppSettingsValue(nameof(RevitAppInfo),
+                    nameof(RevitAppInfo.LicenseKey), "trollface.jpg"),
+                VendorName = GetAppSettingsValue(nameof(RevitAppInfo),
+                    nameof(RevitAppInfo.VendorName), "dosymep"),
+                ApplicationName = GetAppSettingsValue(nameof(RevitAppInfo),
+                    nameof(RevitAppInfo.ApplicationName), "RevitCoreConsole")
+            };
+        }
+
+        private ApiSettings GetApiSettings() {
+            return new ApiSettings() {
+                ApiOptions = GetApiOptions(),
+                JournalName = GetAppSettingsValue(nameof(ApiSettings),
+                    nameof(ApiSettings.JournalName), (string) null),
+                JournalPath = GetAppSettingsValue(nameof(ApiSettings),
+                    nameof(ApiSettings.JournalPath), ApiSettings.GetDefaultJournalPath()),
+                SettingsFileLocation = GetAppSettingsValue(nameof(ApiSettings),
+                    nameof(ApiSettings.SettingsFileLocation), ApiSettings.GetDefaultSettingsFileLocation()),
+                EnableIfc = GetAppSettingsValue(nameof(ApiSettings),
+                    nameof(ApiSettings.EnableIfc), true),
+                UseApiOptions = GetAppSettingsValue(nameof(ApiSettings),
+                    nameof(ApiSettings.UseApiOptions), false),
+                LanguageCode = LanguageCode
+                               ?? GetAppSettingsValueLanguageCode(nameof(ApiSettings),
+                                   nameof(ApiSettings.LanguageCode), LanguageCode.ENU),
+            };
+        }
+
+        private static ApiOptions GetApiOptions() {
+            return new ApiOptions() {
+                IsAcceptForeignFiles = GetAppSettingsValue(nameof(ApiOptions),
+                    nameof(ApiOptions.IsAcceptForeignFiles), true),
+                IsUpdateSharedFamilies = GetAppSettingsValue(nameof(ApiOptions),
+                    nameof(ApiOptions.IsUpdateSharedFamilies), true),
+                IsIgnoreMissingUpdaters = GetAppSettingsValue(nameof(ApiOptions),
+                    nameof(ApiOptions.IsIgnoreMissingUpdaters), true),
+                IsUpdateFamilyParameters = GetAppSettingsValue(nameof(ApiOptions),
+                    nameof(ApiOptions.IsUpdateFamilyParameters), true),
+                IsOverwriteExistingFiles = GetAppSettingsValue(nameof(ApiOptions),
+                    nameof(ApiOptions.IsOverwriteExistingFiles), true),
+                IsReplaceExistingSymbols = GetAppSettingsValue(nameof(ApiOptions),
+                    nameof(ApiOptions.IsReplaceExistingSymbols), true),
+                IsIgnoreLinkedFilesOnSave = GetAppSettingsValue(nameof(ApiOptions),
+                    nameof(ApiOptions.IsIgnoreLinkedFilesOnSave), true),
+                IsForceMultiUndoOperation = GetAppSettingsValue(nameof(ApiOptions),
+                    nameof(ApiOptions.IsForceMultiUndoOperation), true),
+            };
+        }
+
+        private static T GetAppSettingsValue<T>(string sectionName, string propertyName, T defaultValue = default) {
+            var section = ConfigurationManager.GetSection(sectionName) as NameValueCollection;
+            return section == null
+                ? defaultValue
+                : (T) Convert.ChangeType(section.Get(propertyName), typeof(T));
+        }
+
+        private static Guid GetAppSettingsValueGuid(string sectionName, string propertyName,
+            Guid defaultValue = default) {
+            string value = GetAppSettingsValue<string>(sectionName, propertyName);
+            return Guid.TryParse(value, out Guid guidValue) ? guidValue : defaultValue;
+        }
+
+        private static LanguageCode GetAppSettingsValueLanguageCode(string sectionName, string propertyName,
+            LanguageCode defaultValue = default) {
+            string value = GetAppSettingsValue<string>(sectionName, propertyName);
+            return string.IsNullOrEmpty(value) ? defaultValue : LanguageCode.GetLanguageCode(value);
         }
     }
 

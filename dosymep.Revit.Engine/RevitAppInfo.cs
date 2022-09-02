@@ -13,7 +13,7 @@ namespace dosymep.Revit.Engine {
         /// <summary>
         /// Application Guid.
         /// </summary>
-        public Guid Guid { get; set; } = new Guid("369186E7-1F68-4470-BB4F-89EB6DFF7826");
+        public Guid Guid { get; set; }
 
         /// <summary>
         /// Autodesk licence key.
@@ -23,17 +23,17 @@ namespace dosymep.Revit.Engine {
         /// <summary>
         /// Vendor name.
         /// </summary>
-        public string VendorName { get; set; } = "dosymep";
+        public string VendorName { get; set; }
 
         /// <summary>
         /// Application name.
         /// </summary>
-        public string ApplicationName { get; set; } = "RevitCoreConsole";
+        public string ApplicationName { get; set; }
         
         /// <summary>
         /// Api settings.
         /// </summary>
-        public ApiSettings ApiSettings { get; } = new ApiSettings();
+        public ApiSettings ApiSettings { get; set; }
     }
 
     /// <summary>
@@ -48,7 +48,7 @@ namespace dosymep.Revit.Engine {
         /// <summary>
         /// Journal path.
         /// </summary>
-        public string JournalPath { get; set; } =  GetDefaultJournalPath();
+        public string JournalPath { get; set; }
 
         /// <summary>
         /// Settings file location.
@@ -78,7 +78,7 @@ namespace dosymep.Revit.Engine {
         /// <summary>
         /// Api options.
         /// </summary>
-        public ApiOptions ApiOptions { get; } = new ApiOptions();
+        public ApiOptions ApiOptions { get; set; }
         
         /// <summary>
         /// Returns default journal path.

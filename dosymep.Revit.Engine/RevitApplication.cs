@@ -12,14 +12,12 @@ namespace dosymep.Revit.Engine {
     /// Revit application.
     /// </summary>
     public class RevitApplication : IHasRevitApplication, IDisposable {
-        private readonly RevitAppInfo _revitAppInfo;
         private readonly RevitAssemblyResolver _assemblyResolver;
 
         /// <summary>
         /// Creates revit application.
         /// </summary>
         public RevitApplication() {
-            _revitAppInfo = new RevitAppInfo();
             _assemblyResolver = new RevitAssemblyResolver();
         }
 
@@ -49,12 +47,12 @@ namespace dosymep.Revit.Engine {
         /// Revit product.
         /// </summary>
         public Product RevitProduct { get; private set; }
-        
+
         /// <summary>
         /// Revit application information.
         /// </summary>
-        public RevitAppInfo RevitAppInfo => _revitAppInfo;
-        
+        public RevitAppInfo RevitAppInfo { get; set; }
+
         /// <inheritdoc />
         public Application Application => RevitProduct.Application;
 
@@ -64,6 +62,14 @@ namespace dosymep.Revit.Engine {
         public string RevitEnginePath {
             get => _assemblyResolver.RevitEnginePath;
             set => _assemblyResolver.RevitEnginePath = value;
+        }
+
+        /// <summary>
+        /// Returns default revit engine path.
+        /// </summary>
+        /// <returns>Returns default revit engine path.</returns>
+        public static string GetDefaultRevitEnginePath() {
+            return Environment.ExpandEnvironmentVariables($@"%programfiles%\Autodesk\Revit {RevitVersion}");
         }
 
         /// <summary>
