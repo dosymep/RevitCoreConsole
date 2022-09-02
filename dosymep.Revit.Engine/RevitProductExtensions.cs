@@ -64,10 +64,19 @@ namespace dosymep.Revit.Engine {
 
         public static void SetApiSettings(this Product revitProduct, ApiSettings apiSettings) {
             revitProduct.EnableIFC(apiSettings.EnableIfc);
-            revitProduct.SetJournalFile(apiSettings.JournalName);
-            revitProduct.SetJournalOutputPath(apiSettings.JournalPath);
             revitProduct.SetPreferredLanguage(apiSettings.LanguageType);
-            revitProduct.SetSettingsFileLocation(apiSettings.SettingsFileLocation);
+
+            if(!string.IsNullOrEmpty(apiSettings.JournalName)) {
+                revitProduct.SetJournalFile(apiSettings.JournalName);
+            }
+
+            if(!string.IsNullOrEmpty(apiSettings.JournalPath)) {
+                revitProduct.SetJournalOutputPath(apiSettings.JournalPath);
+            }
+
+            if(!string.IsNullOrEmpty(apiSettings.SettingsFileLocation)) {
+                revitProduct.SetSettingsFileLocation(apiSettings.SettingsFileLocation);
+            }
         }
 
         public static void SetApiOptions(this Product revitProduct, ApiOptions apiOptions) {
