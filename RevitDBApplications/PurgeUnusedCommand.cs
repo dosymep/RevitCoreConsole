@@ -14,6 +14,15 @@ namespace RevitDBApplications {
         public IDictionary<string, string> JournalData { get; set; }
 
         public int TryCount { get; set; } = 5;
+        public bool WithThermals { get; set; } = true;
+        public bool WithMaterials { get; set; } = true;
+        public bool WithStructures { get; set; } = true;
+        public bool WithAppearances { get; set; } = true;
+        public bool WithSymbols { get; set; } = true;
+        public bool WithLinkSymbols { get; set; } = true;
+        public bool WithFamilies { get; set; } = true;
+        public bool WithNonDeletable { get; set; } = true;
+        public bool WithImportCategories { get; set; } = true;
 
         public ExternalDBApplicationResult OnStartup(ControlledApplication application) {
             DesignAutomationBridge.DesignAutomationReadyEvent += DesignAutomationReadyEvent;
@@ -31,7 +40,7 @@ namespace RevitDBApplications {
             for(int i = 0; i < TryCount; i++) {
                 using(var transaction = new Transaction(document)) {
                     transaction.Start($"BIM: Remove unused [{i}].");
-                    
+
                     IEnumerable<ElementId> elementIds = GetElementIds(document);
                     foreach(ElementId elementId in elementIds) {
                         try {
@@ -39,37 +48,63 @@ namespace RevitDBApplications {
                         } catch {
                         }
                     }
-                    
+
                     transaction.Commit();
                 }
             }
         }
 
-        private static IEnumerable<ElementId> GetElementIds(Document document) {
+        private IEnumerable<ElementId> GetElementIds(Document document) {
             return GetMethods(document)
                 .SelectMany(item => (ICollection<ElementId>) item.Invoke(document, Array.Empty<object>()))
                 .Distinct();
         }
 
-        private static IEnumerable<MethodInfo> GetMethods(Document document) {
-            yield return document.GetType().GetMethod("GetUnusedThermals",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            yield return document.GetType().GetMethod("GetUnusedStructures",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            yield return document.GetType().GetMethod("GetUnusedAppearances",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            yield return document.GetType().GetMethod("GetUnusedMaterials",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            yield return document.GetType().GetMethod("GetUnusedImportCategories",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            yield return document.GetType().GetMethod("GetNonDeletableUnusedElements",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            yield return document.GetType().GetMethod("GetUnusedLinkSymbols",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            yield return document.GetType().GetMethod("GetUnusedSymbols",
-                BindingFlags.Instance | BindingFlags.NonPublic);
-            yield return document.GetType().GetMethod("GetUnusedFamilies",
-                BindingFlags.Instance | BindingFlags.NonPublic);
+        private IEnumerable<MethodInfo> GetMethods(Document document) {
+            if(WithThermals) {
+                yield return document.GetType().GetMethod("GetUnusedThermals",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            if(WithStructures) {
+                yield return document.GetType().GetMethod("GetUnusedStructures",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            if(WithAppearances) {
+                yield return document.GetType().GetMethod("GetUnusedAppearances",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            if(WithMaterials) {
+                yield return document.GetType().GetMethod("GetUnusedMaterials",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            if(WithImportCategories) {
+                yield return document.GetType().GetMethod("GetUnusedImportCategories",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            if(WithNonDeletable) {
+                yield return document.GetType().GetMethod("GetNonDeletableUnusedElements",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            if(WithLinkSymbols) {
+                yield return document.GetType().GetMethod("GetUnusedLinkSymbols",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            if(WithSymbols) {
+                yield return document.GetType().GetMethod("GetUnusedSymbols",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            }
+
+            if(WithFamilies) {
+                yield return document.GetType().GetMethod("GetUnusedFamilies",
+                    BindingFlags.Instance | BindingFlags.NonPublic);
+            }
         }
     }
 }

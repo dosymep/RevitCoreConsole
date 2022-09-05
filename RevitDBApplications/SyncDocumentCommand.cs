@@ -14,6 +14,9 @@ namespace RevitDBApplications {
     public class SyncDocumentCommand : IExternalDBApplication {
         public IDictionary<string, string> JournalData { get; set; }
         
+        public bool Compact { get; set; } = true;
+        public string Comment { get; set; } = "Sync document command.";
+        
         public ExternalDBApplicationResult OnStartup(ControlledApplication application) {
             DesignAutomationBridge.DesignAutomationReadyEvent += DesignAutomationReadyEvent;
             return ExternalDBApplicationResult.Succeeded;
@@ -42,8 +45,8 @@ namespace RevitDBApplications {
                 SaveLocalAfter = true,
                 SaveLocalBefore = true,
                 
-                Comment = null,
-                Compact = false
+                Comment = Comment,
+                Compact = Compact
             };
             
             options.SetRelinquishOptions(CreateRelinquishOptions());
