@@ -4,7 +4,7 @@ namespace RevitCoreConsole.ConsoleCommands.Binders
 {
     internal class PipelineCommandBinder : BaseCommandBinder<PipelineCommand> {
         protected override PipelineCommand GetBoundValueImpl(PipelineCommand value, BindingContext bindingContext) {
-            value.Pipeline = bindingContext.ParseResult.GetValueForOption(PipelineCommand.PipelineOption);
+            value.PipelineFile = bindingContext.ParseResult.GetValueForOption(PipelineCommand.PipelineFileOption);
             return value;
         }
     }
