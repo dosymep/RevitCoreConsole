@@ -7,7 +7,7 @@ using RevitCoreConsole.ConsoleCommands.Binders;
 namespace RevitCoreConsole.ConsoleCommands {
     internal class NavisCommand : BaseCommand<NavisworksApplication> {
         public static readonly Command ConsoleCommand
-            = new Command("navis_command")
+            = new Command("navis")
                 .AddParam(AssemblyPathOption)
                 .AddParam(FullClassNameOption)
                 .AddParam(JournalDataOption)

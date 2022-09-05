@@ -9,7 +9,7 @@ using RevitCoreConsole.ConsoleCommands.Binders;
 namespace RevitCoreConsole.ConsoleCommands {
     internal class RevitDBApplication : BaseCommand<dosymep.Revit.Engine.RevitApplication> {
         public static readonly Command ConsoleCommand
-            = new Command("revit_dbapplication")
+            = new Command("revit")
                 .AddParam(AssemblyPathOption)
                 .AddParam(FullClassNameOption)
                 .AddParam(JournalDataOption)
