@@ -15,6 +15,8 @@ namespace RevitCoreConsole.ConsoleCommands {
                 .SetHandler(new NavisCommandBinder())
                 .SetDescription("Navisworks command");
 
+        public string ModelPath { get; set; }
+
         public string JournalData { get; set; }
         public string AssemblyPath { get; set; }
         public string FullClassName { get; set; }
@@ -27,7 +29,7 @@ namespace RevitCoreConsole.ConsoleCommands {
         }
 
         protected override NavisworksApplication CreateApplication() {
-            return CreateNavisworksApplication();
+            return CreateNavisworksApplication(ModelPath);
         }
     }
 }

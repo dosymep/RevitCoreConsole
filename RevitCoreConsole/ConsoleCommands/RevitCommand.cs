@@ -11,16 +11,19 @@ namespace RevitCoreConsole.ConsoleCommands {
     internal class RevitCommand : BaseCommand<RevitContext> {
         public static readonly Command ConsoleCommand
             = new Command("revit")
+                .AddParam(ModelPathOption)
                 .AddParam(AssemblyPathOption)
                 .AddParam(FullClassNameOption)
                 .AddParam(JournalDataOption)
                 .SetHandler(new RevitCommandBinder())
                 .SetDescription("Revit db addin application");
+
+        public string ModelPath { get; set; }
         
         public string JournalData { get; set; }
         public string AssemblyPath { get; set; }
         public string FullClassName { get; set; }
-
+        
         protected override void ExecuteImpl(RevitContext context) {
             var revitAddin = new RevitAddinDBApplication() {AssemblyPath = AssemblyPath, FullClassName = FullClassName};
             new RevitExternalTransformer(ModelPath, context)

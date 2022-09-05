@@ -8,7 +8,6 @@ namespace RevitCoreConsole.ConsoleCommands.Binders {
         where T : BaseCommand, new() {
         protected override T GetBoundValue(BindingContext bindingContext) {
             T value = new T() {
-                ModelPath = bindingContext.ParseResult.GetValueForOption(BaseCommand.ModelPathOption),
                 LanguageCode =
                     LanguageCode.GetLanguageCode(
                         bindingContext.ParseResult.GetValueForOption(BaseCommand.LanguageCodeOption)),

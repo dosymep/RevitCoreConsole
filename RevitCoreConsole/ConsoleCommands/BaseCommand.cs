@@ -42,15 +42,13 @@ namespace RevitCoreConsole.ConsoleCommands {
                 .FromAmong("ENU", "ENG", "FRA", "DEU", "ITA", "JPN", "KOR",
                     "PLK", "ESP", "CHS", "CHT", "PTB", "RUS", "CSY", "HUN");
 
-        public string ModelPath { get; set; }
-        public string LogFilePath { get; set; }
         public LanguageCode LanguageCode { get; set; }
 
         public abstract void Execute();
 
-        protected NavisworksApplication CreateNavisworksApplication() {
+        protected NavisworksApplication CreateNavisworksApplication(string modelPath) {
             var application = new NavisworksApplication();
-            application.OpenFile(ModelPath);
+            application.OpenFile(modelPath);
 
             return application;
         }

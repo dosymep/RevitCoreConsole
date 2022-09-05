@@ -22,10 +22,12 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         public static readonly Command ConsoleCommand
             = new Command("forge")
+                .AddParam(ModelPathOption)
                 .AddParam(BundlePathOption)
                 .SetHandler(new ForgeCommandBinder())
                 .SetDescription("Revit forge application (this command works like Forge RevitCoreConsole)");
 
+        public string ModelPath { get; set; }
         public string BundlePath { get; set; }
 
         protected override void ExecuteImpl(RevitContext context) {
