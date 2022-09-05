@@ -112,7 +112,7 @@ namespace dosymep.Revit.Engine {
 #if REVIT_2021_OR_LESS
                 RevitProduct.Init(appId, RevitContextOptions.LicenseKey);
 #else
-                RevitProduct.Initialize_ForAutodeskInternalUseOnly(appId, RevitAppInfo.LicenseKey);
+                RevitProduct.Initialize_ForAutodeskInternalUseOnly(appId, RevitContextOptions.LicenseKey);
 #endif
             } catch(global::Autodesk.Revit.Exceptions.ArgumentException ex) when(ex.ParamName.Equals("clientData")) {
                 throw new InvalidOperationException($"The \"{RevitContextOptions.LicenseKey}\" license key is not valid.", ex);
