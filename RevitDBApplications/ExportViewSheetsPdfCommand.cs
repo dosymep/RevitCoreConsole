@@ -35,8 +35,8 @@ namespace RevitDBApplications {
         }
 #else
         private void PrintViewSheets(DesignAutomationReadyEventArgs e) {
-            if(string.IsNullOrEmpty(DirectoryName)) {
-                throw new InvalidOperationException($"The {DirectoryName} is not set.");
+            if(string.IsNullOrEmpty(DirectoryPath)) {
+                throw new InvalidOperationException($"The {DirectoryPath} is not set.");
             }
 
             Document document = e.DesignAutomationData.RevitDoc;
@@ -44,13 +44,13 @@ namespace RevitDBApplications {
             List<ElementId> elementIds = new FilteredElementCollector(document)
                 .WhereElementIsNotElementType()
                 .OfCategory(BuiltInCategory.OST_Sheets)
-                .Select(item => new {View = item, Values = GetParamValues(item, ParamNames)})
+                .Select(item => new {View = item, Values = GetParamValues(item, ParamName)})
                 .Where(item => IsViewSheet(item.Values))
                 .Select(item => item.View.Id)
                 .ToList();
 
-            Directory.CreateDirectory(DirectoryName);
-            document.Export(DirectoryName, elementIds, GetExportOptions(document));
+            Directory.CreateDirectory(DirectoryPath);
+            document.Export(DirectoryPath, elementIds, GetExportOptions(document));
         }
 
         public ColorDepthType ColorDepth { get; set; } = ColorDepthType.Color;
@@ -81,17 +81,14 @@ namespace RevitDBApplications {
         public bool MaskCoincidentLines { get; set; } = false;
 
         public string FileName { get; set; }
-        public string DirectoryName { get; set; } = @"D:\Temp\RevitCoreConsole\results";
+        public string DirectoryPath { get; set; }
 
-        public List<string> ParamNames { get; set; } = new List<string>() {"Sheets"};
-        public List<string> ParamValues { get; set; } = new List<string>() {"500"};
+        public string ParamName { get; set; }
+        public string ParamValue { get; set; }
 
         private bool IsViewSheet(List<string> values) {
-            if(ParamNames is null || ParamNames.Count == 0) {
-                return true;
-            }
-
-            if(ParamValues is null || ParamValues.Count == 0) {
+            if(string.IsNullOrEmpty(ParamName)
+               || string.IsNullOrEmpty(ParamValue)) {
                 return true;
             }
 
@@ -99,12 +96,11 @@ namespace RevitDBApplications {
                 return false;
             }
 
-            return values.Intersect(ParamValues, StringComparer.CurrentCultureIgnoreCase).Any();
+            return values.Contains(ParamValue, StringComparer.CurrentCultureIgnoreCase);
         }
 
-        private List<string> GetParamValues(Element element, List<string> paramNames) {
-            return paramNames
-                ?.SelectMany(item => element.GetParameters(item))
+        private List<string> GetParamValues(Element element, string paramName) {
+            return element.GetParameters(paramName)
                 .Select(item => GetParamValue(item))
                 .Where(item => !string.IsNullOrEmpty(item))
                 .ToList() ?? new List<string>();
