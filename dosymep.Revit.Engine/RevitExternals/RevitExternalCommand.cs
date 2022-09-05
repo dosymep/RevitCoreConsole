@@ -14,19 +14,19 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <summary>
         /// Creates external command application.
         /// </summary>
-        /// <param name="hasRevitApplication">Revit application instance.</param>
-        public RevitExternalCommand(IHasRevitApplication hasRevitApplication)
-            : base(hasRevitApplication) {
+        /// <param name="revitContext">Revit application instance.</param>
+        public RevitExternalCommand(IRevitContext revitContext)
+            : base(revitContext) {
         }
 
         /// <inheritdoc />
         protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
-            var application = RevitExternalItemInfo.CreateExternalApplication<IExternalCommand>();
+            var application = RevitAddinItem.CreateAddinItemObject<IExternalCommand>();
             ApplyJournalData(application, journalData);
 
             string message = null;
             ElementSet elementSet = new ElementSet();
-            var externalCommandData = _hasRevitApplication.Application.CreateExternalCommandData(journalData);
+            var externalCommandData = _revitContext.Application.CreateExternalCommandData(journalData);
             CheckResult(application.Execute(externalCommandData, ref message, elementSet), message, elementSet);
         }
 

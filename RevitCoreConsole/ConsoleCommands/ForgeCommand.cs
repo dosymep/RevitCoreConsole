@@ -13,7 +13,7 @@ using dosymep.Revit.FileInfo.RevitAddins;
 using RevitCoreConsole.ConsoleCommands.Binders;
 
 namespace RevitCoreConsole.ConsoleCommands {
-    internal class ForgeApplication : BaseCommand<dosymep.Revit.Engine.RevitApplication> {
+    internal class ForgeCommand : BaseCommand<dosymep.Revit.Engine.RevitContext> {
         public static readonly Option<string> BundlePathOption
             = new Option<string>(
                 name: "/al",
@@ -22,12 +22,12 @@ namespace RevitCoreConsole.ConsoleCommands {
         public static readonly Command ConsoleCommand
             = new Command("forge")
                 .AddParam(BundlePathOption)
-                .SetHandler(new ForgeApplicationBinder())
+                .SetHandler(new ForgeCommandBinder())
                 .SetDescription("Revit forge application (this command works like Forge RevitCoreConsole)");
 
         public string BundlePath { get; set; }
 
-        protected override void ExecuteImpl(dosymep.Revit.Engine.RevitApplication application) {
+        protected override void ExecuteImpl(dosymep.Revit.Engine.RevitContext context) {
             var tempName = Path.Combine(Path.GetTempPath(), "RevitCoreConsole", "Bundles");
             ZipFile.ExtractToDirectory(BundlePath, tempName);
 
@@ -45,7 +45,7 @@ namespace RevitCoreConsole.ConsoleCommands {
 
                 var dbapplication = RevitAddinManifest.GetAddinManifest(component.ModuleName).AddinDBApplications
                     .FirstOrDefault();
-                new RevitExternalTransformer(ModelPath, application)
+                new RevitExternalTransformer(ModelPath, context)
                     .Transform(dbapplication)
                     .ExecuteExternalItem(new Dictionary<string, string>());
             } finally {
@@ -53,7 +53,7 @@ namespace RevitCoreConsole.ConsoleCommands {
             }
         }
 
-        protected override dosymep.Revit.Engine.RevitApplication CreateApplication() {
+        protected override dosymep.Revit.Engine.RevitContext CreateApplication() {
             return CreateRevitApplication();
         }
     }

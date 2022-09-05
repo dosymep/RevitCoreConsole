@@ -5,7 +5,7 @@ namespace dosymep.Revit.Engine {
     /// <summary>
     /// Interface revit application.
     /// </summary>
-    public interface IHasRevitApplication {
+    public interface IRevitContext {
         /// <summary>
         /// Revit application.
         /// </summary>

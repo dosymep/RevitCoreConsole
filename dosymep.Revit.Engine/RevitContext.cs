@@ -11,13 +11,13 @@ namespace dosymep.Revit.Engine {
     /// <summary>
     /// Revit application.
     /// </summary>
-    public class RevitApplication : IHasRevitApplication, IDisposable {
+    public class RevitContext : IRevitContext, IDisposable {
         private readonly RevitAssemblyResolver _assemblyResolver;
 
         /// <summary>
         /// Creates revit application.
         /// </summary>
-        public RevitApplication() {
+        public RevitContext() {
             _assemblyResolver = new RevitAssemblyResolver();
         }
 
@@ -51,7 +51,7 @@ namespace dosymep.Revit.Engine {
         /// <summary>
         /// Revit application information.
         /// </summary>
-        public RevitAppInfo RevitAppInfo { get; set; }
+        public RevitContextOptions RevitContextOptions { get; set; }
 
         /// <inheritdoc />
         public Application Application => RevitProduct.Application;
@@ -103,23 +103,23 @@ namespace dosymep.Revit.Engine {
 
         private void InitRevit() {
             RevitProduct = Product.GetInstalledProduct();
-            RevitProduct.SetStartUpSettings(RevitAppInfo.StartUpSettings);
+            RevitProduct.SetStartUpSettings(RevitContextOptions.StartUpSettings);
 
-            var appId = new ClientApplicationId(RevitAppInfo.Guid,
-                RevitAppInfo.ApplicationName, RevitAppInfo.VendorName);
+            var appId = new ClientApplicationId(RevitContextOptions.Guid,
+                RevitContextOptions.ApplicationName, RevitContextOptions.VendorName);
 
             try {
 #if REVIT_2021_OR_LESS
-                RevitProduct.Init(appId, RevitAppInfo.LicenseKey);
+                RevitProduct.Init(appId, RevitContextOptions.LicenseKey);
 #else
                 RevitProduct.Initialize_ForAutodeskInternalUseOnly(appId, RevitAppInfo.LicenseKey);
 #endif
             } catch(global::Autodesk.Revit.Exceptions.ArgumentException ex) when(ex.ParamName.Equals("clientData")) {
-                throw new InvalidOperationException($"The \"{RevitAppInfo.LicenseKey}\" license key is not valid.", ex);
+                throw new InvalidOperationException($"The \"{RevitContextOptions.LicenseKey}\" license key is not valid.", ex);
             }
 
-            if(RevitAppInfo.StartUpSettings.UseApiOptions) {
-                RevitProduct.SetApiOptions(RevitAppInfo.StartUpSettings.ApiOptions);
+            if(RevitContextOptions.StartUpSettings.UseApiOptions) {
+                RevitProduct.SetApiOptions(RevitContextOptions.StartUpSettings.ApiOptions);
             }
         }
 

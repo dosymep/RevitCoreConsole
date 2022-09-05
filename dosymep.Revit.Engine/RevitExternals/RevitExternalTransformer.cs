@@ -13,40 +13,34 @@ namespace dosymep.Revit.Engine.RevitExternals {
         ITransformer<IRevitExternalItem, RevitAddinCommand>,
         ITransformer<IRevitExternalItem, RevitAddinApplication>,
         ITransformer<IRevitExternalItem, RevitAddinDBApplication> {
-        
         private readonly string _mainModelPath;
-        private readonly IHasRevitApplication _hasRevitApplication;
+        private readonly IRevitContext _revitContext;
 
         /// <summary>
         /// Creates external app transformer.
         /// </summary>
-        public RevitExternalTransformer(string mainModelPath, IHasRevitApplication hasRevitApplication) {
+        public RevitExternalTransformer(string mainModelPath, IRevitContext revitContext) {
             _mainModelPath = mainModelPath;
-            _hasRevitApplication = hasRevitApplication;
+            _revitContext = revitContext;
         }
-        
-       
+
+
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinCommand visitable) {
-            return new RevitExternalCommand(_hasRevitApplication) {
-                MainModelPath = _mainModelPath, 
-                RevitExternalItemInfo = new RevitExternalItemInfo(visitable)
-            };
+            return new RevitExternalCommand(_revitContext) {MainModelPath = _mainModelPath, RevitAddinItem = visitable};
         }
 
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinApplication visitable) {
-            return new RevitExternalApplication(_hasRevitApplication) {
-                MainModelPath = _mainModelPath,
-                RevitExternalItemInfo = new RevitExternalItemInfo(visitable)
+            return new RevitExternalApplication(_revitContext) {
+                MainModelPath = _mainModelPath, RevitAddinItem = visitable
             };
         }
 
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinDBApplication visitable) {
-            return new RevitExternalDBApplication(_hasRevitApplication) {
-                MainModelPath = _mainModelPath,
-                RevitExternalItemInfo = new RevitExternalItemInfo(visitable)
+            return new RevitExternalDBApplication(_revitContext) {
+                MainModelPath = _mainModelPath, RevitAddinItem = visitable
             };
         }
     }

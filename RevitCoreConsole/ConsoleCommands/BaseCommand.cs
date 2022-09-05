@@ -52,15 +52,15 @@ namespace RevitCoreConsole.ConsoleCommands {
             return new NavisworksApplication();
         }
 
-        protected RevitApplication CreateRevitApplication() {
-            RevitApplication application = new RevitApplication() {
-                RevitAppInfo = GetRevitAppInfo(),
-                RevitEnginePath = GetAppSettingsValue(nameof(RevitAppInfo),
-                    nameof(RevitApplication.RevitEnginePath), RevitApplication.GetDefaultRevitEnginePath()),
+        protected RevitContext CreateRevitApplication() {
+            RevitContext context = new RevitContext() {
+                RevitContextOptions = GetRevitAppInfo(),
+                RevitEnginePath = GetAppSettingsValue(nameof(RevitContextOptions),
+                    nameof(RevitContext.RevitEnginePath), RevitContext.GetDefaultRevitEnginePath()),
             };
             
-            application.Open();
-            return application;
+            context.Open();
+            return context;
         }
 
         protected IDictionary<string, string> ReadJournalData(string journalData) {
@@ -74,17 +74,17 @@ namespace RevitCoreConsole.ConsoleCommands {
             return deserializer.Deserialize<Dictionary<string, string>>(journalData);
         }
 
-        private RevitAppInfo GetRevitAppInfo() {
-            return new RevitAppInfo() {
+        private RevitContextOptions GetRevitAppInfo() {
+            return new RevitContextOptions() {
                 StartUpSettings = GetStartUpSettings(),
-                Guid = GetAppSettingsValueGuid(nameof(RevitAppInfo),
-                    nameof(RevitAppInfo.Guid), new Guid("369186E7-1F68-4470-BB4F-89EB6DFF7826")),
-                LicenseKey = GetAppSettingsValue(nameof(RevitAppInfo),
-                    nameof(RevitAppInfo.LicenseKey), "trollface.jpg"),
-                VendorName = GetAppSettingsValue(nameof(RevitAppInfo),
-                    nameof(RevitAppInfo.VendorName), "dosymep"),
-                ApplicationName = GetAppSettingsValue(nameof(RevitAppInfo),
-                    nameof(RevitAppInfo.ApplicationName), "RevitCoreConsole")
+                Guid = GetAppSettingsValueGuid(nameof(RevitContextOptions),
+                    nameof(RevitContextOptions.Guid), new Guid("369186E7-1F68-4470-BB4F-89EB6DFF7826")),
+                LicenseKey = GetAppSettingsValue(nameof(RevitContextOptions),
+                    nameof(RevitContextOptions.LicenseKey), "trollface.jpg"),
+                VendorName = GetAppSettingsValue(nameof(RevitContextOptions),
+                    nameof(RevitContextOptions.VendorName), "dosymep"),
+                ApplicationName = GetAppSettingsValue(nameof(RevitContextOptions),
+                    nameof(RevitContextOptions.ApplicationName), "RevitCoreConsole")
             };
         }
 
