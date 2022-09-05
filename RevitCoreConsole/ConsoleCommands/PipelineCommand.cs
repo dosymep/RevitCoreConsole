@@ -1,9 +1,11 @@
 ﻿using System.CommandLine;
 
+using dosymep.Revit.Engine;
+
 using RevitCoreConsole.ConsoleCommands.Binders;
 
 namespace RevitCoreConsole.ConsoleCommands {
-    internal class PipelineCommand : BaseCommand<dosymep.Revit.Engine.RevitContext> {
+    internal class PipelineCommand : BaseCommand<RevitContext> {
         public static readonly Option<string> PipelineOption
             = new Option<string>(
                 name: "/pipeline",
@@ -17,11 +19,11 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         public string Pipeline { get; set; }
 
-        protected override void ExecuteImpl(dosymep.Revit.Engine.RevitContext context) {
+        protected override void ExecuteImpl(RevitContext context) {
             throw new System.NotImplementedException();
         }
 
-        protected override dosymep.Revit.Engine.RevitContext CreateApplication() {
+        protected override RevitContext CreateApplication() {
             return CreateRevitApplication();
         }
     }

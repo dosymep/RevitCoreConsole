@@ -7,13 +7,14 @@ using System.Linq;
 
 using Autodesk.ExchangeStore;
 
+using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.RevitExternals;
 using dosymep.Revit.FileInfo.RevitAddins;
 
 using RevitCoreConsole.ConsoleCommands.Binders;
 
 namespace RevitCoreConsole.ConsoleCommands {
-    internal class ForgeCommand : BaseCommand<dosymep.Revit.Engine.RevitContext> {
+    internal class ForgeCommand : BaseCommand<RevitContext> {
         public static readonly Option<string> BundlePathOption
             = new Option<string>(
                 name: "/al",
@@ -27,7 +28,7 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         public string BundlePath { get; set; }
 
-        protected override void ExecuteImpl(dosymep.Revit.Engine.RevitContext context) {
+        protected override void ExecuteImpl(RevitContext context) {
             var tempName = Path.Combine(Path.GetTempPath(), "RevitCoreConsole", "Bundles");
             ZipFile.ExtractToDirectory(BundlePath, tempName);
 
@@ -53,7 +54,7 @@ namespace RevitCoreConsole.ConsoleCommands {
             }
         }
 
-        protected override dosymep.Revit.Engine.RevitContext CreateApplication() {
+        protected override RevitContext CreateApplication() {
             return CreateRevitApplication();
         }
     }

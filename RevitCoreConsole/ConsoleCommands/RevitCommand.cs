@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.CommandLine;
 
+using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.RevitExternals;
 using dosymep.Revit.FileInfo.RevitAddins;
 
 using RevitCoreConsole.ConsoleCommands.Binders;
 
 namespace RevitCoreConsole.ConsoleCommands {
-    internal class RevitCommand : BaseCommand<dosymep.Revit.Engine.RevitContext> {
+    internal class RevitCommand : BaseCommand<RevitContext> {
         public static readonly Command ConsoleCommand
             = new Command("revit")
                 .AddParam(AssemblyPathOption)
@@ -20,14 +21,14 @@ namespace RevitCoreConsole.ConsoleCommands {
         public string AssemblyPath { get; set; }
         public string FullClassName { get; set; }
 
-        protected override void ExecuteImpl(dosymep.Revit.Engine.RevitContext context) {
+        protected override void ExecuteImpl(RevitContext context) {
             var revitAddin = new RevitAddinDBApplication() {AssemblyPath = AssemblyPath, FullClassName = FullClassName};
             new RevitExternalTransformer(ModelPath, context)
                 .Transform(revitAddin)
                 .ExecuteExternalItem(ReadJournalData(JournalData));
         }
 
-        protected override dosymep.Revit.Engine.RevitContext CreateApplication() {
+        protected override RevitContext CreateApplication() {
             return CreateRevitApplication();
         }
     }
