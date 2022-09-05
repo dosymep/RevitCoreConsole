@@ -1,4 +1,5 @@
-﻿using System.CommandLine;
+﻿using System;
+using System.CommandLine;
 
 using Autodesk.Navisworks.Api.Automation;
 
@@ -19,7 +20,10 @@ namespace RevitCoreConsole.ConsoleCommands {
         public string FullClassName { get; set; }
 
         protected override void ExecuteImpl(NavisworksApplication application) {
-            throw new System.NotImplementedException();
+            application.AddPluginAssembly(AssemblyPath);
+            if(application.ExecuteAddInPlugin(FullClassName, JournalData) < 0) {
+                throw new Exception("An error occurred while executing the Navisworks command.");
+            }
         }
 
         protected override NavisworksApplication CreateApplication() {

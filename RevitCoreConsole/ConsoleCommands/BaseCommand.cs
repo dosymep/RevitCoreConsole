@@ -49,7 +49,10 @@ namespace RevitCoreConsole.ConsoleCommands {
         public abstract void Execute();
 
         protected NavisworksApplication CreateNavisworksApplication() {
-            return new NavisworksApplication();
+            var application = new NavisworksApplication();
+            application.OpenFile(ModelPath);
+
+            return application;
         }
 
         protected RevitContext CreateRevitApplication() {
