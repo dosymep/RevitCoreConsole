@@ -84,10 +84,21 @@ namespace dosymep.Revit.Engine.RevitExternals {
         protected abstract void ExecuteExternalItemImpl(IDictionary<string, string> journalData);
 
         protected void OpenAndActivateDocument() {
+            OpenAndActivateDocument(WorksetConfigurationOption.OpenAllWorksets);
+        }
+
+        protected void OpenAndActivateDocument(WorksetConfigurationOption worksetConfigurationOption) {
             if(!string.IsNullOrEmpty(MainModelPath)) {
+                var options = new OpenOptions() {
+                    OpenForeignOption = OpenForeignOption.Open,
+                    IgnoreExtensibleStorageSchemaConflict = true,
+                    DetachFromCentralOption = DetachFromCentralOption.DoNotDetach,
+                };
+
+                options.SetOpenWorksetsConfiguration(
+                    new WorksetConfiguration(worksetConfigurationOption));
                 _revitContext.Application.OpenDocumentFile(
-                    ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath),
-                    new OpenOptions() {DetachFromCentralOption = DetachFromCentralOption.DoNotDetach});
+                    ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath), options);
             }
         }
 
