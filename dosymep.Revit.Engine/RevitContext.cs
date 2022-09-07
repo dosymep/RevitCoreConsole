@@ -105,11 +105,6 @@ namespace dosymep.Revit.Engine {
                     nameof(openModelOptions));
             }
 
-            if(!File.Exists(openModelOptions.ModelPath)) {
-                throw new ArgumentException($"The {openModelOptions.ModelPath} is not found.",
-                    nameof(openModelOptions));
-            }
-
             var options = new OpenOptions() {
                 Audit = openModelOptions.Audit,
                 OpenForeignOption = OpenForeignOption.Open,

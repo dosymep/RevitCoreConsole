@@ -23,9 +23,7 @@ namespace RevitCoreConsole {
                     PipelineCommand.ConsoleCommand
                 };
             
-            rootCommand.AddGlobalOption(BaseCommand.ModelPathOption);
             rootCommand.AddGlobalOption(BaseCommand.LanguageCodeOption);
-            
             rootCommand.Invoke(args);
         }
     }

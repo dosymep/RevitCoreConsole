@@ -54,7 +54,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
 
         /// <inheritdoc />
         public void ExecuteExternalItem(IDictionary<string, string> journalData) {
-            if(!string.IsNullOrEmpty(MainModelPath) && !File.Exists(MainModelPath)) {
+            if(string.IsNullOrEmpty(MainModelPath)) {
                 throw new InvalidOperationException($"{nameof(MainModelPath)} not found.");
             }
 

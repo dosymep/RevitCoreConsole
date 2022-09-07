@@ -1,4 +1,5 @@
 ﻿using System.CommandLine;
+using System.IO;
 using System.Linq;
 
 using Autodesk.Revit.DB;
@@ -57,7 +58,8 @@ namespace RevitCoreConsole.ConsoleCommands {
             private static IRevitExternalItem GetRevitExternalItem(string usesName,
                 RevitExternalTransformer transformer) {
                 var revitAddinItem =
-                    RevitAddinManifest.GetAddinManifest(usesName + ".yaml").AddinItems.FirstOrDefault();
+                    RevitAddinManifest.GetAddinManifest(Path.Combine("plugins", usesName + ".addin"))
+                        .AddinItems.FirstOrDefault();
                 return revitAddinItem?.Reduce<IRevitExternalItem, RevitAddinItem>(transformer);
             }
         }
