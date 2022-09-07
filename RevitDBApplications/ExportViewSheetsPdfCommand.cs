@@ -103,7 +103,7 @@ namespace RevitDBApplications {
             return element.GetParameters(paramName)
                 .Select(item => GetParamValue(item))
                 .Where(item => !string.IsNullOrEmpty(item))
-                .ToList() ?? new List<string>();
+                .ToList();
         }
 
         private string GetParamValue(Parameter parameter) {
