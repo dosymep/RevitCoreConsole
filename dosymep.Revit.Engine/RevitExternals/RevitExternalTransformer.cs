@@ -10,6 +10,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
     /// </summary>
     public class RevitExternalTransformer :
         ITransformer,
+        ITransformer<IRevitExternalItem, RevitAddinItem>,
         ITransformer<IRevitExternalItem, RevitAddinCommand>,
         ITransformer<IRevitExternalItem, RevitAddinApplication>,
         ITransformer<IRevitExternalItem, RevitAddinDBApplication> {
@@ -23,7 +24,11 @@ namespace dosymep.Revit.Engine.RevitExternals {
             _mainModelPath = mainModelPath;
             _revitContext = revitContext;
         }
-
+        
+        /// <inheritdoc />
+        public IRevitExternalItem Transform(RevitAddinItem visitable) {
+            return null;
+        }
 
         /// <inheritdoc />
         public IRevitExternalItem Transform(RevitAddinCommand visitable) {

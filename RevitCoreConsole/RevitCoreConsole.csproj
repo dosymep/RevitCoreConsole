@@ -18,6 +18,9 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Reference Include="dosymep.Autodesk">
+          <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Autodesk\bin\Debug\net48\dosymep.Autodesk.dll</HintPath>
+        </Reference>
         <Reference Include="dosymep.Autodesk.FileInfo">
             <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Autodesk.FileInfo\bin\Debug\net48\dosymep.Autodesk.FileInfo.dll</HintPath>
         </Reference>

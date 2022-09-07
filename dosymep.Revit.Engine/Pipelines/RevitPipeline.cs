@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -61,6 +62,29 @@ namespace dosymep.Revit.Engine.Pipelines {
 
             var deserializer = new DeserializerBuilder().Build();
             return deserializer.Deserialize<RevitPipeline>(yamlContent);
+        }
+
+        /// <summary>
+        /// Returns value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defaultValue"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static T GetPipelineValue<T>(string value, T defaultValue = default)
+            where T : struct {
+            if(string.IsNullOrEmpty(value)) {
+                return defaultValue;
+            }
+
+            if(typeof(T).IsEnum) {
+                value = value
+                    .Replace("_", string.Empty)
+                    .Replace("-", string.Empty);
+                return Enum.TryParse(value, true, out T result) ? result : defaultValue;
+            }
+
+            return (T) Convert.ChangeType(value, typeof(T));
         }
     }
 }

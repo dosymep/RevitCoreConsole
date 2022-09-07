@@ -1,4 +1,6 @@
-﻿using YamlDotNet.Serialization;
+﻿using Autodesk.Revit.DB;
+
+using YamlDotNet.Serialization;
 
 namespace dosymep.Revit.Engine.Pipelines {
     /// <summary>
@@ -10,7 +12,7 @@ namespace dosymep.Revit.Engine.Pipelines {
         /// </summary>
         [YamlMember(Alias = "name", ApplyNamingConventions = false)]
         public string Name { get; set; }
-        
+
         /// <summary>
         /// Model path.
         /// </summary>
@@ -28,5 +30,12 @@ namespace dosymep.Revit.Engine.Pipelines {
         /// </summary>
         [YamlMember(Alias = "workset", ApplyNamingConventions = false)]
         public string WorksetOption { get; set; }
+
+        /// <summary>
+        /// Workset configuration option.
+        /// </summary>
+        [YamlIgnore]
+        public WorksetConfigurationOption WorksetConfigurationOption
+            => RevitPipeline.GetPipelineValue(WorksetOption, WorksetConfigurationOption.OpenAllWorksets);
     }
 }

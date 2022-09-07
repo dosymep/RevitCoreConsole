@@ -7,6 +7,8 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
 
+using dosymep.Revit.Engine.Pipelines;
+
 namespace dosymep.Revit.Engine {
     /// <summary>
     /// Revit application.
@@ -90,6 +92,36 @@ namespace dosymep.Revit.Engine {
 
             _assemblyResolver.UpdateEnvironmentPaths();
             InitRevit();
+        }
+
+        /// <inheritdoc />
+        public Document OpenDocument(OpenModelOptions openModelOptions) {
+            if(openModelOptions == null) {
+                throw new ArgumentNullException(nameof(openModelOptions));
+            }
+
+            if(string.IsNullOrEmpty(openModelOptions.ModelPath)) {
+                throw new ArgumentException("OpenModelOptions doesn't have a model path.", 
+                    nameof(openModelOptions));
+            }
+
+            if(!File.Exists(openModelOptions.ModelPath)) {
+                throw new ArgumentException($"The {openModelOptions.ModelPath} is not found.",
+                    nameof(openModelOptions));
+            }
+
+            var options = new OpenOptions() {
+                Audit = openModelOptions.Audit,
+                OpenForeignOption = OpenForeignOption.Open,
+                IgnoreExtensibleStorageSchemaConflict = true,
+                DetachFromCentralOption = DetachFromCentralOption.DoNotDetach,
+            };
+
+            options.SetOpenWorksetsConfiguration(
+                new WorksetConfiguration(openModelOptions.WorksetConfigurationOption));
+
+            return Application.OpenDocumentFile(
+                ModelPathUtils.ConvertUserVisiblePathToModelPath(openModelOptions.ModelPath), options);
         }
 
         /// <summary>

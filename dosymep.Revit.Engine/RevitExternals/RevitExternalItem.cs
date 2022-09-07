@@ -6,6 +6,7 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
+using dosymep.Revit.Engine.Pipelines;
 using dosymep.Revit.FileInfo.RevitAddins;
 
 namespace dosymep.Revit.Engine.RevitExternals {
@@ -89,16 +90,9 @@ namespace dosymep.Revit.Engine.RevitExternals {
 
         protected void OpenAndActivateDocument(WorksetConfigurationOption worksetConfigurationOption) {
             if(!string.IsNullOrEmpty(MainModelPath)) {
-                var options = new OpenOptions() {
-                    OpenForeignOption = OpenForeignOption.Open,
-                    IgnoreExtensibleStorageSchemaConflict = true,
-                    DetachFromCentralOption = DetachFromCentralOption.DoNotDetach,
-                };
-
-                options.SetOpenWorksetsConfiguration(
-                    new WorksetConfiguration(worksetConfigurationOption));
-                _revitContext.Application.OpenDocumentFile(
-                    ModelPathUtils.ConvertUserVisiblePathToModelPath(MainModelPath), options);
+                _revitContext.OpenDocument(new OpenModelOptions() {
+                    ModelPath = MainModelPath, Audit = false, WorksetOption = worksetConfigurationOption.ToString()
+                });
             }
         }
 
