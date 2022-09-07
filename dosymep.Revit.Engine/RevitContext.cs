@@ -108,13 +108,12 @@ namespace dosymep.Revit.Engine {
             var options = new OpenOptions() {
                 Audit = openModelOptions.Audit,
                 OpenForeignOption = OpenForeignOption.Open,
-                IgnoreExtensibleStorageSchemaConflict = true,
                 DetachFromCentralOption = DetachFromCentralOption.DoNotDetach,
             };
 
+            options.SetIgnoreExtensibleStorageSchemaConflict(true);
             options.SetOpenWorksetsConfiguration(
                 new WorksetConfiguration(openModelOptions.WorksetConfigurationOption));
-
             return Application.OpenDocumentFile(
                 ModelPathUtils.ConvertUserVisiblePathToModelPath(openModelOptions.ModelPath), options);
         }

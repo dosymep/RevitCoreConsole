@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 
 using Autodesk.Revit;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
 
 using dosymep.Autodesk.FileInfo;
@@ -98,5 +99,19 @@ namespace dosymep.Revit.Engine {
 
             return LanguageType.Unknown;
         }
+
+#if REVIT_2021_OR_LESS
+
+        public static void SetIgnoreExtensibleStorageSchemaConflict(this OpenOptions options, bool value) {
+            options.GetType().GetProperty("IgnoreExtensibleStorageSchemaConflict",
+                BindingFlags.Instance | BindingFlags.NonPublic)?.SetValue(options, value);
+        }
+
+#else
+                
+        public static void SetIgnoreExtensibleStorageSchemaConflict(this OpenOptions options, bool value) {
+            options.IgnoreExtensibleStorageSchemaConflict = true;
+        }
+#endif
     }
 }
