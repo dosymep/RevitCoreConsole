@@ -8,6 +8,7 @@ using System.IO;
 using Autodesk.Navisworks.Api.Automation;
 
 using dosymep.Autodesk.FileInfo;
+using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 
 using YamlDotNet.Serialization;
@@ -146,6 +147,10 @@ namespace RevitCoreConsole.ConsoleCommands {
             LanguageCode defaultValue = default) {
             string value = GetAppSettingsValue<string>(sectionName, propertyName);
             return string.IsNullOrEmpty(value) ? defaultValue : LanguageCode.GetLanguageCode(value);
+        }
+        
+        protected T GetPlatformService<T>() {
+            return ServicesProvider.GetPlatformService<T>();
         }
     }
 

@@ -7,6 +7,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
 
+using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine.Pipelines;
 
 namespace dosymep.Revit.Engine {
@@ -156,6 +157,10 @@ namespace dosymep.Revit.Engine {
 
             return fileNames.Contains("RevitNET.dll")
                    && fileNames.Contains("RevitAPI.dll");
+        }
+        
+        protected T GetPlatformService<T>() {
+            return ServicesProvider.GetPlatformService<T>();
         }
 
 

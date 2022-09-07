@@ -7,6 +7,7 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
+using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine.Pipelines;
 using dosymep.Revit.FileInfo.RevitAddins;
 
@@ -113,6 +114,10 @@ namespace dosymep.Revit.Engine.RevitExternals {
                 propertyInfo.SetValue(externalItem,
                     RevitPipeline.GetPipelineValue(propertyInfo.PropertyType, kvp.Value));
             }
+        }
+
+        protected T GetPlatformService<T>() {
+            return ServicesProvider.GetPlatformService<T>();
         }
     }
 }
