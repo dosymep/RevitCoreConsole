@@ -1,62 +1,38 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
+    <Import Project="..\ProjectProps\Common.props" />
+    
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>net48</TargetFramework>
-        <Platforms>x64</Platforms>
-        <Authors>dosymep</Authors>
-        <PackageProjectUrl>https://github.com/dosymep/RevitCoreConsole</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/dosymep/RevitCoreConsole</RepositoryUrl>
-        <RepositoryType>Git</RepositoryType>
-        <PackageTags>dosymep, revit, engine, revitcoreconsole, bim360</PackageTags>
-        <Configurations>D2020;D2021;D2022;D2023;R2020;R2021;R2022;R2023</Configurations>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+        <Reference Include="System.Configuration" />
+        <Reference Include="System.IO.Compression" />
         <PackageReference Include="YamlDotNet" Version="12.0.0" />
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     </ItemGroup>
 
     <ItemGroup>
-        <Reference Include="dosymep.Autodesk">
-          <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Autodesk\bin\Debug\net48\dosymep.Autodesk.dll</HintPath>
-        </Reference>
-        <Reference Include="dosymep.Autodesk.FileInfo">
-            <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Autodesk.FileInfo\bin\Debug\net48\dosymep.Autodesk.FileInfo.dll</HintPath>
-        </Reference>
-        <Reference Include="dosymep.Revit.FileInfo">
-            <HintPath>..\..\..\Autodesk\dosymep.Autodesk\dosymep.Revit.FileInfo\bin\Debug\net48\dosymep.Revit.FileInfo.dll</HintPath>
-        </Reference>
-
-        <Reference Include="Autodesk.Navisworks.Automation">
-            <HintPath>C:\Program Files\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Automation.dll</HintPath>
-        </Reference>
-        <Reference Include="Autodesk.Navisworks.ComApi">
-            <HintPath>C:\Program Files\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.ComApi.dll</HintPath>
-        </Reference>
-
         <Reference Include="Autodesk.Navisworks.Api">
             <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Api.dll</HintPath>
-            <Private>False</Private>
         </Reference>
 
-        <Reference Include="Autodesk.Navisworks.Clash">
-            <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Clash.dll</HintPath>
-            <Private>False</Private>
+        <Reference Include="Autodesk.Navisworks.ComApi">
+            <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.ComApi.dll</HintPath>
+        </Reference>
+        
+        <Reference Include="Autodesk.Navisworks.Automation">
+            <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Automation.dll</HintPath>
         </Reference>
 
         <Reference Include="PackageContentsParser">
-          <HintPath>C:\Program Files\Autodesk\Revit 2020\PackageContentsParser.dll</HintPath>
+          <HintPath>$(ProgramW6432)\Autodesk\Revit 2020\PackageContentsParser.dll</HintPath>
         </Reference>
 
         <Reference Include="RevitAPI">
-            <HintPath>C:\Program Files\Autodesk\Revit $(AppVersion)\RevitAPI.dll</HintPath>
+            <HintPath>$(ProgramW6432)\Autodesk\Revit $(AppVersion)\RevitAPI.dll</HintPath>
             <Private>False</Private>
         </Reference>
-
-        <Reference Include="System.Configuration" />
-
-        <Reference Include="System.IO.Compression" />
     </ItemGroup>
 
     <ItemGroup>
@@ -68,88 +44,5 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
-
-    <PropertyGroup Condition="'$(Configuration)'=='D2020' OR '$(Configuration)'=='R2020'">
-        <AppVersion>2020</AppVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)'=='D2021' OR '$(Configuration)'=='R2021'">
-        <AppVersion>2021</AppVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)'=='D2022' OR '$(Configuration)'=='R2022'">
-        <AppVersion>2022</AppVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration)'=='D2023' OR '$(Configuration)'=='R2023'">
-        <AppVersion>2023</AppVersion>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'=='2020'">
-        <DefineConstants>$(DefineConstants);REVIT_2020;NAVIS_2020</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'=='2021'">
-        <DefineConstants>$(DefineConstants);REVIT_2021;NAVIS_2021</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'=='2022'">
-        <DefineConstants>$(DefineConstants);REVIT_2022;NAVIS_2022</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'=='2023'">
-        <DefineConstants>$(DefineConstants);REVIT_2023;NAVIS_2023</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'&lt;='2020'">
-        <DefineConstants>$(DefineConstants);REVIT_2020_OR_LESS;NAVIS_2020_OR_LESS</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'&lt;='2021'">
-        <DefineConstants>$(DefineConstants);REVIT_2021_OR_LESS;NAVIS_2021_OR_LESS</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'&lt;='2022'">
-        <DefineConstants>$(DefineConstants);REVIT_2022_OR_LESS;NAVIS_2022_OR_LESS</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'&lt;='2023'">
-        <DefineConstants>$(DefineConstants);REVIT_2023_OR_LESS;NAVIS_2023_OR_LESS</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'&gt;='2020'">
-        <DefineConstants>$(DefineConstants);REVIT_2020_OR_GREATER;NAVIS_2020_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'&gt;='2021'">
-        <DefineConstants>$(DefineConstants);REVIT_2021_OR_GREATER;NAVIS_2021_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'&gt;='2022'">
-        <DefineConstants>$(DefineConstants);REVIT_2022_OR_GREATER;NAVIS_2022_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(AppVersion)'&gt;='2023'">
-        <DefineConstants>$(DefineConstants);REVIT_2023_OR_GREATER;NAVIS_2023_OR_GREATER</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration.StartsWith(`D`))'">
-        <Optimization>false</Optimization>
-        <DebugSymbols>true</DebugSymbols>
-        <OutputPath>bin\x64\Debug\$(AppVersion)</OutputPath>
-        <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration.StartsWith(`R`))'">
-        <Optimize>true</Optimize>
-        <DebugSymbols>false</DebugSymbols>
-        <OutputPath>bin\x64\Release\$(AppVersion)</OutputPath>
-        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <Version>$(AppVersion).2.4</Version>
-        <FileVersion>$(AppVersion).2.4</FileVersion>
-    </PropertyGroup>
-
+    
 </Project>
