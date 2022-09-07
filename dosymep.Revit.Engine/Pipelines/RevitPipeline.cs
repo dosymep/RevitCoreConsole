@@ -73,18 +73,50 @@ namespace dosymep.Revit.Engine.Pipelines {
         /// <returns></returns>
         public static T GetPipelineValue<T>(string value, T defaultValue = default)
             where T : struct {
+            return (T) GetPipelineValue(typeof(T), value, defaultValue);
+        }
+
+        /// <summary>
+        /// Returns value.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="defaultValue"></param>
+        /// <returns></returns>
+        public static string GetPipelineValue(string value, string defaultValue = default) {
             if(string.IsNullOrEmpty(value)) {
                 return defaultValue;
             }
 
-            if(typeof(T).IsEnum) {
+            return value
+                .Replace("_", string.Empty)
+                .Replace("-", string.Empty);
+        }
+        
+        /// <summary>
+        /// Returns value.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="value"></param>
+        /// <param name="defaultValue"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static object GetPipelineValue(Type type, string value, object defaultValue = default) {
+            if(string.IsNullOrEmpty(value)) {
+                return defaultValue;
+            }
+
+            if(type.IsEnum) {
                 value = value
                     .Replace("_", string.Empty)
                     .Replace("-", string.Empty);
-                return Enum.TryParse(value, true, out T result) ? result : defaultValue;
+                try {
+                    return Enum.Parse(type, value, true);
+                } catch {
+                    return defaultValue;
+                }
             }
 
-            return (T) Convert.ChangeType(value, typeof(T));
+            return Convert.ChangeType(value, type);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
@@ -97,7 +98,21 @@ namespace dosymep.Revit.Engine.RevitExternals {
         }
 
         protected void ApplyJournalData(object externalItem, IDictionary<string, string> journalData) {
-            externalItem.GetType().GetProperty("JournalData")?.SetValue(externalItem, journalData);
+            Type externalType = externalItem.GetType();
+            externalType.GetProperty("JournalData")?.SetValue(externalItem, journalData);
+
+            foreach(var kvp in journalData) {
+                var propertyName = RevitPipeline.GetPipelineValue(kvp.Key);
+                var propertyInfo = externalType.GetProperty(propertyName,
+                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+                
+                if(propertyInfo == null) {
+                    continue;
+                }
+
+                propertyInfo.SetValue(externalItem,
+                    RevitPipeline.GetPipelineValue(propertyInfo.PropertyType, kvp.Value));
+            }
         }
     }
 }
