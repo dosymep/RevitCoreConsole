@@ -10,9 +10,7 @@ using Autodesk.Revit.DB.ExternalService;
 using DesignAutomationFramework;
 
 namespace RevitDBApplications {
-    public class ExportNavisworksCommand : IExternalDBApplication {
-        public IDictionary<string, string> JournalData { get; set; }
-
+    public class ExportNavisworksCommand : BaseCommand {
         public string ViewName { get; set; } = "Navisworks";
 
         public string TargetFileName { get; set; }
@@ -38,26 +36,12 @@ namespace RevitDBApplications {
         public bool DivideFileIntoLevels { get; set; } = true;
 
 
-        public ExternalDBApplicationResult OnStartup(ControlledApplication application) {
-            DesignAutomationBridge.DesignAutomationReadyEvent += DesignAutomationReadyEvent;
-            return ExternalDBApplicationResult.Succeeded;
-        }
+        protected override void ExecuteCommand(DesignAutomationData designAutomationData) {
+            if(!OptionalFunctionalityUtils.IsNavisworksExporterAvailable()) {
+                throw new InvalidOperationException("Please install Navisworks export plugin.");
+            }
 
-        public ExternalDBApplicationResult OnShutdown(ControlledApplication application) {
-            DesignAutomationBridge.DesignAutomationReadyEvent -= DesignAutomationReadyEvent;
-            return ExternalDBApplicationResult.Succeeded;
-        }
-
-        private void DesignAutomationReadyEvent(object sender, DesignAutomationReadyEventArgs e) {
-            e.Succeeded = true;
-            // if(!OptionalFunctionalityUtils.IsNavisworksExporterAvailable()) {
-            //     throw new InvalidOperationException("Please install Navisworks export plugin.");
-            // }
-
-            ExternalServiceId navisServiceId = ExternalServices.BuiltInExternalServices.NavisworksExporterService;
-            INavisworksExporter navisService = (INavisworksExporter) ExternalServiceRegistry.GetService(navisServiceId).GetServer(navisServiceId.Guid);
-
-            Document document = e.DesignAutomationData.RevitDoc;
+            Document document = designAutomationData.RevitDoc;
             View3D exportView = new FilteredElementCollector(document)
                 .OfClass(typeof(View3D))
                 .OfType<View3D>()

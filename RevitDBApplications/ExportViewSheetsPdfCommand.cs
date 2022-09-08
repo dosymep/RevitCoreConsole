@@ -10,36 +10,23 @@ using Autodesk.Revit.DB;
 using DesignAutomationFramework;
 
 namespace RevitDBApplications {
-    public class ExportViewSheetsPdfCommand : IExternalDBApplication {
-        public IDictionary<string, string> JournalData { get; set; }
-
-        public ExternalDBApplicationResult OnStartup(ControlledApplication application) {
-            DesignAutomationBridge.DesignAutomationReadyEvent += DesignAutomationReadyEvent;
-            return ExternalDBApplicationResult.Succeeded;
+    public class ExportViewSheetsPdfCommand : BaseCommand {
+        protected override void ExecuteCommand(DesignAutomationData designAutomationData) {
+            PrintViewSheets(designAutomationData);
         }
-
-        public ExternalDBApplicationResult OnShutdown(ControlledApplication application) {
-            DesignAutomationBridge.DesignAutomationReadyEvent -= DesignAutomationReadyEvent;
-            return ExternalDBApplicationResult.Succeeded;
-        }
-
-        private void DesignAutomationReadyEvent(object sender, DesignAutomationReadyEventArgs e) {
-            e.Succeeded = true;
-            PrintViewSheets(e);
-        }
-
+        
 #if REVIT_2021_OR_LESS
-        private void PrintViewSheets(DesignAutomationReadyEventArgs e) {
-            var application = e.DesignAutomationData.RevitApp;
+        private void PrintViewSheets(DesignAutomationData designAutomationData) {
+            var application = designAutomationData.RevitApp;
             throw new NotSupportedException($"Export to pdf is not supported in {application.VersionName}.");
         }
 #else
-        private void PrintViewSheets(DesignAutomationReadyEventArgs e) {
+        private void PrintViewSheets(DesignAutomationData designAutomationData) {
             if(string.IsNullOrEmpty(DirectoryPath)) {
                 throw new InvalidOperationException($"The {DirectoryPath} is not set.");
             }
 
-            Document document = e.DesignAutomationData.RevitDoc;
+            Document document = designAutomationData.RevitDoc;
 
             List<ElementId> elementIds = new FilteredElementCollector(document)
                 .WhereElementIsNotElementType()

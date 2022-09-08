@@ -9,10 +9,11 @@ using Autodesk.Revit.DB;
 
 using DesignAutomationFramework;
 
-namespace RevitDBApplications {
-    public class PurgeUnusedCommand : IExternalDBApplication {
-        public IDictionary<string, string> JournalData { get; set; }
+using dosymep.Bim4Everyone.SimpleServices;
+using dosymep.SimpleServices;
 
+namespace RevitDBApplications {
+    public class PurgeUnusedCommand : BaseCommand {
         public int TryCount { get; set; } = 5;
         public bool WithThermals { get; set; } = true;
         public bool WithMaterials { get; set; } = true;
@@ -24,28 +25,24 @@ namespace RevitDBApplications {
         public bool WithNonDeletable { get; set; } = true;
         public bool WithImportCategories { get; set; } = true;
 
-        public ExternalDBApplicationResult OnStartup(ControlledApplication application) {
-            DesignAutomationBridge.DesignAutomationReadyEvent += DesignAutomationReadyEvent;
-            return ExternalDBApplicationResult.Succeeded;
-        }
+        protected override void ExecuteCommand(DesignAutomationData designAutomationData) {
+            var document = designAutomationData.RevitDoc;
 
-        public ExternalDBApplicationResult OnShutdown(ControlledApplication application) {
-            DesignAutomationBridge.DesignAutomationReadyEvent -= DesignAutomationReadyEvent;
-            return ExternalDBApplicationResult.Succeeded;
-        }
-
-        private void DesignAutomationReadyEvent(object sender, DesignAutomationReadyEventArgs e) {
-            e.Succeeded = true;
-            var document = e.DesignAutomationData.RevitDoc;
-            for(int i = 0; i < TryCount; i++) {
+            var logger = ServicesProvider.GetPlatformService<ILoggerService>();
+            logger.Information("Initialization purge unused command {@command}", this);
+            
+            for(int i = 1; i <= TryCount; i++) {
+                logger.Information("Attempt to remove {@try}", i);
+                
                 using(var transaction = new Transaction(document)) {
                     transaction.Start($"BIM: Remove unused [{i}].");
-
+                    
                     IEnumerable<ElementId> elementIds = GetElementIds(document);
                     foreach(ElementId elementId in elementIds) {
                         try {
                             document.Delete(elementId);
                         } catch {
+                            logger.Warning("Failed to remove ElementId {@elementId}", elementId);
                         }
                     }
 

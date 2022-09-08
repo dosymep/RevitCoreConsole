@@ -11,28 +11,15 @@ using Autodesk.Revit.DB.Events;
 using DesignAutomationFramework;
 
 namespace RevitDBApplications {
-    public class SyncDocumentCommand : IExternalDBApplication {
-        public IDictionary<string, string> JournalData { get; set; }
-        
+    public class SyncDocumentCommand : BaseCommand {
         public bool Compact { get; set; } = true;
         public string Comment { get; set; } = "Sync document command.";
-        
-        public ExternalDBApplicationResult OnStartup(ControlledApplication application) {
-            DesignAutomationBridge.DesignAutomationReadyEvent += DesignAutomationReadyEvent;
-            return ExternalDBApplicationResult.Succeeded;
-        }
 
-        public ExternalDBApplicationResult OnShutdown(ControlledApplication application) {
-            DesignAutomationBridge.DesignAutomationReadyEvent -= DesignAutomationReadyEvent;
-            return ExternalDBApplicationResult.Succeeded;
-        }
-
-        private void DesignAutomationReadyEvent(object sender, DesignAutomationReadyEventArgs e) {
-            e.Succeeded = true;
-            Document document = e.DesignAutomationData.RevitDoc;
+        protected override void ExecuteCommand(DesignAutomationData designAutomationData) {
+            Document document = designAutomationData.RevitDoc;
             document.SynchronizeWithCentral(CreateTransactWithCentralOptions(), CreateSynchronizeWithCentralOptions());
         }
-
+        
         public TransactWithCentralOptions CreateTransactWithCentralOptions() {
             var options = new TransactWithCentralOptions();
             options.SetLockCallback(new CentralLockedCallback(true));
