@@ -7,20 +7,6 @@
         <Configurations>D2020;D2021;D2022;D2023;R2020;R2021;R2022;R2023</Configurations>
     </PropertyGroup>
 
-    <PropertyGroup Condition="'$(Configuration.StartsWith(`D`))'">
-        <Optimization>false</Optimization>
-        <DebugSymbols>true</DebugSymbols>
-        <OutputPath>bin\x64\Debug\$(AppVersion)</OutputPath>
-        <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
-    </PropertyGroup>
-
-    <PropertyGroup Condition="'$(Configuration.StartsWith(`R`))'">
-        <Optimize>true</Optimize>
-        <DebugSymbols>false</DebugSymbols>
-        <OutputPath>bin\x64\Release\$(AppVersion)</OutputPath>
-        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
-    </PropertyGroup>
-
     <PropertyGroup Condition="'$(Configuration)'=='D2020' OR '$(Configuration)'=='R2020'">
         <AppVersion>2020</AppVersion>
     </PropertyGroup>
@@ -85,6 +71,20 @@
         <DefineConstants>$(DefineConstants);REVIT_2023_OR_GREATER</DefineConstants>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration.StartsWith(`D`))'">
+        <Optimization>false</Optimization>
+        <DebugSymbols>true</DebugSymbols>
+        <OutputPath>bin\x64\Debug\$(AppVersion)</OutputPath>
+        <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration.StartsWith(`R`))'">
+        <Optimize>true</Optimize>
+        <DebugSymbols>false</DebugSymbols>
+        <OutputPath>bin\x64\Release\$(AppVersion)</OutputPath>
+        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    </PropertyGroup>
+    
     <PropertyGroup>
         <Version>$(AppVersion).2.4</Version>
         <FileVersion>$(AppVersion).2.4</FileVersion>

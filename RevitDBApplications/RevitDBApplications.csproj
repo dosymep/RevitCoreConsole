@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\ProjectProps\Common.props"/>
+    <Import Project="..\ProjectProps\Common.props" />
 
     <PropertyGroup>
         <OutputType>Library</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj"/>
-        <PackageReference Include="Autodesk.Forge.DesignAutomation.Revit" Version="$(AppVersion).*"/>
+        <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
+        <PackageReference Include="Autodesk.Forge.DesignAutomation.Revit" Version="$(AppVersion).*" />
     </ItemGroup>
 
 </Project>
