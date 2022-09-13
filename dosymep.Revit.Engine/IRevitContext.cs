@@ -19,5 +19,12 @@ namespace dosymep.Revit.Engine {
         /// </summary>
         /// <param name="openModelOptions">Open model options.</param>
         Document OpenDocument(OpenModelOptions openModelOptions);
+
+        /// <summary>
+        /// Returns registered Bim4Everyone service.
+        /// </summary>
+        /// <typeparam name="T">Type of service.</typeparam>
+        /// <returns>Returns registered Bim4Everyone service.</returns>
+        T GetPlatformService<T>();
     }
 }

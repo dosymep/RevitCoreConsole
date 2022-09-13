@@ -18,11 +18,18 @@ namespace dosymep.Revit.Engine {
             ServicesProvider.LoadInstanceCore(Application);
         }
 
+        /// <inheritdoc />
         public Application Application
             => _externalCommandData.Application.Application;
 
+        /// <inheritdoc />
         public Document OpenDocument(OpenModelOptions openModelOptions) {
             return Application.OpenDocument(openModelOptions);
+        }
+        
+        /// <inheritdoc />
+        public T GetPlatformService<T>() {
+            return ServicesProvider.GetPlatformService<T>();
         }
     }
 }

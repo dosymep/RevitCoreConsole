@@ -63,22 +63,7 @@ namespace RevitCoreConsole.ConsoleCommands {
             };
 
             context.Open();
-            
-            // Init Bim4Everyone services
-            //ServicesProvider.LoadInstanceCore(context.Application);
-            
             return context;
-        }
-
-        protected IDictionary<string, string> ReadJournalData(string journalData) {
-            if(string.IsNullOrEmpty(journalData)) {
-                return new Dictionary<string, string>();
-            }
-
-            IDeserializer deserializer = new DeserializerBuilder()
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                .Build();
-            return deserializer.Deserialize<Dictionary<string, string>>(journalData);
         }
 
         private RevitContextOptions GetRevitAppInfo() {

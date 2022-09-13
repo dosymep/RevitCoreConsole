@@ -6,6 +6,9 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <Reference Include="PackageContentsParser">
+          <HintPath>C:\Program Files\Autodesk\Revit 2022\PackageContentsParser.dll</HintPath>
+        </Reference>
         <Reference Include="RevitAPIUI">
             <HintPath>$(ProgramW6432)\Autodesk\Revit $(AppVersion)\RevitAPIUI.dll</HintPath>
             <Private>False</Private>

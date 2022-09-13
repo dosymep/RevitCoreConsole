@@ -74,6 +74,11 @@ namespace dosymep.Revit.Engine {
         public static string GetDefaultRevitEnginePath() {
             return Environment.ExpandEnvironmentVariables($@"%programfiles%\Autodesk\Revit {RevitVersion}");
         }
+        
+        /// <inheritdoc />
+        public T GetPlatformService<T>() {
+            return ServicesProvider.GetPlatformService<T>();
+        }
 
         /// <summary>
         /// Open revit application.
@@ -145,11 +150,6 @@ namespace dosymep.Revit.Engine {
                    && fileNames.Contains("RevitAPI.dll");
         }
         
-        protected T GetPlatformService<T>() {
-            return ServicesProvider.GetPlatformService<T>();
-        }
-
-
         #region IDisposable
 
         /// <inheritdoc/>
