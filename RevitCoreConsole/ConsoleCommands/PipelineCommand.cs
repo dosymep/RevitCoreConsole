@@ -31,24 +31,24 @@ namespace RevitCoreConsole.ConsoleCommands {
         public string PipelineFile { get; set; }
 
         protected override void ExecuteImpl(RevitContext context) {
-            ServicesProvider.LoadInstanceCore(context.Application);
+            Logger.Information("Executing PipelineCommand {@PipelineCommand}", this);
+            try {
+                RevitPipeline pipeline = RevitPipeline.CreateRevitPipeline(PipelineFile);
+                Logger.Debug("Loaded pipeline {@RevitPipelineSteps}", pipeline.StepOptions);
 
-            var logger = GetPlatformService<ILoggerService>();
-            logger.Information("Initialize pipeline command {@command}", this);
+                context.OpenDocument(pipeline.OpenModelOptions);
+                Logger.Debug("Opened Document {@OpenModelOptions}", pipeline.OpenModelOptions);
 
-            RevitPipeline pipeline = RevitPipeline.CreateRevitPipeline(PipelineFile);
-            logger.Information("Loaded pipeline {@pipeline}", pipeline);
+                var transformer = new RevitExternalTransformer(pipeline.OpenModelOptions.ModelPath, context);
+                var stepOptions = pipeline.StepOptions
+                    .Select(item => PipelineOptions.CreateOption(item, transformer));
 
-            context.OpenDocument(pipeline.OpenModelOptions);
-            logger.Information("Opened document {@openModelOptions}", pipeline.OpenModelOptions);
-
-            var transformer = new RevitExternalTransformer(pipeline.OpenModelOptions.ModelPath, context);
-            var stepOptions = pipeline.StepOptions
-                .Select(item => PipelineOptions.CreateOption(item, transformer));
-
-            foreach(PipelineOptions pipelineOption in stepOptions) {
-                pipelineOption.Value.ExecuteExternalItem(pipelineOption.Options.WithOptions);
-                logger.Verbose("Executed pipeline step {@pipelineOption}", pipelineOption);
+                ServicesProvider.LoadInstanceCore(context.Application);
+                foreach(PipelineOptions pipelineOption in stepOptions) {
+                    pipelineOption.Value.ExecuteExternalItem(pipelineOption.Options.WithOptions);
+                }
+            } finally {
+                Logger.Information("Executed PipelineCommand {@PipelineCommand}", this);
             }
         }
 

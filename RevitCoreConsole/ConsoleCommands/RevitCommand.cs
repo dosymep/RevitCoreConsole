@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.CommandLine;
 
+using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.RevitExternals;
 using dosymep.Revit.FileInfo.RevitAddins;
@@ -19,16 +20,23 @@ namespace RevitCoreConsole.ConsoleCommands {
                 .SetDescription("Revit db addin application");
 
         public string ModelPath { get; set; }
-        
+
         public string JournalData { get; set; }
         public string AssemblyPath { get; set; }
         public string FullClassName { get; set; }
-        
+
         protected override void ExecuteImpl(RevitContext context) {
-            var revitAddin = new RevitAddinDBApplication() {AssemblyPath = AssemblyPath, FullClassName = FullClassName};
-            new RevitExternalTransformer(ModelPath, context)
-                .Transform(revitAddin)
-                .ExecuteExternalItem(ReadJournalData(JournalData));
+            Logger.Information("Executing RevitCommand {@RevitCommand}", this);
+            try {
+                ServicesProvider.LoadInstanceCore(context.Application);
+                var revitAddin =
+                    new RevitAddinDBApplication() {AssemblyPath = AssemblyPath, FullClassName = FullClassName};
+                new RevitExternalTransformer(ModelPath, context)
+                    .Transform(revitAddin)
+                    .ExecuteExternalItem(ReadJournalData(JournalData));
+            } finally {
+                Logger.Information("Executed RevitCommand {@RevitCommand}", this);
+            }
         }
 
         protected override RevitContext CreateApplication() {

@@ -22,14 +22,20 @@ namespace RevitCoreConsole.ConsoleCommands {
         public string FullClassName { get; set; }
 
         protected override void ExecuteImpl(NavisworksApplication application) {
-            application.AddPluginAssembly(AssemblyPath);
-            if(application.ExecuteAddInPlugin(FullClassName, JournalData) < 0) {
-                throw new Exception("An error occurred while executing the Navisworks command.");
+            Logger.Information("Executing NavisCommand {@NavisCommand}", this);
+            try {
+                application.OpenFile(ModelPath);
+                application.AddPluginAssembly(AssemblyPath);
+                if(application.ExecuteAddInPlugin(FullClassName, JournalData) < 0) {
+                    throw new Exception("An error occurred while executing the Navisworks command.");
+                }
+            } finally {
+                Logger.Information("Executed NavisCommand {@NavisCommand}", this);
             }
         }
 
         protected override NavisworksApplication CreateApplication() {
-            return CreateNavisworksApplication(ModelPath);
+            return CreateNavisworksApplication();
         }
     }
 }

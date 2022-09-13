@@ -7,6 +7,7 @@ using System.Linq;
 
 using Autodesk.ExchangeStore;
 
+using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.RevitExternals;
 using dosymep.Revit.FileInfo.RevitAddins;
@@ -30,29 +31,59 @@ namespace RevitCoreConsole.ConsoleCommands {
         public string ModelPath { get; set; }
         public string BundlePath { get; set; }
 
+        public RunTimeInfo RunTimeInfo
+            => new RunTimeInfo("Revit", "Win64", "R" + RevitContext.RevitVersion);
+
         protected override void ExecuteImpl(RevitContext context) {
-            var tempName = Path.Combine(Path.GetTempPath(), "RevitCoreConsole", "Bundles");
-            ZipFile.ExtractToDirectory(BundlePath, tempName);
-
-            string bundlePath = Directory.GetDirectories(tempName)
-                .FirstOrDefault(item =>
-                    item.EndsWith(".bundle", StringComparison.CurrentCultureIgnoreCase));
-
+            Logger.Information("Executing ForgeCommand {@ForgeCommand}", this);
             try {
-                var contentPath = Path.Combine(bundlePath, "PackageContents.xml");
-                var component = new RevitPackageContentsParser()
-                    .FindComponentsEntry(contentPath,
-                        new RunTimeInfo("Revit", "Win64", "R2018"))
-                    .FirstOrDefault();
+                var tempName = Path.Combine(Path.GetTempPath(), "RevitCoreConsole", "Bundles");
+                ZipFile.ExtractToDirectory(BundlePath, tempName);
+                Logger.Debug("Extracted bundle to {@TempName}", tempName);
 
+                string bundlePath = Directory.GetDirectories(tempName)
+                    .FirstOrDefault(item =>
+                        item.EndsWith(".bundle", StringComparison.CurrentCultureIgnoreCase));
 
-                var dbapplication = RevitAddinManifest.GetAddinManifest(component.ModuleName).AddinDBApplications
-                    .FirstOrDefault();
-                new RevitExternalTransformer(ModelPath, context)
-                    .Transform(dbapplication)
-                    .ExecuteExternalItem(new Dictionary<string, string>());
+                if(string.IsNullOrEmpty(bundlePath)) {
+                    throw new InvalidOperationException("The bundle doesn't contain .bundle folder.");
+                }
+
+                try {
+                    var contentPath = Path.Combine(bundlePath, "PackageContents.xml");
+                    var component = new RevitPackageContentsParser()
+                        .FindComponentsEntry(contentPath, RunTimeInfo)
+                        .FirstOrDefault();
+
+                    if(component is null) {
+                        throw new InvalidOperationException(
+                            $"The bundle doesn't contain component for revit version {RevitContext.RevitVersion}.");
+                    }
+
+                    Logger.Debug("Loaded component {@Component}", component);
+                    var dbapplication = RevitAddinManifest.GetAddinManifest(component.ModuleName)
+                        .AddinDBApplications.FirstOrDefault();
+
+                    if(dbapplication is null) {
+                        throw new InvalidOperationException(
+                            $"The bundle doesn't contain component module \"{component.ModuleName}\".");
+                    }
+
+                    Logger.Debug("Loaded DBApplication {@DBApplication}", dbapplication);
+                    ServicesProvider.LoadInstanceCore(context.Application);
+                    new RevitExternalTransformer(ModelPath, context)
+                        .Transform(dbapplication)
+                        .ExecuteExternalItem(new Dictionary<string, string>());
+                } finally {
+                    try {
+                        Directory.Delete(tempName, true);
+                        Logger.Debug("Removed extracted bundle {@TempName}", tempName);
+                    } catch(Exception ex) {
+                        Logger.Debug(ex, "Can't remove extracted bundle {@TempName}", tempName);
+                    }
+                }
             } finally {
-                Directory.Delete(Path.GetTempPath(), true);
+                Logger.Information("Executed ForgeCommand {@ForgeCommand}", this);
             }
         }
 

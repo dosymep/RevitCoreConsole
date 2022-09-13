@@ -11,6 +11,8 @@ using dosymep.Autodesk.FileInfo;
 using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 
+using Serilog;
+
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -43,15 +45,14 @@ namespace RevitCoreConsole.ConsoleCommands {
                 .FromAmong("ENU", "ENG", "FRA", "DEU", "ITA", "JPN", "KOR",
                     "PLK", "ESP", "CHS", "CHT", "PTB", "RUS", "CSY", "HUN");
 
+
+        public ILogger Logger { get; set; }
         public LanguageCode LanguageCode { get; set; }
 
         public abstract void Execute();
 
-        protected NavisworksApplication CreateNavisworksApplication(string modelPath) {
-            var application = new NavisworksApplication();
-            application.OpenFile(modelPath);
-
-            return application;
+        protected NavisworksApplication CreateNavisworksApplication() {
+            return new NavisworksApplication();
         }
 
         protected RevitContext CreateRevitApplication() {
