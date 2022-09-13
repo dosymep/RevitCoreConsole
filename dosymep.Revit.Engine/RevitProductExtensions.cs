@@ -7,6 +7,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
 
 using dosymep.Autodesk.FileInfo;
+using dosymep.Revit.Engine.Pipelines;
 
 namespace dosymep.Revit.Engine {
     internal static class RevitProductExtensions {
@@ -98,6 +99,29 @@ namespace dosymep.Revit.Engine {
             }
 
             return LanguageType.Unknown;
+        }
+
+        public static Document OpenDocument(this Application application, OpenModelOptions openModelOptions) {
+            if(openModelOptions == null) {
+                throw new ArgumentNullException(nameof(openModelOptions));
+            }
+
+            if(string.IsNullOrEmpty(openModelOptions.ModelPath)) {
+                throw new ArgumentException("OpenModelOptions doesn't have a model path.", 
+                    nameof(openModelOptions));
+            }
+
+            var options = new OpenOptions() {
+                Audit = openModelOptions.Audit,
+                OpenForeignOption = OpenForeignOption.Open,
+                DetachFromCentralOption = DetachFromCentralOption.DoNotDetach,
+            };
+
+            options.SetIgnoreExtensibleStorageSchemaConflict(true);
+            options.SetOpenWorksetsConfiguration(
+                new WorksetConfiguration(openModelOptions.WorksetConfigurationOption));
+            return application.OpenDocumentFile(
+                ModelPathUtils.ConvertUserVisiblePathToModelPath(openModelOptions.ModelPath), options);
         }
 
 #if REVIT_2021_OR_LESS

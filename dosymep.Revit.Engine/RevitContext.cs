@@ -97,26 +97,7 @@ namespace dosymep.Revit.Engine {
 
         /// <inheritdoc />
         public Document OpenDocument(OpenModelOptions openModelOptions) {
-            if(openModelOptions == null) {
-                throw new ArgumentNullException(nameof(openModelOptions));
-            }
-
-            if(string.IsNullOrEmpty(openModelOptions.ModelPath)) {
-                throw new ArgumentException("OpenModelOptions doesn't have a model path.", 
-                    nameof(openModelOptions));
-            }
-
-            var options = new OpenOptions() {
-                Audit = openModelOptions.Audit,
-                OpenForeignOption = OpenForeignOption.Open,
-                DetachFromCentralOption = DetachFromCentralOption.DoNotDetach,
-            };
-
-            options.SetIgnoreExtensibleStorageSchemaConflict(true);
-            options.SetOpenWorksetsConfiguration(
-                new WorksetConfiguration(openModelOptions.WorksetConfigurationOption));
-            return Application.OpenDocumentFile(
-                ModelPathUtils.ConvertUserVisiblePathToModelPath(openModelOptions.ModelPath), options);
+            return Application.OpenDocument(openModelOptions);
         }
 
         /// <summary>
