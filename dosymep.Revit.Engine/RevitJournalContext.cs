@@ -4,6 +4,7 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
+using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine.Pipelines;
 
 namespace dosymep.Revit.Engine {
@@ -12,6 +13,9 @@ namespace dosymep.Revit.Engine {
 
         public RevitJournalContext(ExternalCommandData externalCommandData) {
             _externalCommandData = externalCommandData;
+
+            // Init Bim4Everyone services
+            ServicesProvider.LoadInstanceCore(Application);
         }
 
         public Application Application

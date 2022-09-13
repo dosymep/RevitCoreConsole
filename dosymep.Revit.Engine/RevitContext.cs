@@ -93,6 +93,7 @@ namespace dosymep.Revit.Engine {
 
             _assemblyResolver.UpdateEnvironmentPaths();
             InitRevit();
+            InitBim4Everyone();
         }
 
         /// <inheritdoc />
@@ -129,6 +130,10 @@ namespace dosymep.Revit.Engine {
             if(RevitContextOptions.StartUpSettings.UseApiOptions) {
                 RevitProduct.SetApiOptions(RevitContextOptions.StartUpSettings.ApiOptions);
             }
+        }
+        
+        private void InitBim4Everyone() {
+            ServicesProvider.LoadInstanceCore(Application);
         }
 
         private bool IsRevitPath() {

@@ -28,7 +28,6 @@ namespace RevitCoreConsole.ConsoleCommands {
         protected override void ExecuteImpl(RevitContext context) {
             Logger.Information("Executing RevitCommand {@RevitCommand}", this);
             try {
-                ServicesProvider.LoadInstanceCore(context.Application);
                 var revitAddin =
                     new RevitAddinDBApplication() {AssemblyPath = AssemblyPath, FullClassName = FullClassName};
                 new RevitExternalTransformer(ModelPath, context)

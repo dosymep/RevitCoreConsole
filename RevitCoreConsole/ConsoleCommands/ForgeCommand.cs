@@ -70,7 +70,6 @@ namespace RevitCoreConsole.ConsoleCommands {
                     }
 
                     Logger.Debug("Loaded DBApplication {@DBApplication}", dbapplication);
-                    ServicesProvider.LoadInstanceCore(context.Application);
                     new RevitExternalTransformer(ModelPath, context)
                         .Transform(dbapplication)
                         .ExecuteExternalItem(new Dictionary<string, string>());

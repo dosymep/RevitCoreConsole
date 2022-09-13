@@ -63,6 +63,10 @@ namespace RevitCoreConsole.ConsoleCommands {
             };
 
             context.Open();
+            
+            // Init Bim4Everyone services
+            //ServicesProvider.LoadInstanceCore(context.Application);
+            
             return context;
         }
 

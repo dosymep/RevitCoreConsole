@@ -43,7 +43,6 @@ namespace RevitCoreConsole.ConsoleCommands {
                 var stepOptions = pipeline.StepOptions
                     .Select(item => PipelineOptions.CreateOption(item, transformer));
 
-                ServicesProvider.LoadInstanceCore(context.Application);
                 foreach(PipelineOptions pipelineOption in stepOptions) {
                     pipelineOption.Value.ExecuteExternalItem(pipelineOption.Options.WithOptions);
                 }
