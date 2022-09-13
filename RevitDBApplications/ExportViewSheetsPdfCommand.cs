@@ -31,17 +31,23 @@ namespace RevitDBApplications {
             }
 
             Document document = designAutomationData.RevitDoc;
-
-            List<ElementId> elementIds = new FilteredElementCollector(document)
+            List<Element> elements = new FilteredElementCollector(document)
                 .WhereElementIsNotElementType()
                 .OfCategory(BuiltInCategory.OST_Sheets)
                 .Select(item => new {View = item, Values = GetParamValues(item, ParamName)})
                 .Where(item => IsViewSheet(item.Values))
-                .Select(item => item.View.Id)
+                .Select(item => item.View)
                 .ToList();
 
+            if(elements.Count == 0) {
+                throw new InvalidOperationException("The export view sheets was not found.");
+            }
+
+            LoggerService.Information("Export view sheets {@ExportViewSheets}",
+                elements.Select(item => new {item.Id, item.Name}).ToArray());
+
             Directory.CreateDirectory(DirectoryPath);
-            document.Export(DirectoryPath, elementIds, GetExportOptions(document));
+            document.Export(DirectoryPath, elements.Select(item => item.Id).ToArray(), GetExportOptions(document));
         }
 
         public ColorDepthType ColorDepth { get; set; } = ColorDepthType.Color;

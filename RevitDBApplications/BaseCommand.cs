@@ -41,12 +41,12 @@ namespace RevitDBApplications {
         }
 
         private void DesignAutomationReadyEvent(object sender, DesignAutomationReadyEventArgs e) {
-            LoggerService.Information("Executing command {@CommandName}", _commandName);
+            LoggerService.Information("Executing command {@Command}", this);
             try {
                 e.Succeeded = true;
                 ExecuteCommand(e.DesignAutomationData);
             } finally {
-                LoggerService.Information("Executed command {@CommandName}", _commandName);
+                LoggerService.Information("Executed command {@Command}", this);
             }
         }
     }

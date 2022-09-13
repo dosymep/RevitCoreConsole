@@ -31,22 +31,17 @@ namespace RevitDBApplications {
 
         protected override void ExecuteCommand(DesignAutomationData designAutomationData) {
             var document = designAutomationData.RevitDoc;
-
-            var logger = ServicesProvider.GetPlatformService<ILoggerService>();
-            logger.Information("Initialization purge unused command {@command}", this);
-
             for(int i = 1; i <= TryCount; i++) {
-                logger.Information("Attempt to remove {@try}", i);
+                LoggerService.Information("Attempt to remove {@try}", i);
 
                 using(var transaction = new Transaction(document)) {
                     transaction.Start($"BIM: Remove unused [{i}].");
-
-                    IEnumerable<ElementId> elementIds = GetElementIds(document);
-                    foreach(ElementId elementId in elementIds) {
+                    
+                    foreach(ElementId elementId in GetElementIds(document)) {
                         try {
                             document.Delete(elementId);
                         } catch {
-                            logger.Warning("Failed to remove ElementId {@elementId}", elementId);
+                            LoggerService.Warning("Failed to remove ElementId {@elementId}", elementId);
                         }
                     }
 
