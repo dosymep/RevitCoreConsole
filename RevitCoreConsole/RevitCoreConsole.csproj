@@ -28,11 +28,6 @@
             <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Automation.dll</HintPath>
         </Reference>
 
-        <Reference Include="PackageContentsParser">
-            <HintPath>$(ProgramW6432)\Autodesk\Revit $(AppVersion)\PackageContentsParser.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-
         <Reference Include="RevitAPI">
             <HintPath>$(ProgramW6432)\Autodesk\Revit $(AppVersion)\RevitAPI.dll</HintPath>
             <Private>False</Private>

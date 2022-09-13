@@ -24,7 +24,7 @@ namespace dosymep.Revit.Engine {
     public static class RevitContextExtensions {
         public static void ExecutePipelineCommand(this IRevitContext revitContext, IPipelineCommand pipelineCommand) {
             ILoggerService loggerService = revitContext.GetPlatformService<ILoggerService>();
-            
+
             RevitPipeline pipeline = RevitPipeline.CreateRevitPipeline(pipelineCommand.PipelineFile);
             loggerService.Debug("Loaded pipeline {@RevitPipelineSteps}", pipeline.StepOptions);
 
@@ -39,7 +39,7 @@ namespace dosymep.Revit.Engine {
                 pipelineOption.Value.ExecuteExternalItem(pipelineOption.Options.WithOptions);
             }
         }
-        
+
         public static void ExecuteRevitCommand(this IRevitContext revitContext, IRevitCommand revitCommand) {
             IRevitExternalItem revitExternalItem =
                 revitCommand.RevitAddinItem.Reduce<IRevitExternalItem, RevitAddinItem>(
@@ -63,9 +63,10 @@ namespace dosymep.Revit.Engine {
             }
 
             try {
+                var runTimeInfo = new RunTimeInfo("Revit", "Win64", "R" + RevitContext.RevitVersion);
                 var contentPath = Path.Combine(bundlePath, "PackageContents.xml");
                 var component = new RevitPackageContentsParser()
-                    .FindComponentsEntry(contentPath, forgeCommand.RunTimeInfo)
+                    .FindComponentsEntry(contentPath, runTimeInfo)
                     .FirstOrDefault();
 
                 if(component is null) {
@@ -107,7 +108,7 @@ namespace dosymep.Revit.Engine {
                 .Build();
             return deserializer.Deserialize<Dictionary<string, string>>(journalData);
         }
-        
+
         private class PipelineOptions {
             public static PipelineOptions CreateOption(PipelineStepOptions options,
                 RevitExternalTransformer transformer) {

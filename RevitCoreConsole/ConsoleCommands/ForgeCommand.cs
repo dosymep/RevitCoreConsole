@@ -5,8 +5,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 
-using Autodesk.ExchangeStore;
-
 using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.CoreCommands;
@@ -31,9 +29,6 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         public string ModelPath { get; set; }
         public string BundlePath { get; set; }
-
-        public RunTimeInfo RunTimeInfo
-            => new RunTimeInfo("Revit", "Win64", "R" + RevitContext.RevitVersion);
 
         protected override void ExecuteImpl(RevitContext context) {
             Logger.Information("Executing ForgeCommand {@ForgeCommand}", this);
