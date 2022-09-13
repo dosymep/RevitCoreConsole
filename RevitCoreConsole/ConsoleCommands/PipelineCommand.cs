@@ -1,14 +1,17 @@
-﻿using System.CommandLine;
+﻿using System;
+using System.CommandLine;
 using System.IO;
 using System.Linq;
 
 using Autodesk.Revit.DB;
 
 using dosymep.Autodesk;
+using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.Pipelines;
 using dosymep.Revit.Engine.RevitExternals;
 using dosymep.Revit.FileInfo.RevitAddins;
+using dosymep.SimpleServices;
 
 using RevitCoreConsole.ConsoleCommands.Binders;
 
@@ -28,8 +31,16 @@ namespace RevitCoreConsole.ConsoleCommands {
         public string PipelineFile { get; set; }
 
         protected override void ExecuteImpl(RevitContext context) {
+            ServicesProvider.LoadInstanceCore(context.Application);
+
+            var logger = GetPlatformService<ILoggerService>();
+            logger.Information("Initialize pipeline command {@command}", this);
+
             RevitPipeline pipeline = RevitPipeline.CreateRevitPipeline(PipelineFile);
+            logger.Information("Loaded pipeline {@pipeline}", pipeline);
+
             context.OpenDocument(pipeline.OpenModelOptions);
+            logger.Information("Opened document {@openModelOptions}", pipeline.OpenModelOptions);
 
             var transformer = new RevitExternalTransformer(pipeline.OpenModelOptions.ModelPath, context);
             var stepOptions = pipeline.StepOptions
@@ -37,6 +48,7 @@ namespace RevitCoreConsole.ConsoleCommands {
 
             foreach(PipelineOptions pipelineOption in stepOptions) {
                 pipelineOption.Value.ExecuteExternalItem(pipelineOption.Options.WithOptions);
+                logger.Verbose("Executed pipeline step {@pipelineOption}", pipelineOption);
             }
         }
 

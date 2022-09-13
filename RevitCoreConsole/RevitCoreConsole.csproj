@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <Import Project="..\ProjectProps\Common.props" />
-    
+
     <PropertyGroup>
         <OutputType>Exe</OutputType>
     </PropertyGroup>
@@ -20,13 +20,14 @@
         <Reference Include="Autodesk.Navisworks.ComApi">
             <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.ComApi.dll</HintPath>
         </Reference>
-        
+
         <Reference Include="Autodesk.Navisworks.Automation">
             <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Automation.dll</HintPath>
         </Reference>
 
         <Reference Include="PackageContentsParser">
-          <HintPath>$(ProgramW6432)\Autodesk\Revit 2020\PackageContentsParser.dll</HintPath>
+            <HintPath>$(ProgramW6432)\Autodesk\Revit $(AppVersion)\PackageContentsParser.dll</HintPath>
+            <Private>False</Private>
         </Reference>
 
         <Reference Include="RevitAPI">
@@ -39,10 +40,4 @@
         <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Update="RevitCoreConsole.exe.config">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </None>
-    </ItemGroup>
-    
 </Project>

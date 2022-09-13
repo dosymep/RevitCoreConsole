@@ -60,7 +60,7 @@ namespace RevitCoreConsole.ConsoleCommands {
                 RevitEnginePath = GetAppSettingsValue(nameof(RevitContextOptions),
                     nameof(RevitContext.RevitEnginePath), RevitContext.GetDefaultRevitEnginePath()),
             };
-            
+
             context.Open();
             return context;
         }
@@ -132,9 +132,10 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         private static T GetAppSettingsValue<T>(string sectionName, string propertyName, T defaultValue = default) {
             var section = ConfigurationManager.GetSection(sectionName) as NameValueCollection;
-            return section == null
+            var sectionValue = section?.Get(propertyName);
+            return string.IsNullOrEmpty(sectionValue)
                 ? defaultValue
-                : (T) Convert.ChangeType(section.Get(propertyName), typeof(T));
+                : (T) Convert.ChangeType(sectionValue, typeof(T));
         }
 
         private static Guid GetAppSettingsValueGuid(string sectionName, string propertyName,
@@ -148,7 +149,7 @@ namespace RevitCoreConsole.ConsoleCommands {
             string value = GetAppSettingsValue<string>(sectionName, propertyName);
             return string.IsNullOrEmpty(value) ? defaultValue : LanguageCode.GetLanguageCode(value);
         }
-        
+
         protected T GetPlatformService<T>() {
             return ServicesProvider.GetPlatformService<T>();
         }

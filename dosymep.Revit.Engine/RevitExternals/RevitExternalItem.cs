@@ -76,8 +76,12 @@ namespace dosymep.Revit.Engine.RevitExternals {
                 throw new InvalidOperationException($"{nameof(RevitAddinItem.AssemblyPath)} not found.");
             }
 
-            OpenAndActivateDocument();
-            ExecuteExternalItemImpl(journalData);
+            try {
+                OpenAndActivateDocument();
+                ExecuteExternalItemImpl(journalData);
+            } catch(TargetInvocationException ex) when(ex.InnerException != null) {
+                throw ex.InnerException;
+            }
         }
 
         /// <summary>
