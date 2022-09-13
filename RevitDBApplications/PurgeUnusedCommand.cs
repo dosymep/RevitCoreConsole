@@ -14,6 +14,10 @@ using dosymep.SimpleServices;
 
 namespace RevitDBApplications {
     public class PurgeUnusedCommand : BaseCommand {
+        public PurgeUnusedCommand()
+            : base("Purge unused") {
+        }
+
         public int TryCount { get; set; } = 5;
         public bool WithThermals { get; set; } = true;
         public bool WithMaterials { get; set; } = true;
@@ -30,13 +34,13 @@ namespace RevitDBApplications {
 
             var logger = ServicesProvider.GetPlatformService<ILoggerService>();
             logger.Information("Initialization purge unused command {@command}", this);
-            
+
             for(int i = 1; i <= TryCount; i++) {
                 logger.Information("Attempt to remove {@try}", i);
-                
+
                 using(var transaction = new Transaction(document)) {
                     transaction.Start($"BIM: Remove unused [{i}].");
-                    
+
                     IEnumerable<ElementId> elementIds = GetElementIds(document);
                     foreach(ElementId elementId in elementIds) {
                         try {

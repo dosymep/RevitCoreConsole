@@ -11,6 +11,10 @@ using DesignAutomationFramework;
 
 namespace RevitDBApplications {
     public class ExportNavisworksCommand : BaseCommand {
+        public ExportNavisworksCommand()
+            : base("Export 3D view to Navisworks") {
+        }
+
         public string ViewName { get; set; } = "Navisworks";
 
         public string TargetFileName { get; set; }

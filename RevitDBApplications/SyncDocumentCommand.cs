@@ -12,14 +12,18 @@ using DesignAutomationFramework;
 
 namespace RevitDBApplications {
     public class SyncDocumentCommand : BaseCommand {
+        public SyncDocumentCommand()
+            : base("Sync central model") {
+        }
+
         public bool Compact { get; set; } = true;
-        public string Comment { get; set; } = "Sync document command.";
+        public string Comment { get; set; } = "Sync central model.";
 
         protected override void ExecuteCommand(DesignAutomationData designAutomationData) {
             Document document = designAutomationData.RevitDoc;
             document.SynchronizeWithCentral(CreateTransactWithCentralOptions(), CreateSynchronizeWithCentralOptions());
         }
-        
+
         public TransactWithCentralOptions CreateTransactWithCentralOptions() {
             var options = new TransactWithCentralOptions();
             options.SetLockCallback(new CentralLockedCallback(true));
@@ -29,13 +33,9 @@ namespace RevitDBApplications {
 
         public SynchronizeWithCentralOptions CreateSynchronizeWithCentralOptions() {
             var options = new SynchronizeWithCentralOptions {
-                SaveLocalAfter = true,
-                SaveLocalBefore = true,
-                
-                Comment = Comment,
-                Compact = Compact
+                SaveLocalAfter = true, SaveLocalBefore = true, Comment = Comment, Compact = Compact
             };
-            
+
             options.SetRelinquishOptions(CreateRelinquishOptions());
             return options;
         }

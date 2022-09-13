@@ -11,10 +11,14 @@ using DesignAutomationFramework;
 
 namespace RevitDBApplications {
     public class ExportViewSheetsPdfCommand : BaseCommand {
+        public ExportViewSheetsPdfCommand()
+            : base("Export sheets to PDF") {
+        }
+
         protected override void ExecuteCommand(DesignAutomationData designAutomationData) {
             PrintViewSheets(designAutomationData);
         }
-        
+
 #if REVIT_2021_OR_LESS
         private void PrintViewSheets(DesignAutomationData designAutomationData) {
             var application = designAutomationData.RevitApp;
