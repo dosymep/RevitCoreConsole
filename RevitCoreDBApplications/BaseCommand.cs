@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel.Design;
 
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
@@ -9,7 +8,7 @@ using DesignAutomationFramework;
 using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.SimpleServices;
 
-namespace RevitDBApplications {
+namespace RevitCoreDBApplications {
     public abstract class BaseCommand : IExternalDBApplication {
         private readonly string _commandName;
 

@@ -3,16 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 
 using DesignAutomationFramework;
 
-using dosymep.Bim4Everyone.SimpleServices;
-using dosymep.SimpleServices;
-
-namespace RevitDBApplications {
+namespace RevitCoreDBApplications {
     public class PurgeUnusedCommand : BaseCommand {
         public PurgeUnusedCommand()
             : base("Purge unused") {

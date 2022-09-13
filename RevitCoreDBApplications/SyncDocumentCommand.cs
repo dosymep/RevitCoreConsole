@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
-
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Events;
+﻿using Autodesk.Revit.DB;
 
 using DesignAutomationFramework;
 
-namespace RevitDBApplications {
+namespace RevitCoreDBApplications {
     public class SyncDocumentCommand : BaseCommand {
         public SyncDocumentCommand()
             : base("Sync central model") {

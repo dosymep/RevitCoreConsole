@@ -4,12 +4,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 
 using DesignAutomationFramework;
 
-namespace RevitDBApplications {
+namespace RevitCoreDBApplications {
     public class ExportViewSheetsPdfCommand : BaseCommand {
         public ExportViewSheetsPdfCommand()
             : base("Export sheets to PDF") {

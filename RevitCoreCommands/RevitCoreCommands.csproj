@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <Import Project="..\ProjectProps\Common.props" />
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
+    </ItemGroup>
+
+</Project>

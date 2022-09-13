@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.ExternalService;
 
 using DesignAutomationFramework;
 
-namespace RevitDBApplications {
+namespace RevitCoreDBApplications {
     public class ExportNavisworksCommand : BaseCommand {
         public ExportNavisworksCommand()
             : base("Export 3D view to Navisworks") {
