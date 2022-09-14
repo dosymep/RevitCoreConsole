@@ -8,8 +8,30 @@ using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine.Pipelines;
 
 namespace dosymep.Revit.Engine {
-    internal class RevitJournalContext : IRevitContext {
+    public class RevitJournalContext : IRevitContext {
         private readonly ExternalCommandData _externalCommandData;
+        
+#if REVIT_2020
+        /// <summary>
+        /// Current revit Version.
+        /// </summary>
+        public static readonly string RevitVersion = "2020";
+#elif REVIT_2021
+        /// <summary>
+        /// Current revit Version.
+        /// </summary>
+        public static readonly string RevitVersion = "2021";
+#elif REVIT_2022
+        /// <summary>
+        /// Current revit Version.
+        /// </summary>
+        public static readonly string RevitVersion = "2022";
+#elif REVIT_2023
+        /// <summary>
+        /// Current revit Version.
+        /// </summary>
+        public static readonly string RevitVersion = "2023";
+#endif
 
         public RevitJournalContext(ExternalCommandData externalCommandData) {
             _externalCommandData = externalCommandData;
