@@ -44,7 +44,12 @@ namespace RevitCoreConsole.ConsoleCommands.Binders {
                     fileSizeLimitBytes: fileSizeLimitBytes, rollOnFileSizeLimit: rollOnFileSizeLimit,
                     retainedFileCountLimit: retainedFileCountLimit, outputTemplate: outputTemplate)
                 .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+                .Destructure.ByTransforming<LanguageCode>(lang => new {lang.Code, lang.FullCode})
+#if DEBUG
                 .MinimumLevel.Verbose();
+#else
+                .MinimumLevel.Information();
+#endif
 
             return loggerConfiguration.CreateLogger();
         }
