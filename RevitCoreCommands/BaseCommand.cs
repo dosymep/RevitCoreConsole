@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Security;
 
+using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
@@ -8,6 +9,9 @@ using dosymep.Revit.Engine;
 using dosymep.SimpleServices;
 
 namespace RevitCoreCommands {
+    [Transaction(TransactionMode.Manual)]
+    [Regeneration(RegenerationOption.Manual)]
+    [Journaling(JournalingMode.UsingCommandData)]
     public abstract class BaseCommand : IExternalCommand {
         protected IDictionary<string,string> _journalData;
 
