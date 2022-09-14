@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.CommandLine;
 using System.Configuration;
 using System.IO;
+using System.Threading;
 
 using Autodesk.Navisworks.Api.Automation;
 
@@ -82,6 +83,7 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         private StartUpSettings GetStartUpSettings() {
             return new StartUpSettings() {
+                LanguageCode = LanguageCode,
                 ApiOptions = GetApiOptions(),
                 JournalName = GetAppSettingsValue(nameof(StartUpSettings),
                     nameof(StartUpSettings.JournalName), (string) null),
@@ -93,9 +95,6 @@ namespace RevitCoreConsole.ConsoleCommands {
                     nameof(StartUpSettings.EnableIfc), true),
                 UseApiOptions = GetAppSettingsValue(nameof(StartUpSettings),
                     nameof(StartUpSettings.UseApiOptions), false),
-                LanguageCode = LanguageCode
-                               ?? GetAppSettingsValueLanguageCode(nameof(StartUpSettings),
-                                   nameof(StartUpSettings.LanguageCode), LanguageCode.ENU),
             };
         }
 
@@ -120,7 +119,7 @@ namespace RevitCoreConsole.ConsoleCommands {
             };
         }
 
-        private static T GetAppSettingsValue<T>(string sectionName, string propertyName, T defaultValue = default) {
+        protected static T GetAppSettingsValue<T>(string sectionName, string propertyName, T defaultValue = default) {
             var section = ConfigurationManager.GetSection(sectionName) as NameValueCollection;
             var sectionValue = section?.Get(propertyName);
             return string.IsNullOrEmpty(sectionValue)
@@ -128,13 +127,13 @@ namespace RevitCoreConsole.ConsoleCommands {
                 : (T) Convert.ChangeType(sectionValue, typeof(T));
         }
 
-        private static Guid GetAppSettingsValueGuid(string sectionName, string propertyName,
+        protected static Guid GetAppSettingsValueGuid(string sectionName, string propertyName,
             Guid defaultValue = default) {
             string value = GetAppSettingsValue<string>(sectionName, propertyName);
             return Guid.TryParse(value, out Guid guidValue) ? guidValue : defaultValue;
         }
 
-        private static LanguageCode GetAppSettingsValueLanguageCode(string sectionName, string propertyName,
+        protected static LanguageCode GetAppSettingsValueLanguageCode(string sectionName, string propertyName,
             LanguageCode defaultValue = default) {
             string value = GetAppSettingsValue<string>(sectionName, propertyName);
             return string.IsNullOrEmpty(value) ? defaultValue : LanguageCode.GetLanguageCode(value);
@@ -151,6 +150,13 @@ namespace RevitCoreConsole.ConsoleCommands {
         protected abstract T CreateApplication();
 
         public override void Execute() {
+            LanguageCode = LanguageCode
+                           ?? GetAppSettingsValueLanguageCode(nameof(StartUpSettings),
+                               nameof(StartUpSettings.LanguageCode), LanguageCode.ENU);
+
+            Thread.CurrentThread.CurrentCulture = LanguageCode.CultureInfo;
+            Thread.CurrentThread.CurrentUICulture = LanguageCode.CultureInfo;
+
             using(T application = CreateApplication()) {
                 ExecuteImpl(application);
             }
