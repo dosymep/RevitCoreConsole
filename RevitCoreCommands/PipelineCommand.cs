@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 
+using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Plumbing;
 using Autodesk.Revit.UI;
@@ -9,6 +10,9 @@ using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.CoreCommands;
 
 namespace RevitCoreCommands {
+    [Transaction(TransactionMode.Manual)]
+    [Regeneration(RegenerationOption.Manual)]
+    [Journaling(JournalingMode.UsingCommandData)]
     public class PipelineCommand : BaseCommand, IPipelineCommand {
         public string PipelineFile { get; set; }
 
