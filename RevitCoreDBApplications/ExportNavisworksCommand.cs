@@ -53,7 +53,7 @@ namespace RevitCoreDBApplications {
                 throw new InvalidOperationException($"The \"{ViewName}\" view is not found.");
             }
 
-            LoggerService.Information("Found Export View {@ExportView}", new {exportView.Id, exportView.Name});
+            LoggerService.Information("{@CommandName} Found Export View {@ExportView}", _commandName, new {exportView.Id, exportView.Name});
             var options = new Options() {ComputeReferences = true, DetailLevel = ViewDetailLevel.Fine};
             var hasElements = new FilteredElementCollector(document, exportView.Id)
                 .WhereElementIsNotElementType()
@@ -64,7 +64,7 @@ namespace RevitCoreDBApplications {
             }
 
             var targetFileName = TargetFileName ?? document.Title ?? "Noname";
-            LoggerService.Information("Export view file name {@ExportViewName}", targetFileName);
+            LoggerService.Information("{@CommandName} Export view file name {@ExportViewName}", _commandName, targetFileName);
             
             NavisworksExportOptions navisworksExportOptions = GetExportOptions(exportView);
             document.Export(TargetDirectoryName, targetFileName, navisworksExportOptions);

@@ -10,7 +10,7 @@ using dosymep.SimpleServices;
 
 namespace RevitCoreDBApplications {
     public abstract class BaseCommand : IExternalDBApplication {
-        private readonly string _commandName;
+        protected readonly string _commandName;
 
         protected BaseCommand(string commandName) {
             _commandName = commandName;
