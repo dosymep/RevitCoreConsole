@@ -3,6 +3,7 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
+        <AppConfig>App.$(Configuration).config</AppConfig>
     </PropertyGroup>
 
     <ItemGroup>
@@ -38,4 +39,19 @@
         <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="App.D2020.config">
+        <DependentUpon>App.config</DependentUpon>
+      </None>
+      <None Update="App.D2021.config">
+        <DependentUpon>App.config</DependentUpon>
+      </None>
+      <None Update="App.D2022.config">
+        <DependentUpon>App.config</DependentUpon>
+      </None>
+      <None Update="App.D2023.config">
+        <DependentUpon>App.config</DependentUpon>
+      </None>
+    </ItemGroup>
+    
 </Project>
