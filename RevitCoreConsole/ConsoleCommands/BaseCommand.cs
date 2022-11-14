@@ -8,7 +8,7 @@ using System.Threading;
 
 using Autodesk.Navisworks.Api.Automation;
 
-using dosymep.Autodesk.FileInfo;
+using dosymep.AutodeskApps.FileInfo;
 using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 
