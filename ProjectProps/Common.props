@@ -139,10 +139,10 @@
             <HintPath>$(AppData)\pyRevit\Extensions\BIM4Everyone.lib\Ninject.dll</HintPath>
         </Reference>
 
-        <Reference Include="RevitAPI">
-            <HintPath>$(ProgramW6432)\Autodesk\Revit $(AppVersion)\RevitAPI.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
+        <PackageReference Include="Autodesk.Revit.SDK" Version="$(AppVersion).*">
+            <PrivateAssets>all</PrivateAssets>
+            <ExcludeAssets>runtime</ExcludeAssets>
+        </PackageReference>
 
     </ItemGroup>
 
