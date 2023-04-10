@@ -23,27 +23,20 @@ namespace dosymep.Revit.Engine {
         public RevitContext() {
             _assemblyResolver = new RevitAssemblyResolver();
         }
-
-#if REVIT_2020
+        
         /// <summary>
         /// Current revit Version.
         /// </summary>
+#if REVIT_2020
         public static readonly string RevitVersion = "2020";
 #elif REVIT_2021
-        /// <summary>
-        /// Current revit Version.
-        /// </summary>
         public static readonly string RevitVersion = "2021";
 #elif REVIT_2022
-        /// <summary>
-        /// Current revit Version.
-        /// </summary>
         public static readonly string RevitVersion = "2022";
 #elif REVIT_2023
-        /// <summary>
-        /// Current revit Version.
-        /// </summary>
         public static readonly string RevitVersion = "2023";
+#elif REVIT_2024
+        public static readonly string RevitVersion = "2024";
 #endif
 
         /// <summary>
