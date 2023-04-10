@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.CommandLine;
 using System.Configuration;
-using System.IO;
 using System.Threading;
-
-using Autodesk.Navisworks.Api.Automation;
 
 using dosymep.AutodeskApps.FileInfo;
 using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 
 using Serilog;
-
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace RevitCoreConsole.ConsoleCommands {
     internal abstract class BaseCommand {
@@ -51,10 +44,6 @@ namespace RevitCoreConsole.ConsoleCommands {
         public LanguageCode LanguageCode { get; set; }
 
         public abstract void Execute();
-
-        protected NavisworksApplication CreateNavisworksApplication() {
-            return new NavisworksApplication();
-        }
 
         protected RevitContext CreateRevitApplication() {
             RevitContext context = new RevitContext() {
