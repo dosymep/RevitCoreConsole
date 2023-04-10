@@ -1,5 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\ProjectProps\Common.props"/>
+    <Import Project="..\ProjectProps\Common.props" />
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
@@ -7,13 +7,13 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="System.Configuration"/>
-        <Reference Include="System.IO.Compression"/>
-        <PackageReference Include="Serilog" Version="2.12.0"/>
-        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0"/>
-        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0"/>
-        <PackageReference Include="YamlDotNet" Version="12.0.0"/>
-        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1"/>
+        <Reference Include="System.Configuration" />
+        <Reference Include="System.IO.Compression" />
+        <PackageReference Include="Serilog" Version="2.12.0" />
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+        <PackageReference Include="YamlDotNet" Version="12.0.0" />
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -31,7 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj"/>
+        <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
     </ItemGroup>
 
     <ItemGroup>

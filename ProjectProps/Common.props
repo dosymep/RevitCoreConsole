@@ -4,7 +4,7 @@
         <TargetFramework>net48</TargetFramework>
         <OutputType>Library</OutputType>
         <Platforms>x64</Platforms>
-        <Configurations>D2020;D2021;D2022;D2023;R2020;R2021;R2022;R2023</Configurations>
+        <Configurations>D2020;D2021;D2022;D2023;D2024;R2020;R2021;R2022;R2023;R2024</Configurations>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)'=='D2020' OR '$(Configuration)'=='R2020'">
@@ -23,6 +23,10 @@
         <AppVersion>2023</AppVersion>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)'=='D2024' OR '$(Configuration)'=='R2024'">
+        <AppVersion>2024</AppVersion>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(AppVersion)'=='2020'">
         <DefineConstants>$(DefineConstants);REVIT_2020</DefineConstants>
     </PropertyGroup>
@@ -37,6 +41,10 @@
 
     <PropertyGroup Condition="'$(AppVersion)'=='2023'">
         <DefineConstants>$(DefineConstants);REVIT_2023</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(AppVersion)'=='2024'">
+        <DefineConstants>$(DefineConstants);REVIT_2024</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(AppVersion)'&lt;='2020'">
@@ -55,6 +63,10 @@
         <DefineConstants>$(DefineConstants);REVIT_2023_OR_LESS</DefineConstants>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(AppVersion)'&lt;='2024'">
+        <DefineConstants>$(DefineConstants);REVIT_2024_OR_LESS</DefineConstants>
+    </PropertyGroup>
+
     <PropertyGroup Condition="'$(AppVersion)'>='2020'">
         <DefineConstants>$(DefineConstants);REVIT_2020_OR_GREATER</DefineConstants>
     </PropertyGroup>
@@ -69,6 +81,10 @@
 
     <PropertyGroup Condition="'$(AppVersion)'>='2023'">
         <DefineConstants>$(DefineConstants);REVIT_2023_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(AppVersion)'>='2024'">
+        <DefineConstants>$(DefineConstants);REVIT_2024_OR_GREATER</DefineConstants>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration.StartsWith(`D`))'">
