@@ -7,8 +7,9 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
 
-using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine.Pipelines;
+
+using Serilog;
 
 namespace dosymep.Revit.Engine {
     /// <summary>
@@ -50,6 +51,9 @@ namespace dosymep.Revit.Engine {
         public RevitContextOptions RevitContextOptions { get; set; }
 
         /// <inheritdoc />
+        public ILogger Logger { get; set; }
+        
+        /// <inheritdoc />
         public Application Application => RevitProduct.Application;
 
         /// <summary>
@@ -66,11 +70,6 @@ namespace dosymep.Revit.Engine {
         /// <returns>Returns default revit engine path.</returns>
         public static string GetDefaultRevitEnginePath() {
             return Environment.ExpandEnvironmentVariables($@"%programfiles%\Autodesk\Revit {RevitVersion}");
-        }
-        
-        /// <inheritdoc />
-        public T GetPlatformService<T>() {
-            return ServicesProvider.GetPlatformService<T>();
         }
 
         /// <summary>
@@ -91,7 +90,6 @@ namespace dosymep.Revit.Engine {
 
             _assemblyResolver.UpdateEnvironmentPaths();
             InitRevit();
-            InitBim4Everyone();
         }
 
         /// <inheritdoc />
@@ -128,10 +126,6 @@ namespace dosymep.Revit.Engine {
             if(RevitContextOptions.StartUpSettings.UseApiOptions) {
                 RevitProduct.SetApiOptions(RevitContextOptions.StartUpSettings.ApiOptions);
             }
-        }
-        
-        private void InitBim4Everyone() {
-            ServicesProvider.LoadInstanceCore(Application);
         }
 
         private bool IsRevitPath() {

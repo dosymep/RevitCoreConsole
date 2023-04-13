@@ -27,7 +27,7 @@ namespace RevitCoreDBApplications {
         protected override void ExecuteCommand(DesignAutomationData designAutomationData) {
             var document = designAutomationData.RevitDoc;
             for(int i = 1; i <= TryCount; i++) {
-                LoggerService.Information("{@CommandName} Attempt to remove {@try}", _commandName, i);
+                Logger.Information("{@CommandName} Attempt to remove {@try}", _commandName, i);
 
                 using(var transaction = new Transaction(document)) {
                     transaction.Start($"BIM: Remove unused [{i}].");
@@ -36,7 +36,7 @@ namespace RevitCoreDBApplications {
                         try {
                             document.Delete(elementId);
                         } catch {
-                            LoggerService.Warning("{@CommandName} Failed to remove ElementId {@elementId}",
+                            Logger.Warning("{@CommandName} Failed to remove ElementId {@elementId}",
                                 _commandName, elementId);
                         }
                     }

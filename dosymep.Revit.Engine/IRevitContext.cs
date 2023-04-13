@@ -4,11 +4,18 @@ using Autodesk.Revit.DB;
 
 using dosymep.Revit.Engine.Pipelines;
 
+using Serilog;
+
 namespace dosymep.Revit.Engine {
     /// <summary>
     /// Interface revit application.
     /// </summary>
     public interface IRevitContext {
+        /// <summary>
+        /// Main app logger.
+        /// </summary>
+        ILogger Logger { get; }
+        
         /// <summary>
         /// Revit application.
         /// </summary>
@@ -19,12 +26,5 @@ namespace dosymep.Revit.Engine {
         /// </summary>
         /// <param name="openModelOptions">Open model options.</param>
         Document OpenDocument(OpenModelOptions openModelOptions);
-
-        /// <summary>
-        /// Returns registered Bim4Everyone service.
-        /// </summary>
-        /// <typeparam name="T">Type of service.</typeparam>
-        /// <returns>Returns registered Bim4Everyone service.</returns>
-        T GetPlatformService<T>();
     }
 }

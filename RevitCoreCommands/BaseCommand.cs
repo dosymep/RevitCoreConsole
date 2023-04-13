@@ -6,7 +6,6 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
 using dosymep.Revit.Engine;
-using dosymep.SimpleServices;
 
 namespace RevitCoreCommands {
     [Transaction(TransactionMode.Manual)]

@@ -22,6 +22,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
         /// <inheritdoc />
         protected override void ExecuteExternalItemImpl(IDictionary<string, string> journalData) {
             var application = RevitAddinItem.CreateAddinItemObject<IExternalCommand>();
+            ApplyLogger(application, _revitContext.Logger);
             ApplyJournalData(application, journalData);
 
             string message = null;

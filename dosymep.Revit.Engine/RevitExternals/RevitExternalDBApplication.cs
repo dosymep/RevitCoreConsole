@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
@@ -23,6 +24,7 @@ namespace dosymep.Revit.Engine.RevitExternals {
             ControlledApplication controlledApplication = _revitContext.Application.CreateControlledApplication();
             var application = RevitAddinItem.CreateAddinItemObject<IExternalDBApplication>();
             try {
+                ApplyLogger(application, _revitContext.Logger);
                 ApplyJournalData(application, journalData);
                 CheckResult(application.OnStartup(controlledApplication), "Startup");
                 _revitContext.Application.SetDesignAutomationReady(MainModelPath);

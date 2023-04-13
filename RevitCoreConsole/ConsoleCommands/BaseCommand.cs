@@ -5,7 +5,6 @@ using System.Configuration;
 using System.Threading;
 
 using dosymep.AutodeskApps.FileInfo;
-using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 
 using Serilog;
@@ -30,7 +29,7 @@ namespace RevitCoreConsole.ConsoleCommands {
         public static readonly Option<string> ModelPathOption
             = new Option<string>(
                 name: "/i",
-                description: "Input file rvt or nwc") {IsRequired = true, ArgumentHelpName = "sample.rvt"};
+                description: "Input file rvt") {IsRequired = false, ArgumentHelpName = "sample.rvt"};
 
         public static readonly Option<string> LanguageCodeOption
             = new Option<string>(
@@ -47,6 +46,7 @@ namespace RevitCoreConsole.ConsoleCommands {
 
         protected RevitContext CreateRevitApplication() {
             RevitContext context = new RevitContext() {
+                Logger = Logger,
                 RevitContextOptions = GetRevitAppInfo(),
                 RevitEnginePath = GetAppSettingsValue(nameof(RevitContextOptions),
                     nameof(RevitContext.RevitEnginePath), RevitContext.GetDefaultRevitEnginePath()),
@@ -126,10 +126,6 @@ namespace RevitCoreConsole.ConsoleCommands {
             LanguageCode defaultValue = default) {
             string value = GetAppSettingsValue<string>(sectionName, propertyName);
             return string.IsNullOrEmpty(value) ? defaultValue : LanguageCode.GetLanguageCode(value);
-        }
-
-        protected T GetPlatformService<T>() {
-            return ServicesProvider.GetPlatformService<T>();
         }
     }
 

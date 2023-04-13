@@ -42,7 +42,7 @@ namespace RevitCoreDBApplications {
                 throw new InvalidOperationException("The export view sheets was not found.");
             }
 
-            LoggerService.Information("{@CommandName} Export view sheets {@ExportViewSheets}",
+            Logger.Information("{@CommandName} Export view sheets {@ExportViewSheets}",
                 _commandName, elements.Select(item => new {item.Id, item.Name}).ToArray());
 
             Directory.CreateDirectory(DirectoryPath);

@@ -7,9 +7,10 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine.Pipelines;
 using dosymep.Revit.FileInfo.RevitAddins;
+
+using Serilog;
 
 namespace dosymep.Revit.Engine.RevitExternals {
     /// <summary>
@@ -56,10 +57,6 @@ namespace dosymep.Revit.Engine.RevitExternals {
 
         /// <inheritdoc />
         public void ExecuteExternalItem(IDictionary<string, string> journalData) {
-            if(string.IsNullOrEmpty(MainModelPath)) {
-                throw new InvalidOperationException($"{nameof(MainModelPath)} not found.");
-            }
-
             if(RevitAddinItem == null) {
                 throw new InvalidOperationException($"{nameof(RevitAddinItem)} is not set.");
             }
@@ -72,10 +69,17 @@ namespace dosymep.Revit.Engine.RevitExternals {
                 throw new InvalidOperationException($"{nameof(RevitAddinItem.FullClassName)} is not set.");
             }
 
-            if(!File.Exists(RevitAddinItem.AssemblyPath)) {
+            if(!File.Exists(RevitAddinItem.FullAssemblyPath)) {
                 throw new InvalidOperationException($"{nameof(RevitAddinItem.AssemblyPath)} not found.");
             }
 
+            if(!string.IsNullOrEmpty(MainModelPath)) {
+                var mainModel = new System.IO.FileInfo(MainModelPath);
+                if(!string.IsNullOrEmpty(mainModel.DirectoryName)) {
+                    Directory.SetCurrentDirectory(mainModel.DirectoryName);
+                }
+            }
+            
             try {
                 OpenAndActivateDocument();
                 ExecuteExternalItemImpl(journalData);
@@ -101,6 +105,11 @@ namespace dosymep.Revit.Engine.RevitExternals {
                 });
             }
         }
+        
+        protected void ApplyLogger(object externalItem, ILogger logger) {
+            Type externalType = externalItem.GetType();
+            externalType.GetProperty("Logger")?.SetValue(externalItem, logger);
+        }
 
         protected void ApplyJournalData(object externalItem, IDictionary<string, string> journalData) {
             Type externalType = externalItem.GetType();
@@ -118,10 +127,6 @@ namespace dosymep.Revit.Engine.RevitExternals {
                 propertyInfo.SetValue(externalItem,
                     RevitPipeline.GetPipelineValue(propertyInfo.PropertyType, kvp.Value));
             }
-        }
-
-        protected T GetPlatformService<T>() {
-            return ServicesProvider.GetPlatformService<T>();
         }
     }
 }

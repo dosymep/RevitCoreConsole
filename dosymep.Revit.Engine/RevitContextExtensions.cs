@@ -12,7 +12,8 @@ using dosymep.Revit.Engine.CoreCommands;
 using dosymep.Revit.Engine.Pipelines;
 using dosymep.Revit.Engine.RevitExternals;
 using dosymep.Revit.FileInfo.RevitAddins;
-using dosymep.SimpleServices;
+
+using Serilog;
 
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -23,13 +24,13 @@ namespace dosymep.Revit.Engine {
     /// </summary>
     public static class RevitContextExtensions {
         public static void ExecutePipelineCommand(this IRevitContext revitContext, IPipelineCommand pipelineCommand) {
-            ILoggerService loggerService = revitContext.GetPlatformService<ILoggerService>();
+            ILogger logger = revitContext.Logger;
 
             RevitPipeline pipeline = RevitPipeline.CreateRevitPipeline(pipelineCommand.PipelineFile);
-            loggerService.Debug("Loaded pipeline {@RevitPipelineSteps}", pipeline.StepOptions);
+            logger.Debug("Loaded pipeline {@RevitPipelineSteps}", pipeline.StepOptions);
 
             revitContext.OpenDocument(pipeline.OpenModelOptions);
-            loggerService.Debug("Opened Document {@OpenModelOptions}", pipeline.OpenModelOptions);
+            logger.Debug("Opened Document {@OpenModelOptions}", pipeline.OpenModelOptions);
 
             var transformer = new RevitExternalTransformer(pipeline.OpenModelOptions.ModelPath, revitContext);
             var stepOptions = pipeline.StepOptions
@@ -48,11 +49,11 @@ namespace dosymep.Revit.Engine {
         }
 
         public static void ExecuteForgeCommand(this IRevitContext revitContext, IForgeCommand forgeCommand) {
-            ILoggerService loggerService = revitContext.GetPlatformService<ILoggerService>();
+            ILogger logger = revitContext.Logger;
 
             var tempName = Path.Combine(Path.GetTempPath(), "RevitCoreConsole", "Bundles");
             ZipFile.ExtractToDirectory(forgeCommand.BundlePath, tempName);
-            loggerService.Debug("Extracted bundle to {@TempName}", tempName);
+            logger.Debug("Extracted bundle to {@TempName}", tempName);
 
             string bundlePath = Directory.GetDirectories(tempName)
                 .FirstOrDefault(item =>
@@ -62,40 +63,31 @@ namespace dosymep.Revit.Engine {
                 throw new InvalidOperationException("The bundle doesn't contain .bundle folder.");
             }
 
-            try {
-                var runTimeInfo = new RunTimeInfo("Revit", "Win64", "R" + RevitContext.RevitVersion);
-                var contentPath = Path.Combine(bundlePath, "PackageContents.xml");
-                var component = new RevitPackageContentsParser()
-                    .FindComponentsEntry(contentPath, runTimeInfo)
-                    .FirstOrDefault();
+            var runTimeInfo = new RunTimeInfo("Revit", "Win64", "R" + RevitContext.RevitVersion);
+            var contentPath = Path.Combine(bundlePath, "PackageContents.xml");
+            var component = new RevitPackageContentsParser()
+                .FindComponentsEntry(contentPath, runTimeInfo)
+                .FirstOrDefault();
 
-                if(component is null) {
-                    throw new InvalidOperationException(
-                        $"The bundle doesn't contain component for revit version {RevitContext.RevitVersion}.");
-                }
-
-                loggerService.Debug("Loaded component {@Component}", component);
-                var dbapplication = RevitAddinManifest.GetAddinManifest(component.ModuleName)
-                    .AddinDBApplications.FirstOrDefault();
-
-                if(dbapplication is null) {
-                    throw new InvalidOperationException(
-                        $"The bundle doesn't contain component module \"{component.ModuleName}\".");
-                }
-
-                loggerService.Debug("Loaded DBApplication {@DBApplication}", dbapplication);
-                IRevitExternalItem revitExternalItem =
-                    dbapplication.Reduce<IRevitExternalItem, RevitAddinItem>(
-                        new RevitExternalTransformer(forgeCommand.ModelPath, revitContext));
-                revitExternalItem.ExecuteExternalItem(new Dictionary<string, string>());
-            } finally {
-                try {
-                    Directory.Delete(tempName, true);
-                    loggerService.Debug("Removed extracted bundle {@TempName}", tempName);
-                } catch(Exception ex) {
-                    loggerService.Debug(ex, "Can't remove extracted bundle {@TempName}", tempName);
-                }
+            if(component is null) {
+                throw new InvalidOperationException(
+                    $"The bundle doesn't contain component for revit version {RevitContext.RevitVersion}.");
             }
+
+            logger.Debug("Loaded component {@Component}", component);
+            var dbapplication = RevitAddinManifest.GetAddinManifest(component.ModuleName)
+                .AddinDBApplications.FirstOrDefault();
+
+            if(dbapplication is null) {
+                throw new InvalidOperationException(
+                    $"The bundle doesn't contain component module \"{component.ModuleName}\".");
+            }
+
+            logger.Debug("Loaded DBApplication {@DBApplication}", dbapplication);
+            IRevitExternalItem revitExternalItem =
+                dbapplication.Reduce<IRevitExternalItem, RevitAddinItem>(
+                    new RevitExternalTransformer(forgeCommand.ModelPath, revitContext));
+            revitExternalItem.ExecuteExternalItem(new Dictionary<string, string>());
         }
 
         public static IDictionary<string, string> ReadJournalData(string journalData) {

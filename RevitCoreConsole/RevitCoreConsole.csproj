@@ -9,25 +9,6 @@
     <ItemGroup>
         <Reference Include="System.Configuration" />
         <Reference Include="System.IO.Compression" />
-        <PackageReference Include="Serilog" Version="2.12.0" />
-        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0" />
-        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
-        <PackageReference Include="YamlDotNet" Version="12.0.0" />
-        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Reference Include="Autodesk.Navisworks.Api">
-            <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Api.dll</HintPath>
-        </Reference>
-
-        <Reference Include="Autodesk.Navisworks.ComApi">
-            <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.ComApi.dll</HintPath>
-        </Reference>
-
-        <Reference Include="Autodesk.Navisworks.Automation">
-            <HintPath>$(ProgramW6432)\Autodesk\Navisworks Manage $(AppVersion)\Autodesk.Navisworks.Automation.dll</HintPath>
-        </Reference>
     </ItemGroup>
 
     <ItemGroup>

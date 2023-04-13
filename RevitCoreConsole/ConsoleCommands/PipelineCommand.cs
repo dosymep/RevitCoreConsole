@@ -6,13 +6,11 @@ using System.Linq;
 using Autodesk.Revit.DB;
 
 using dosymep.AutodeskApps;
-using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.CoreCommands;
 using dosymep.Revit.Engine.Pipelines;
 using dosymep.Revit.Engine.RevitExternals;
 using dosymep.Revit.FileInfo.RevitAddins;
-using dosymep.SimpleServices;
 
 using RevitCoreConsole.ConsoleCommands.Binders;
 

@@ -4,8 +4,9 @@ using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine.Pipelines;
+
+using Serilog;
 
 namespace dosymep.Revit.Engine {
     public class RevitJournalContext : IRevitContext {
@@ -35,10 +36,10 @@ namespace dosymep.Revit.Engine {
 
         public RevitJournalContext(ExternalCommandData externalCommandData) {
             _externalCommandData = externalCommandData;
-
-            // Init Bim4Everyone services
-            ServicesProvider.LoadInstanceCore(Application);
         }
+        
+        /// <inheritdoc />
+        public ILogger Logger { get; }
 
         /// <inheritdoc />
         public Application Application
@@ -47,11 +48,6 @@ namespace dosymep.Revit.Engine {
         /// <inheritdoc />
         public Document OpenDocument(OpenModelOptions openModelOptions) {
             return Application.OpenDocument(openModelOptions);
-        }
-        
-        /// <inheritdoc />
-        public T GetPlatformService<T>() {
-            return ServicesProvider.GetPlatformService<T>();
         }
     }
 }

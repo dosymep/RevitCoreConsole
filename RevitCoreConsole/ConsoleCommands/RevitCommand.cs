@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.CommandLine;
 
-using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.CoreCommands;
 using dosymep.Revit.Engine.RevitExternals;

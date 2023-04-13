@@ -5,7 +5,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 
-using dosymep.Bim4Everyone.SimpleServices;
 using dosymep.Revit.Engine;
 using dosymep.Revit.Engine.CoreCommands;
 using dosymep.Revit.Engine.RevitExternals;
