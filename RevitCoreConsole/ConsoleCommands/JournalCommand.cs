@@ -53,13 +53,16 @@ namespace RevitCoreConsole.ConsoleCommands {
             _timer.Start();
             _timer.Elapsed += (s, e) => KillAppIfFreeze();
 
-            Logger.Information("Launch REVIT process: {@RevitProcessId}", _currentProcess?.Id);
-
             _currentProcess = Process.Start(startInfo);
+            Logger.Information("Launch REVIT process: {@RevitProcessId}", _currentProcess?.Id);
+            
             _currentProcess?.WaitForExit();
-
             Logger.Information("Exited REVIT process: {@RevitProcessId}", _currentProcess?.Id);
-
+            
+            _timer.Stop();
+            _timer.Dispose();
+            _currentProcess?.Dispose();
+            
             if(_isForceClose) {
                 throw new Exception("Revit Journal have error.");
             }
