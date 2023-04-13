@@ -73,13 +73,15 @@ namespace dosymep.Revit.Engine.RevitExternals {
                 throw new InvalidOperationException($"{nameof(RevitAddinItem.AssemblyPath)} not found.");
             }
 
-            if(!string.IsNullOrEmpty(MainModelPath)) {
+            if(!string.IsNullOrEmpty(MainModelPath) && File.Exists(MainModelPath)) {
+                // if file not exists consider
+                // model path is BIM360 or Revit Server
                 var mainModel = new System.IO.FileInfo(MainModelPath);
                 if(!string.IsNullOrEmpty(mainModel.DirectoryName)) {
                     Directory.SetCurrentDirectory(mainModel.DirectoryName);
                 }
             }
-            
+
             try {
                 OpenAndActivateDocument();
                 ExecuteExternalItemImpl(journalData);
