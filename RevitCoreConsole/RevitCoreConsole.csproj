@@ -28,6 +28,9 @@
         <None Update="App.D2023.config">
             <DependentUpon>App.config</DependentUpon>
         </None>
+        <None Update="App.D2024.config">
+          <DependentUpon>App.config</DependentUpon>
+        </None>
     </ItemGroup>
 
 </Project>
