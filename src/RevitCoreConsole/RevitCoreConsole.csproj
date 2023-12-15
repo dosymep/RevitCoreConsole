@@ -1,6 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <Import Project="..\ProjectProps\Common.props" />
-
     <PropertyGroup>
         <OutputType>Exe</OutputType>
         <AppConfig Condition="'$(Configuration.StartsWith(`D`))'">App.$(Configuration).config</AppConfig>
@@ -32,5 +30,4 @@
           <DependentUpon>App.config</DependentUpon>
         </None>
     </ItemGroup>
-
 </Project>

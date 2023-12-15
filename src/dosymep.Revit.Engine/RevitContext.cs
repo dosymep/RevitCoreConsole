@@ -28,7 +28,15 @@ namespace dosymep.Revit.Engine {
         /// <summary>
         /// Current revit Version.
         /// </summary>
-#if REVIT_2020
+#if REVIT_2016
+        public static readonly string RevitVersion = "2016";
+#elif REVIT_2017
+        public static readonly string RevitVersion = "2017";
+#elif REVIT_2018
+        public static readonly string RevitVersion = "2018";
+#elif REVIT_2019
+        public static readonly string RevitVersion = "2019";
+#elif REVIT_2020
         public static readonly string RevitVersion = "2020";
 #elif REVIT_2021
         public static readonly string RevitVersion = "2021";

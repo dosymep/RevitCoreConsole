@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Import Project="RevitVersions\Autodesk.Revit.Sdk.Refs.*.props"/>
+
+    <PropertyGroup>
+        <Platforms>x64</Platforms>
+        <Nullable>enable</Nullable>
+        <LangVersion>11</LangVersion>
+        <NoWarn>1701;1702;MSB3246</NoWarn>
+        <TargetFramework>net48</TargetFramework>
+
+        <!-- <RevitVersion>2024</RevitVersion> crash intellisence -->
+        <Configurations>D2020;D2021;D2022;D2023;D2024;Debug;Release</Configurations>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration.StartsWith(`D`))'">
+        <Optimization>false</Optimization>
+        <DebugSymbols>true</DebugSymbols>
+        <OutputPath>bin\x64\Debug\$(RevitVersion)</OutputPath>
+        <DefineConstants>$(DefineConstants);DEBUG;TRACE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration.StartsWith(`R`))'">
+        <Optimize>true</Optimize>
+        <DebugSymbols>false</DebugSymbols>
+        <OutputPath>bin\x64\Release\$(RevitVersion)</OutputPath>
+        <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(RevitVersion) != ''">
+        <Company>dosymep</Company>
+        <Authors>dosymep</Authors>
+        <Copyright>Copyright © 2023</Copyright>
+        <PackageTags>dosymep, revit</PackageTags>
+
+        <Version>$(RevitVersion).2.4</Version>
+        <FileVersion>$(RevitVersion).2.4</FileVersion>
+
+        <RepositoryType>Git</RepositoryType>
+        <PackageProjectUrl>https://github.com/dosymep/RevitCoreConsole</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/dosymep/RevitCoreConsole</RepositoryUrl>
+        <PackageTags>dosymep, revit, engine, revitcoreconsole, bim360</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Web"/>
+        <PackageReference Include="Microsoft.CSharp" Version="4.7.0"/>
+        <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0"/>
+        <PackageReference Include="Serilog" Version="2.12.0"/>
+        <PackageReference Include="Serilog.Sinks.Console" Version="4.1.0"/>
+        <PackageReference Include="Serilog.Sinks.File" Version="5.0.0"/>
+        <PackageReference Include="YamlDotNet" Version="12.0.0"/>
+        <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="dosymep.AutodeskApps">
+            <HintPath>$(AppData)\pyRevit\Extensions\BIM4Everyone.lib\dosymep_libs\libs\dosymep.AutodeskApps.dll</HintPath>
+        </Reference>
+
+        <Reference Include="dosymep.AutodeskApps.FileInfo">
+            <HintPath>$(AppData)\pyRevit\Extensions\BIM4Everyone.lib\dosymep_libs\libs\dosymep.AutodeskApps.FileInfo.dll</HintPath>
+        </Reference>
+
+        <Reference Include="dosymep.Revit.FileInfo">
+            <HintPath>$(AppData)\pyRevit\Extensions\BIM4Everyone.lib\dosymep_libs\libs\dosymep.Revit.FileInfo.dll</HintPath>
+        </Reference>
+
+        <Reference Include="dosymep.Revit.Journaling">
+            <HintPath>$(AppData)\pyRevit\Extensions\BIM4Everyone.lib\dosymep_libs\libs\dosymep.Revit.Journaling.dll</HintPath>
+        </Reference>
+
+        <Reference Include="dosymep.Revit.ServerClient">
+            <HintPath>$(AppData)\pyRevit\Extensions\BIM4Everyone.lib\dosymep_libs\libs\dosymep.Revit.ServerClient.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup Condition="$(RevitVersion) != ''">
+        <PackageReference Include="Autodesk.Revit.Sdk.Refs.$(RevitVersion)" Version="*"/>
+        <PackageReference Include="Autodesk.Forge.DesignAutomation.Revit" Version="$(RevitVersion).*" />
+    </ItemGroup>
+</Project>
