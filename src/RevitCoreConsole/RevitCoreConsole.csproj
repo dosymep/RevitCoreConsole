@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <AppConfig Condition="'$(Configuration.StartsWith(`D`))'">App.$(Configuration).config</AppConfig>
+        <AppConfig Condition="$(RevitVersion) != ''">App.D$(RevitVersion).config</AppConfig>
     </PropertyGroup>
 
     <ItemGroup>
