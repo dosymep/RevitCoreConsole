@@ -44,7 +44,7 @@ class Build : NukeBuild, IHazSolution {
     /// Max Revit version.
     /// </summary>
     [Parameter("Max Revit version.")]
-    readonly RevitVersion MaxVersion = RevitVersion.Rv2024;
+    readonly RevitVersion MaxVersion = RevitVersion.Rv2025;
 
     [Parameter("Build Revit versions.")] readonly RevitVersion[] RevitVersions = new RevitVersion[0];
 

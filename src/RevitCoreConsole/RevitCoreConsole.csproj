@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <Platforms>x64</Platforms>
         <OutputType>Exe</OutputType>
         <AppConfig Condition="$(RevitVersion) != ''">App.D$(RevitVersion).config</AppConfig>
+        <Configurations>D2016;D2017;D2018;D2019;D2020;D2021;D2022;D2023;D2024;D2025;Debug;Release;</Configurations>
     </PropertyGroup>
 
     <ItemGroup>
@@ -29,5 +31,12 @@
         <None Update="App.D2024.config">
           <DependentUpon>App.config</DependentUpon>
         </None>
+        <None Update="App.D2025.config">
+            <DependentUpon>App.config</DependentUpon>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Update="YamlDotNet" Version="15.1.4" />
     </ItemGroup>
 </Project>

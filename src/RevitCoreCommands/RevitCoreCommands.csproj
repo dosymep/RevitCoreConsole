@@ -1,9 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <Platforms>x64</Platforms>
         <OutputType>Library</OutputType>
+        <Configurations>D2016;D2017;D2018;D2019;D2020;D2021;D2022;D2023;D2024;D2025;Debug;Release;</Configurations>
     </PropertyGroup>
     
     <ItemGroup>
         <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <PackageReference Update="YamlDotNet" Version="15.1.4" />
     </ItemGroup>
 </Project>
