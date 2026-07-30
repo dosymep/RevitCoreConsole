@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+    <AddIn Type="DBApplication">
+        <Name>Sample.CsvExport</Name>
+        <Assembly>.\Sample.CsvExport.dll</Assembly>
+        <AddInId>5F0AC719-5463-422F-864F-FE055A965140</AddInId>
+        <FullClassName>Sample.CsvExport.CsvExportApp</FullClassName>
+        <Description>Exports Revit element parameters directly to CSV files for quick integration with Excel, Power BI, and external databases without creating schedules.</Description>
+        <VendorId>dosymep</VendorId>
+        <VendorDescription>dosymep, https://dosymep.net</VendorDescription>
+    </AddIn>
+</RevitAddIns>

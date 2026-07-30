@@ -1,0 +1,33 @@
+﻿<Project Sdk="Autodesk.Revit.Sdk.Refs/2.0.0">
+
+    <PropertyGroup>
+        <Platforms>x64</Platforms>
+        <Configurations>D2018;D2019;D2020;D2021;D2022;D2023;D2024;D2025;Debug;Release;D2026;D2026.5;D2027</Configurations>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Newtonsoft.Json"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.Binder"/>
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="PackageContents.xml">
+        <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      </None>
+      <None Update="Sample.IfcExport.addin">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Sample.IfcExport.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="configs\ifc_category_mapping.txt">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="configs\ifc_export.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>

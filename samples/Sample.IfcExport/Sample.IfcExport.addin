@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+    <AddIn Type="DBApplication">
+        <Name>Sample.IfcExport</Name>
+        <Assembly>.\Sample.IfcExport.dll</Assembly>
+        <AddInId>5F0AC719-5463-422F-864F-FE055A965140</AddInId>
+        <FullClassName>Sample.IfcExport.IfcExportApp</FullClassName>
+        <Description>Exports Revit models to IFC format with custom configuration settings for seamless openBIM collaboration and model exchange.</Description>
+        <VendorId>dosymep</VendorId>
+        <VendorDescription>dosymep, https://dosymep.net</VendorDescription>
+    </AddIn>
+</RevitAddIns>

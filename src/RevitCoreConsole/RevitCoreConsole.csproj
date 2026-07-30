@@ -1,42 +1,52 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Autodesk.Revit.Sdk.Refs/2.0.0">
+
     <PropertyGroup>
-        <Platforms>x64</Platforms>
         <OutputType>Exe</OutputType>
-        <AppConfig Condition="$(RevitVersion) != ''">App.D$(RevitVersion).config</AppConfig>
-        <Configurations>D2016;D2017;D2018;D2019;D2020;D2021;D2022;D2023;D2024;D2025;Debug;Release;</Configurations>
+        <Configurations>D2018;D2019;D2020;D2021;D2022;D2023;D2024;D2025;Debug;Release;D2026;D2026.5;D2027</Configurations>
+        <Platforms>x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
-        <Reference Include="System.Configuration" />
-        <Reference Include="System.IO.Compression" />
+        <ProjectReference Include="..\RevitEngine.DBApplications\RevitEngine.DBApplications.csproj" />
+        <ProjectReference Include="..\RevitEngine\RevitEngine.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\dosymep.Revit.Engine\dosymep.Revit.Engine.csproj" />
+        <InternalsVisibleTo Include="RevitEngine.UnitTests"/>
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="App.D2020.config">
-            <DependentUpon>App.config</DependentUpon>
-        </None>
-        <None Update="App.D2021.config">
-            <DependentUpon>App.config</DependentUpon>
-        </None>
-        <None Update="App.D2022.config">
-            <DependentUpon>App.config</DependentUpon>
-        </None>
-        <None Update="App.D2023.config">
-            <DependentUpon>App.config</DependentUpon>
-        </None>
-        <None Update="App.D2024.config">
-          <DependentUpon>App.config</DependentUpon>
-        </None>
-        <None Update="App.D2025.config">
-            <DependentUpon>App.config</DependentUpon>
+        <PackageReference Include="Serilog"/>
+        <PackageReference Include="Serilog.Sinks.File"/>
+        <PackageReference Include="Serilog.Sinks.Console"/>
+        <PackageReference Include="Serilog.Extensions.Hosting"/>
+
+        <PackageReference Include="Spectre.Console"/>
+
+        <PackageReference Include="System.CommandLine"/>
+        <PackageReference Include="Microsoft.Extensions.Options"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting"/>
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="appsettings*.json"/>
+        <None Include="appsettings.$(RevitVersion).json">
+            <Link>appsettings.json</Link>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Update="YamlDotNet" Version="15.1.4" />
+        <None Update="appsettings.2018.json"/>
+        <None Update="appsettings.2019.json"/>
+        <None Update="appsettings.2020.json"/>
+        <None Update="appsettings.2021.json"/>
+        <None Update="appsettings.2022.json"/>
+        <None Update="appsettings.2023.json"/>
+        <None Update="appsettings.2024.json"/>
+        <None Update="appsettings.2025.json"/>
+        <None Update="appsettings.2026.json"/>
+        <None Update="appsettings.2027.json"/>
     </ItemGroup>
 </Project>

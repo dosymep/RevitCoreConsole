@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string" />
+                            <xsd:attribute name="type" type="xsd:string" />
+                            <xsd:attribute name="mimetype" type="xsd:string" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string" />
+                            <xsd:attribute name="name" type="xsd:string" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="0" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="0" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ModelPathDescription" xml:space="preserve">
+    <value>Path to the input Revit project (.rvt) or family (.rfa) file to be processed by the application.</value>
+  </data>
+    <data name="ModelPathHelpName" xml:space="preserve">
+    <value>path/to/model.rvt</value>
+  </data>
+    <data name="BundlePathDescription" xml:space="preserve">
+    <value>Path to the AppBundle (.zip) package or directory containing the external DB application and its manifest.</value>
+  </data>
+    <data name="BundlePathHelpName" xml:space="preserve">
+    <value>path/to/bundle.zip</value>
+  </data>
+    <data name="LanguageCodeDescription" xml:space="preserve">
+    <value>Three-letter Revit language code to configure the session locale (e.g., ENU for English, RUS for Russian, DEU for German).</value>
+  </data>
+    <data name="LanguageCodeHelpName" xml:space="preserve">
+    <value>language_code</value>
+  </data>
+    <data name="RootCommandDescription" xml:space="preserve">
+    <value>Revit Core Console CLI utility (acts like Autodesk Revit Design Automation / Forge RevitCoreConsole) to run external DB applications in headless mode.</value>
+  </data>
+    <data name="AuditDescription" xml:space="preserve">
+        <value>Open the input Revit document with audit enabled.</value>
+    </data>
+    <data name="WorksetsDescription" xml:space="preserve">
+        <value>Workset configuration used to open the input Revit document.</value>
+    </data>
+    <data name="WorksetsHelpName" xml:space="preserve">
+        <value>OpenAllWorksets</value>
+    </data>
+    <data name="ValueCannotBeNullOrWhitespace" xml:space="preserve">
+        <value>Value cannot be null or whitespace.</value>
+    </data>
+    <data name="ModelPathRequiredError" xml:space="preserve">
+        <value>The input model path is required.</value>
+    </data>
+    <data name="ModelPathExtensionError" xml:space="preserve">
+        <value>The input model must have an .rvt or .rfa extension.</value>
+    </data>
+    <data name="ModelPathNotFoundError" xml:space="preserve">
+        <value>The input Revit model was not found.</value>
+    </data>
+    <data name="BundlePathRequiredError" xml:space="preserve">
+        <value>The AppBundle path is required.</value>
+    </data>
+    <data name="BundlePathNotFoundError" xml:space="preserve">
+        <value>The AppBundle path was not found.</value>
+    </data>
+    <data name="BundlePathExtensionError" xml:space="preserve">
+        <value>The AppBundle file must have a .zip extension.</value>
+    </data>
+    <data name="LanguageCodeError" xml:space="preserve">
+        <value>The specified language code is not supported.</value>
+    </data>
+    <data name="WorksetsError" xml:space="preserve">
+        <value>The specified workset configuration is not supported.</value>
+    </data>
+</root>

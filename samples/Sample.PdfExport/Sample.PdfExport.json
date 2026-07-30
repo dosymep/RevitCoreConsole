@@ -1,0 +1,26 @@
+{
+  "PdfExportApp": {
+    "ColorDepth": "Color",
+    "ExportQuality": "DPI600",
+    "ZoomType": "FitToPage",
+    "ZoomPercentage": 100,
+    "PaperFormat": "Default",
+    "RasterQuality": "Medium",
+    "PaperPlacement": "Center",
+    "PaperOrientation": "Auto",
+    "OriginOffsetY": 0,
+    "OriginOffsetX": 0,
+    "Combine": true,
+    "AlwaysUseRaster": false,
+    "ViewLinksInBlue": false,
+    "ReplaceHalftoneWithThinLines": true,
+    "HideScopeBoxes": true,
+    "HideReferencePlane": true,
+    "HideCropBoundaries": true,
+    "HideUnreferencedViewTags": true,
+    "StopOnError": true,
+    "MaskCoincidentLines": false,
+    "FileName": "sample",
+    "DirectoryPath": ".\\result"
+  }
+}

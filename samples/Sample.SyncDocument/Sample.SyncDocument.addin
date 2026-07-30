@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+    <AddIn Type="DBApplication">
+        <Name>Sample.SyncDocument</Name>
+        <Assembly>.\Sample.SyncDocument.dll</Assembly>
+        <AddInId>5F0AC719-5463-422F-864F-FE055A965140</AddInId>
+        <FullClassName>Sample.SyncDocument.SyncDocumentApp</FullClassName>
+        <Description>Synchronizes the active Revit document with the central model, automatically compacting the file and relinquishing borrowed elements to streamline team collaboration.</Description>
+        <VendorId>dosymep</VendorId>
+        <VendorDescription>dosymep, https://dosymep.net</VendorDescription>
+    </AddIn>
+</RevitAddIns>

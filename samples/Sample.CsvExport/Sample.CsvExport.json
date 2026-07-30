@@ -1,0 +1,5 @@
+﻿{
+  "CsvExportApp": {
+    "CsvPath": "./result/sample.csv"
+  }
+}

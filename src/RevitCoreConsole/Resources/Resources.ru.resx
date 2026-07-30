@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+        <xsd:element name="root" msdata:IsDataSet="true">
+            <xsd:complexType>
+                <xsd:choice maxOccurs="unbounded">
+                    <xsd:element name="metadata">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" use="required" type="xsd:string" />
+                            <xsd:attribute name="type" type="xsd:string" />
+                            <xsd:attribute name="mimetype" type="xsd:string" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="assembly">
+                        <xsd:complexType>
+                            <xsd:attribute name="alias" type="xsd:string" />
+                            <xsd:attribute name="name" type="xsd:string" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="data">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="0" />
+                                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+                            <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+                            <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+                            <xsd:attribute ref="xml:space" />
+                        </xsd:complexType>
+                    </xsd:element>
+                    <xsd:element name="resheader">
+                        <xsd:complexType>
+                            <xsd:sequence>
+                                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="0" />
+                            </xsd:sequence>
+                            <xsd:attribute name="name" type="xsd:string" use="required" />
+                        </xsd:complexType>
+                    </xsd:element>
+                </xsd:choice>
+            </xsd:complexType>
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>2.0</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ModelPathDescription" xml:space="preserve">
+    <value>Путь к исходному файлу проекта Revit (.rvt) или семейства (.rfa) для открытия и обработки.</value>
+  </data>
+    <data name="ModelPathHelpName" xml:space="preserve">
+    <value>путь/к/модели.rvt</value>
+  </data>
+    <data name="BundlePathDescription" xml:space="preserve">
+    <value>Путь к архиву AppBundle (.zip) системы Design Automation, содержащему внешнее DB-приложение и манифест .addin, либо путь к папке с файлами плагина.</value>
+  </data>
+    <data name="BundlePathHelpName" xml:space="preserve">
+    <value>путь/к/архиву.zip</value>
+  </data>
+    <data name="LanguageCodeDescription" xml:space="preserve">
+    <value>Трехбуквенный код локализации для настройки языкового окружения сессии Revit (например, ENU для английского, RUS для русского, DEU для немецкого).</value>
+  </data>
+    <data name="LanguageCodeHelpName" xml:space="preserve">
+    <value>код_языка</value>
+  </data>
+    <data name="RootCommandDescription" xml:space="preserve">
+    <value>Консольная утилита Revit Core Console (работает аналогично Autodesk Revit Design Automation / Forge RevitCoreConsole) для запуска внешних DB-приложений в фоновом режиме.</value>
+  </data>
+    <data name="AuditDescription" xml:space="preserve">
+        <value>Открыть исходный документ Revit с включенным аудитом.</value>
+    </data>
+    <data name="WorksetsDescription" xml:space="preserve">
+        <value>Конфигурация рабочих наборов для открытия исходного документа Revit.</value>
+    </data>
+    <data name="WorksetsHelpName" xml:space="preserve">
+        <value>OpenAllWorksets</value>
+    </data>
+    <data name="ValueCannotBeNullOrWhitespace" xml:space="preserve">
+        <value>Значение не может быть пустым или содержать пробелы.</value>
+    </data>
+    <data name="ModelPathRequiredError" xml:space="preserve">
+        <value>Путь к исходной модели обязателен.</value>
+    </data>
+    <data name="ModelPathExtensionError" xml:space="preserve">
+        <value>Исходная модель должна иметь расширение .rvt или .rfa.</value>
+    </data>
+    <data name="ModelPathNotFoundError" xml:space="preserve">
+        <value>Исходная модель Revit не найдена.</value>
+    </data>
+    <data name="BundlePathRequiredError" xml:space="preserve">
+        <value>Путь к AppBundle обязателен.</value>
+    </data>
+    <data name="BundlePathNotFoundError" xml:space="preserve">
+        <value>Путь к AppBundle не найден.</value>
+    </data>
+    <data name="BundlePathExtensionError" xml:space="preserve">
+        <value>Файл AppBundle должен иметь расширение .zip.</value>
+    </data>
+    <data name="LanguageCodeError" xml:space="preserve">
+        <value>Указанный код языка не поддерживается.</value>
+    </data>
+    <data name="WorksetsError" xml:space="preserve">
+        <value>Указанная конфигурация рабочих наборов не поддерживается.</value>
+    </data>
+</root>

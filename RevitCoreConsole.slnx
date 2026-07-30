@@ -1,0 +1,74 @@
+﻿<Solution>
+    <Configurations>
+        <BuildType Name="D2018" />
+        <BuildType Name="D2019" />
+        <BuildType Name="D2020" />
+        <BuildType Name="D2021" />
+        <BuildType Name="D2022" />
+        <BuildType Name="D2023" />
+        <BuildType Name="D2024" />
+        <BuildType Name="D2025" />
+        <BuildType Name="D2026" />
+        <BuildType Name="D2026.5" />
+        <BuildType Name="D2027" />
+        <BuildType Name="Debug" />
+        <BuildType Name="Release" />
+        <Platform Name="x64" />
+    </Configurations>
+    <Folder Name="/samples/">
+        <Project Path="samples/Sample.CsvExport/Sample.CsvExport.csproj">
+            <Platform Project="x64" />
+        </Project>
+        <Project Path="samples/Sample.IfcExport/Sample.IfcExport.csproj">
+            <Platform Project="x64" />
+        </Project>
+        <Project Path="samples/Sample.NwcExport/Sample.NwcExport.csproj">
+            <Platform Project="x64" />
+            <Build Project="false" />
+        </Project>
+        <Project Path="samples/Sample.PdfExport/Sample.PdfExport.csproj">
+            <Platform Project="x64" />
+            <Build Solution="D2018|*" Project="false" />
+            <Build Solution="D2019|*" Project="false" />
+            <Build Solution="D2020|*" Project="false" />
+            <Build Solution="D2021|*" Project="false" />
+        </Project>
+        <Project Path="samples/Sample.PurgeUnused/Sample.PurgeUnused.csproj">
+            <Platform Project="x64" />
+        </Project>
+        <Project Path="samples/Sample.SyncDocument/Sample.SyncDocument.csproj">
+            <Platform Project="x64" />
+        </Project>
+    </Folder>
+    <Folder Name="/src/">
+        <Project Path="src/RevitCoreConsole/RevitCoreConsole.csproj">
+            <Platform Project="x64" />
+        </Project>
+        <Project Path="src/RevitEngine.DBApplications/RevitEngine.DBApplications.csproj">
+            <Platform Project="x64" />
+        </Project>
+        <Project Path="src/RevitEngine/RevitEngine.csproj">
+            <Platform Project="x64" />
+        </Project>
+    </Folder>
+    <Folder Name="/tests/">
+        <Project Path="tests/RevitEngine.UnitTests/RevitEngine.UnitTests.csproj">
+            <Platform Project="x64" />
+        </Project>
+    </Folder>
+    <Project Path="build/Build.csproj">
+        <BuildType Solution="D2018|*" Project="Debug" />
+        <BuildType Solution="D2019|*" Project="Debug" />
+        <BuildType Solution="D2020|*" Project="Debug" />
+        <BuildType Solution="D2021|*" Project="Debug" />
+        <BuildType Solution="D2022|*" Project="Debug" />
+        <BuildType Solution="D2023|*" Project="Debug" />
+        <BuildType Solution="D2024|*" Project="Debug" />
+        <BuildType Solution="D2025|*" Project="Debug" />
+        <BuildType Solution="D2026.5|*" Project="Debug" />
+        <BuildType Solution="D2026|*" Project="Debug" />
+        <BuildType Solution="D2027|*" Project="Debug" />
+        <Platform Project="x64" />
+        <Build Project="false" />
+    </Project>
+</Solution>

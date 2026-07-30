@@ -1,0 +1,21 @@
+{
+  "NwcExportApp": {
+    "ViewName": "{3D}",
+    "TargetFileName": "sample.nwc",
+    "TargetDirectoryName": "./result",
+    "FacetingFactor": 5.0,
+    "Parameters": "All",
+    "Coordinates": "Shared",
+    "ExportUrls": false,
+    "ExportLinks": true,
+    "ExportParts": false,
+    "ExportElementIds": true,
+    "ExportRoomGeometry": false,
+    "ExportRoomAsAttribute": false,
+    "ConvertLights": false,
+    "ConvertLinkedCADFormats": false,
+    "ConvertElementProperties": true,
+    "FindMissingMaterials": false,
+    "DivideFileIntoLevels": true
+  }
+}

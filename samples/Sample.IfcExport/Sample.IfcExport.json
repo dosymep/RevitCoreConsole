@@ -1,0 +1,9 @@
+{
+  "IfcExportApp": {
+    "ViewName": "{3D}",
+    "TargetFileName": "sample.ifc",
+    "TargetDirectoryName": ".\\result",
+    "IfcExportLayersFilePath": ".\\configs\\ifc_category_mapping.txt",
+    "IfcExportOptionsFilePath": ".\\configs\\ifc_export.json"
+  }
+}

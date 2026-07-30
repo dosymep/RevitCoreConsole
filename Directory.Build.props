@@ -1,0 +1,30 @@
+<Project>
+    <PropertyGroup>
+        <NoWarn>1701;1702;MSB3246</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Platforms>x64</Platforms>
+        <!-- Avoids ambiguous-call errors when InternalsVisibleTo exposes a Polyfill-consuming
+             assembly to another project that also references the Polyfill source package. -->
+        <PolyUseEmbeddedAttribute>true</PolyUseEmbeddedAttribute>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$(RevitVersion) != ''">
+        <Company>dosymep</Company>
+        <Authors>Biseuv Olzhas (dosymep)</Authors>
+        <Copyright>Copyright (c) 2026 Biseuv Olzhas (dosymep)</Copyright>
+
+        <Version>2.0.0</Version>
+        <FileVersion>2.0.0</FileVersion>
+
+        <RepositoryType>Git</RepositoryType>
+        <PackageTags>dosymep, revit, engine, revitcoreconsole, bim360</PackageTags>
+        <RepositoryUrl>https://github.com/dosymep/RevitCoreConsole</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/dosymep/RevitCoreConsole</PackageProjectUrl>
+    </PropertyGroup>
+
+    <ItemGroup Condition="$(RevitVersion) != ''">
+        <PackageReference Include="Autodesk.Forge.DesignAutomation.Revit"/>
+    </ItemGroup>
+</Project>
