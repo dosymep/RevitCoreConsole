@@ -1,0 +1,20 @@
+<Project Sdk="Autodesk.Revit.Sdk.Refs/2.0.0">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <EnableTUnitPolyfills>false</EnableTUnitPolyfills>
+        <Configurations>D2018;D2019;D2020;D2021;D2022;D2023;D2024;D2025;Debug;Release;D2026;D2026.5;D2027</Configurations>
+        <Platforms>x64</Platforms>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="TUnit"/>
+        <PackageReference Include="TUnit.Mocks"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\src\RevitEngine\RevitEngine.csproj"/>
+        <ProjectReference Include="..\..\src\RevitCoreConsole\RevitCoreConsole.csproj"/>
+    </ItemGroup>
+
+</Project>

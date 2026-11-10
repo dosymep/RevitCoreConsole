@@ -1,0 +1,14 @@
+{
+  "PurgeUnusedApp": {
+    "TryCount": 5,
+    "WithThermals": true,
+    "WithMaterials": true,
+    "WithStructures": true,
+    "WithAppearances": true,
+    "WithSymbols": true,
+    "WithLinkSymbols": true,
+    "WithFamilies": true,
+    "WithNonDeletable": true,
+    "WithImportCategories": true
+  }
+}

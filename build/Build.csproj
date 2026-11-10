@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Build</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="ModularPipelines" />
+        <PackageReference Include="ModularPipelines.DotNet" />
+        <PackageReference Include="ModularPipelines.Git" />
+        <PackageReference Include="ModularPipelines.GitHub" />
+        <PackageReference Include="Microsoft.Extensions.Options" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="tests_files\**\*" />
+    </ItemGroup>
+
+</Project>

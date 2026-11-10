@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+    <AddIn Type="DBApplication">
+        <Name>Sample.NwcExport</Name>
+        <Assembly>.\Sample.NwcExport.dll</Assembly>
+        <AddInId>5F0AC719-5463-422F-864F-FE055A965140</AddInId>
+        <FullClassName>Sample.NwcExport.NwcExportApp</FullClassName>
+        <Description>Exports Revit models to Navisworks NWC format with custom export settings for seamless clash detection and model coordination.</Description>
+        <VendorId>dosymep</VendorId>
+        <VendorDescription>dosymep, https://dosymep.net</VendorDescription>
+    </AddIn>
+</RevitAddIns>

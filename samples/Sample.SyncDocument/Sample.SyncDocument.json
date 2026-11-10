@@ -1,0 +1,13 @@
+{
+  "SyncDocumentApp": {
+    "Compact": true,
+    "Comment": "Sync central model.",
+    "UserWorksets": false,
+    "ViewWorksets": false,
+    "FamilyWorksets": false,
+    "StandardWorksets": false,
+    "CheckedOutElements": false,
+    "SaveLocalAfter": false,
+    "SaveLocalBefore": false
+  }
+}

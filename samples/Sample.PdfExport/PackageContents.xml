@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage>
+
+    <CompanyDetails Name="dosymep"
+                    Email="dosymep@gmail.com"
+                    Url="https://dosymep.net"/>
+
+    <Components Description="PdfExport 2018">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2018"
+                             SeriesMax="R2018"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2018/Sample.PdfExport.addin"
+                        AppDescription="."
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+    <Components Description="PdfExport 2019">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2019"
+                             SeriesMax="R2019"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2019/Sample.PdfExport.addin"
+                        AppDescription="."
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+    <Components Description="PdfExport 2020">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2020"
+                             SeriesMax="R2020"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2020/Sample.PdfExport.addin"
+                        AppDescription="."
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+    <Components Description="PdfExport 2021">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2021"
+                             SeriesMax="R2021"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2021/Sample.PdfExport.addin"
+                        AppDescription="."
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+    <Components Description="PdfExport 2022">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2022"
+                             SeriesMax="R2022"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2022/Sample.PdfExport.addin"
+                        AppDescription="."
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+    <Components Description="PdfExport 2023">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2023"
+                             SeriesMax="R2023"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2023/Sample.PdfExport.addin"
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+    <Components Description="PdfExport 2024">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2024"
+                             SeriesMax="R2024"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2024/Sample.PdfExport.addin"
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+    <Components Description="PdfExport 2025">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2025"
+                             SeriesMax="R2025"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2025/Sample.PdfExport.addin"
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+    <Components Description="PdfExport 2026">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2026"
+                             SeriesMax="R2026"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2026/Sample.PdfExport.addin"
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+    <Components Description="PdfExport 2027">
+        <RuntimeRequirements OS="Win64"
+                             Platform="Revit"
+                             SeriesMin="R2027"
+                             SeriesMax="R2027"/>
+        <ComponentEntry AppName="Sample.PdfExport"
+                        Version="1.0.0"
+                        ModuleName="./2027/Sample.PdfExport.addin"
+                        LoadOnCommandInvocation="False"
+                        LoadOnRevitStartup="True"/>
+    </Components>
+
+</ApplicationPackage>
