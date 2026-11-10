@@ -98,7 +98,7 @@ The **Run** stage launches packaged samples against local Revit and is skipped o
 4. Link related issues.
 5. Keep the PR limited to one concern (feature, fix, docs, or refactor).
 
-CI builds Revit versions `2024,2025,2026,2027` on pull requests. See `.github/workflows/build.yml`.
+CI builds all supported Revit versions `2018`–`2027` on pull requests. See `.github/workflows/build.yml`.
 
 ## Reporting issues
 

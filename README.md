@@ -45,10 +45,7 @@ Pipeline stages:
 
 ### Supported Revit versions
 
-| Context | Versions |
-| :--- | :--- |
-| Source / local pipeline default | **2018–2027** |
-| GitHub Actions (`REVIT_VERSIONS`) | **2024, 2025, 2026, 2027** |
+Supported and built by default (local pipeline and GitHub Actions): **2018–2027**.
 
 ### Run the build pipeline
 

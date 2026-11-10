@@ -32,7 +32,7 @@ jobs:
         run: dotnet run --project build
         env:
           CONFIGURATION: Release
-          REVIT_VERSIONS: 2024,2025,2026,2027
+          REVIT_VERSIONS: 2018,2019,2020,2021,2022,2023,2024,2025,2026,2027
 
       - name: Upload artifacts
         if: success()
