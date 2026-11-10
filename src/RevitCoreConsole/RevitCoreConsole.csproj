@@ -29,7 +29,7 @@
         <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions"/>
     </ItemGroup>
 
-    <ItemGroup>
+    <ItemGroup Condition="'$(RevitVersion)' != ''">
         <None Remove="appsettings*.json"/>
         <None Include="appsettings.$(RevitVersion).json">
             <Link>appsettings.json</Link>
@@ -37,16 +37,17 @@
         </None>
     </ItemGroup>
 
-    <ItemGroup>
-        <None Update="appsettings.2018.json"/>
-        <None Update="appsettings.2019.json"/>
-        <None Update="appsettings.2020.json"/>
-        <None Update="appsettings.2021.json"/>
-        <None Update="appsettings.2022.json"/>
-        <None Update="appsettings.2023.json"/>
-        <None Update="appsettings.2024.json"/>
-        <None Update="appsettings.2025.json"/>
-        <None Update="appsettings.2026.json"/>
-        <None Update="appsettings.2027.json"/>
-    </ItemGroup>
+    <!-- Creates appsettings.{RevitVersion}.json from the default template if it is missing. -->
+    <Target Name="EnsureVersionedAppSettings"
+            BeforeTargets="PrepareForBuild"
+            Condition="'$(RevitVersion)' != ''">
+        <PropertyGroup>
+            <_AppSettingsDefault>$(MSBuildProjectDirectory)\appsettings.json</_AppSettingsDefault>
+            <_AppSettingsVersioned>$(MSBuildProjectDirectory)\appsettings.$(RevitVersion).json</_AppSettingsVersioned>
+        </PropertyGroup>
+        <Copy SourceFiles="$(_AppSettingsDefault)"
+              DestinationFiles="$(_AppSettingsVersioned)"
+              Condition="Exists('$(_AppSettingsDefault)') AND !Exists('$(_AppSettingsVersioned)')"
+              SkipUnchangedFiles="true"/>
+    </Target>
 </Project>
